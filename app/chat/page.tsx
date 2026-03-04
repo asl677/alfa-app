@@ -469,7 +469,7 @@ export default function ChatPage() {
             onClick={() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })}
             style={{
               position: 'fixed',
-              bottom: 120,
+              bottom: '200px',
               left: '50%',
               transform: 'translateX(-50%)',
               background: 'var(--coral)',
