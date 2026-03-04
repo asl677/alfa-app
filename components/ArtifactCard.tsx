@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 interface Artifact {
   id: string
-  type: 'chart' | 'comparison' | 'heatmap'
+  type: 'portfolio' | 'comparison' | 'heatmap' | 'earnings' | 'dividends' | 'stocks'
   title: string
   data: any
   created_at: string
@@ -79,9 +79,12 @@ export default function ArtifactCard({ artifact, onExpand }: { artifact: Artifac
         color: 'var(--dust)',
         fontSize: 12,
       }}>
-        {artifact.type === 'chart' && '📊 Chart'}
-        {artifact.type === 'comparison' && '⚖️ Comparison'}
-        {artifact.type === 'heatmap' && '🔥 Heatmap'}
+        {artifact.type === 'portfolio' && 'Portfolio Allocation'}
+        {artifact.type === 'comparison' && 'Performance Comparison'}
+        {artifact.type === 'heatmap' && 'Sector Heatmap'}
+        {artifact.type === 'earnings' && 'Earnings Releases'}
+        {artifact.type === 'dividends' && 'Dividend Stocks'}
+        {artifact.type === 'stocks' && 'Stock Data'}
       </div>
 
       {/* Created date */}

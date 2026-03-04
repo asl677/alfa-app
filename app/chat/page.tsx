@@ -471,12 +471,7 @@ export default function ChatPage() {
       </div>
 
       <div style={{ padding: '8px 20px 0', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 8, maxWidth: '1020px', width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingLeft: 2 }}>
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)' }}>Active agents:</span>
-            <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--coral)', fontWeight: 600 }}>{activeAgents.length}</span>
-          </div>
-          <div style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
           {PROMPT_SUGGESTIONS.map((prompt, idx) => (
             <motion.button
               key={idx}
@@ -577,7 +572,6 @@ export default function ChatPage() {
             </motion.button>
           ))}
           <style>{`::-webkit-scrollbar { display: none; }`}</style>
-          </div>
         </div>
       </div>
 

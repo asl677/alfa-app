@@ -6,7 +6,7 @@ import ArtifactCard from '@/components/ArtifactCard'
 
 interface Artifact {
   id: string
-  type: 'chart' | 'comparison' | 'heatmap'
+  type: 'portfolio' | 'comparison' | 'heatmap' | 'earnings' | 'dividends' | 'stocks'
   title: string
   data: any
   created_at: string
@@ -135,20 +135,122 @@ export default function ArtifactsPage() {
                   </p>
                 </div>
 
-                {/* Chart placeholder */}
-                <div style={{
-                  background: 'rgba(255,255,255,0.02)',
-                  border: '1px solid var(--rule)',
-                  borderRadius: 12,
-                  padding: 20,
-                  minHeight: 300,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--dust)',
-                }}>
-                  Chart render here — {selectedArtifact.type}
-                </div>
+                {/* Chart rendering */}
+                {selectedArtifact.type === 'portfolio' && (
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, padding: 20, minHeight: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+                      {selectedArtifact.data.allocation?.map((item: any, idx: number) => (
+                        <div key={idx} style={{ padding: 12, background: 'rgba(255,255,255,0.03)', borderRadius: 8, borderLeft: `4px solid ${item.color}` }}>
+                          <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 14, color: 'var(--cream)', marginBottom: 4 }}>{item.name}</div>
+                          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 18, fontWeight: 600, color: item.color }}>{item.value}%</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ marginTop: 12, padding: 12, background: 'rgba(255,255,255,0.02)', borderRadius: 8, display: 'flex', gap: 12, alignItems: 'center' }}>
+                      <div style={{ flex: 1, height: 8, background: 'rgba(255,255,255,0.05)', borderRadius: 4, overflow: 'hidden', display: 'flex' }}>
+                        {selectedArtifact.data.allocation?.map((item: any, idx: number) => (
+                          <div key={idx} style={{ flex: item.value, background: item.color, height: '100%' }} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedArtifact.type === 'comparison' && (
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, padding: 20, minHeight: 300 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                      {selectedArtifact.data.datasets?.map((dataset: any, idx: number) => (
+                        <div key={idx} style={{ padding: 12, background: 'rgba(255,255,255,0.03)', borderRadius: 8, borderTop: `3px solid ${dataset.color}` }}>
+                          <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 14, color: 'var(--cream)', marginBottom: 8 }}>{dataset.label}</div>
+                          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--cream2)', display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                            <span>Low: ${Math.min(...dataset.data).toFixed(0)}</span>
+                            <span>Avg: ${(dataset.data.reduce((a:number, b:number) => a+b, 0)/dataset.data.length).toFixed(0)}</span>
+                          </div>
+                          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--cream2)' }}>
+                            High: ${Math.max(...dataset.data).toFixed(0)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ height: 150, background: 'rgba(255,255,255,0.02)', borderRadius: 8, display: 'flex', alignItems: 'flex-end', gap: 2, padding: 8 }}>
+                      {selectedArtifact.data.datasets?.[0]?.data?.map((val: number, idx: number) => (
+                        <div key={idx} style={{ flex: 1, height: `${(val / 120) * 100}%`, background: selectedArtifact.data.datasets[0].color, opacity: 0.6, borderRadius: 2 }} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {selectedArtifact.type === 'heatmap' && (
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, padding: 20 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {selectedArtifact.data.sectors?.map((sector: any, idx: number) => (
+                        <div key={idx}>
+                          <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream)', marginBottom: 6 }}>{sector.name}</div>
+                          <div style={{ display: 'flex', gap: 4 }}>
+                            {sector.values?.map((val: number, vidx: number) => {
+                              const intensity = val / 100;
+                              return (
+                                <div key={vidx} style={{ flex: 1, height: 24, background: `rgba(255, 112, 67, ${intensity})`, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'DM Mono', monospace", fontSize: 9, color: intensity > 0.5 ? 'var(--cream)' : 'var(--dust)' }}>
+                                  {val}
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {selectedArtifact.type === 'earnings' && (
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, overflow: 'hidden' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'DM Mono', monospace", fontSize: 12 }}>
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid var(--rule)' }}>
+                          <th style={{ padding: 12, textAlign: 'left', color: 'var(--cream2)', fontWeight: 600 }}>Ticker</th>
+                          <th style={{ padding: 12, textAlign: 'left', color: 'var(--cream2)', fontWeight: 600 }}>Company</th>
+                          <th style={{ padding: 12, textAlign: 'left', color: 'var(--cream2)', fontWeight: 600 }}>Date</th>
+                          <th style={{ padding: 12, textAlign: 'left', color: 'var(--cream2)', fontWeight: 600 }}>EPS Expected</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedArtifact.data.rows?.map((row: any, idx: number) => (
+                          <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                            <td style={{ padding: 12, color: 'var(--coral)', fontWeight: 600 }}>{row.ticker}</td>
+                            <td style={{ padding: 12, color: 'var(--cream)' }}>{row.company}</td>
+                            <td style={{ padding: 12, color: 'var(--cream2)' }}>{row.date}</td>
+                            <td style={{ padding: 12, color: 'var(--dust)' }}>{row.eps_expected}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {selectedArtifact.type === 'dividends' && (
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, overflow: 'hidden' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'DM Mono', monospace", fontSize: 12 }}>
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid var(--rule)' }}>
+                          <th style={{ padding: 12, textAlign: 'left', color: 'var(--cream2)', fontWeight: 600 }}>Ticker</th>
+                          <th style={{ padding: 12, textAlign: 'left', color: 'var(--cream2)', fontWeight: 600 }}>Company</th>
+                          <th style={{ padding: 12, textAlign: 'left', color: 'var(--cream2)', fontWeight: 600 }}>Yield</th>
+                          <th style={{ padding: 12, textAlign: 'left', color: 'var(--cream2)', fontWeight: 600 }}>Quarterly</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedArtifact.data.rows?.map((row: any, idx: number) => (
+                          <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                            <td style={{ padding: 12, color: 'var(--positive)', fontWeight: 600 }}>{row.ticker}</td>
+                            <td style={{ padding: 12, color: 'var(--cream)' }}>{row.company}</td>
+                            <td style={{ padding: 12, color: 'var(--positive)', fontWeight: 500 }}>{row.yield}</td>
+                            <td style={{ padding: 12, color: 'var(--dust)' }}>{row.quarterly}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             </motion.div>
           </>
