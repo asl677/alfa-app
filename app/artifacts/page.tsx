@@ -50,22 +50,51 @@ export default function ArtifactsPage() {
             </div>
           </motion.div>
         ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: 16,
-            marginBottom: 20,
-          }}>
-            <AnimatePresence>
-              {artifacts.map((artifact) => (
-                <ArtifactCard
+          <AnimatePresence>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+              {artifacts.map((artifact, idx) => (
+                <motion.div
                   key={artifact.id}
-                  artifact={artifact}
-                  onExpand={handleExpand}
-                />
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  onClick={() => handleExpand(artifact)}
+                  style={{
+                    padding: '16px 0',
+                    borderBottom: '1px solid var(--rule-subtle)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.02)'
+                    e.currentTarget.style.paddingLeft = '12px'
+                    e.currentTarget.style.paddingRight = '12px'
+                    e.currentTarget.style.borderRadius = '8px'
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.background = 'transparent'
+                    e.currentTarget.style.paddingLeft = '0'
+                    e.currentTarget.style.paddingRight = '0'
+                    e.currentTarget.style.borderRadius = '0'
+                  }}
+                >
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--dust)', minWidth: 32 }}>{idx + 1}.</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 15, fontWeight: 300, color: 'var(--cream)', marginBottom: 2 }}>
+                      {artifact.title}
+                    </div>
+                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--dust)' }}>
+                      {new Date(artifact.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} • {artifact.type}
+                    </div>
+                  </div>
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--dust)' }}>→</div>
+                </motion.div>
               ))}
-            </AnimatePresence>
-          </div>
+            </div>
+          </AnimatePresence>
         )}
       </div>
 
