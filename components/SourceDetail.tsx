@@ -36,6 +36,9 @@ export default function SourceDetail({
             initial={{ y: '100%' }}
             animate={{ y: 0, transition: { type: 'spring', damping: 30, stiffness: 300 } }}
             exit={{ y: '100%', transition: { duration: 0.2 } }}
+            drag="y"
+            dragConstraints={{ top: 0 }}
+            onDragEnd={(_, info) => { if (info.offset.y > 120) onClose() }}
             style={{
               position: 'fixed',
               bottom: 0,
@@ -53,7 +56,7 @@ export default function SourceDetail({
             </div>
 
             <motion.div
-              style={{ padding: '0 20px 40px', maxHeight: '80vh', overflowY: 'auto' }}
+              style={{ padding: '0 20px 40px', maxHeight: 'min(50vh, 80vh)', overflowY: 'auto' }}
               variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
               initial="hidden"
               animate="visible"
