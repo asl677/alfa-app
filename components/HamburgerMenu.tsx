@@ -50,6 +50,7 @@ const NAV = [
   { href: '/discover', label: 'Discover', icon: IconCompass },
   { href: '/agents', label: 'Agents', icon: IconBot },
   { href: '/context', label: 'Context', icon: IconLayers },
+  { href: '/artifacts', label: 'Artifacts', icon: IconGrid },
   { href: '/history', label: 'History', icon: IconRotateCcw },
   { href: '/settings', label: 'Settings', icon: IconSettings },
 ]
