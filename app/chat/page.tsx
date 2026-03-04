@@ -129,6 +129,64 @@ export default function ChatPage() {
     }
   }, [messages.length])
 
+  // Track previous agents count to detect additions
+  const prevAgentCountRef = useRef(activeAgents.length)
+
+  // Handle newly added agents - trigger response from them
+  useEffect(() => {
+    const previousCount = prevAgentCountRef.current
+    const currentCount = activeAgents.length
+
+    // If agents were added and there are user messages in the thread
+    if (currentCount > previousCount && messages.length > 0) {
+      const lastUserMessage = [...messages].reverse().find(m => m.role === 'user')
+      if (lastUserMessage) {
+        // Trigger response from the first newly added agent
+        const newAgents = activeAgents.filter(agent =>
+          !messages.some(m => m.agent === AGENT_CONFIG[agent.id]?.fullName)
+        )
+
+        if (newAgents.length > 0) {
+          const newAgent = newAgents[0]
+          const agentName = AGENT_CONFIG[newAgent.id].fullName
+          const spinnerId = `spinner-${Date.now()}`
+
+          setMessages(prev => [...prev, {
+            id: spinnerId,
+            role: 'assistant',
+            text: '...',
+            agent: agentName,
+          }])
+
+          const systemPrompt = `You are ${agentName}. The previous agents have shared their perspectives. Challenge, debate, or build upon their points. Disagree if you see flaws. Be authentic and engaging in the discussion.`
+          const conversationHistory = [lastUserMessage, ...messages.filter(m => m.role === 'assistant')]
+
+          fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              messages: conversationHistory,
+              systemPrompt: systemPrompt
+            }),
+          })
+            .then(res => res.text())
+            .then(text => {
+              setMessages(prev =>
+                prev.map(m =>
+                  m.id === spinnerId
+                    ? { ...m, text: text.trim() || 'I agree with my colleagues. Let me add my perspective.' }
+                    : m
+                )
+              )
+            })
+            .catch(err => console.error('Error fetching agent response:', err))
+        }
+      }
+    }
+
+    prevAgentCountRef.current = currentCount
+  }, [activeAgents.length, messages])
+
   // Auto-debate: Agents have continuous conversation every 20-30 seconds
   useEffect(() => {
     if (activeAgents.length === 0 || isLoading) return
