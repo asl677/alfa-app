@@ -402,7 +402,7 @@ export default function ChatPage() {
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)' }}
             >
               {m.role === 'assistant' && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                   {isLoading && (
                     <motion.svg
                       animate={{ rotate: 360 }}
@@ -511,16 +511,82 @@ export default function ChatPage() {
                     artifacts.unshift(artifact)
                     localStorage.setItem('artifacts', JSON.stringify(artifacts))
 
-                    // Show success message
-                    const agentMsg: Message = {
-                      id: (Date.now() + 1).toString(),
-                      role: 'assistant',
-                      text: `Pulled up ${chartDetection.title} for you. Check your Artifacts to dig into it.`,
-                      agent: getAgentName(agentIndex),
+                    // Trigger agent debate on the artifact
+                    const agentsToQuery = activeAgents
+                    let agentResponses: Message[] = []
+                    let currentAgentIdx = 0
+
+                    const queryNextAgent = () => {
+                      if (currentAgentIdx >= agentsToQuery.length) {
+                        setIsLoading(false)
+                        return
+                      }
+
+                      const agentName = agentsToQuery[currentAgentIdx].fullName
+                      const spinnerId = `spinner-${currentAgentIdx}-${Date.now()}`
+                      const spinnerMsg: Message = {
+                        id: spinnerId,
+                        role: 'assistant',
+                        text: '...',
+                        agent: agentName,
+                      }
+
+                      setMessages(prev => [...prev, spinnerMsg])
+
+                      const conversationHistory = [userMsg, ...agentResponses]
+
+                      const systemPrompt = currentAgentIdx > 0
+                        ? `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. The artifact "${chartDetection.title}" was just generated. React to it and add your take. Challenge the previous agents if you disagree, throw in some personality, keep it real. No corporate jargon.`
+                        : `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. The artifact "${chartDetection.title}" was just generated. Give your quick take on what you see. Keep it brief and actionable.`
+
+                      fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          messages: conversationHistory,
+                          systemPrompt: systemPrompt
+                        }),
+                      })
+                        .then(res => res.text())
+                        .then(text => {
+                          const agentResponse: Message = {
+                            id: spinnerId,
+                            role: 'assistant',
+                            text: text.trim() || 'Yeah, that makes sense. Here\'s what I\'m seeing though...',
+                            agent: agentName,
+                          }
+                          agentResponses.push(agentResponse)
+
+                          setMessages(prev =>
+                            prev.map(m =>
+                              m.id === spinnerId
+                                ? agentResponse
+                                : m
+                            )
+                          )
+
+                          currentAgentIdx++
+                          setTimeout(queryNextAgent, 1500)
+                        })
+                        .catch(err => {
+                          console.error(`Agent ${agentName} error:`, err)
+                          const errorResponse: Message = {
+                            id: spinnerId,
+                            role: 'assistant',
+                            text: 'I need to reconsider that position based on the debate.',
+                            agent: agentName,
+                          }
+                          setMessages(prev =>
+                            prev.map(m =>
+                              m.id === spinnerId ? errorResponse : m
+                            )
+                          )
+                          currentAgentIdx++
+                          setTimeout(queryNextAgent, 1500)
+                        })
                     }
-                    setMessages(prev => [...prev, agentMsg])
-                    setAgentIndex(prev => prev + 1)
-                    setIsLoading(false)
+
+                    setTimeout(queryNextAgent, 1200)
                   } else {
                     // Fetch agent response for regular prompts
                     fetch('/api/chat', {
