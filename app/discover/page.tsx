@@ -104,7 +104,12 @@ export default function DiscoverPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
       <PageHeader title="Discover" />
 
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
+      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', maxWidth: '1020px', margin: '0 auto', width: '100%', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <style>{`
+          div::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
         {/* chipRow2 — gap 10, padding [20,20] */}
         <div style={{ display: 'flex', gap: 10, padding: '20px 20px 0', flexShrink: 0, justifyContent: 'flex-start', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: 10 }}>
@@ -128,7 +133,7 @@ export default function DiscoverPage() {
         </div>
 
         {/* notificationsContainer — vertical, gap 12, padding [0,12] */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 20px 0' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 20px 0', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <AnimatePresence>
             {isRefreshing && (
               <motion.div

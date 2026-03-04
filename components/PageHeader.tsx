@@ -20,7 +20,7 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
       zIndex: 10,
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       padding: '16px 20px',
       background: 'var(--bg)',
       flexShrink: 0,
@@ -28,6 +28,8 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
       <button
         onClick={openMenu}
         style={{
+          position: 'absolute',
+          left: 20,
           background: 'none',
           border: 'none',
           cursor: 'pointer',
@@ -55,17 +57,18 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
         fontWeight: 300,
         letterSpacing: -0.5,
         color: 'var(--cream)',
+        textAlign: 'center',
       }}>
         {title}
       </span>
 
       {/* Right button or spacer matching design 24x24 */}
       {rightButton ? (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24 }}>
+        <div style={{ position: 'absolute', right: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24 }}>
           {rightButton}
         </div>
       ) : (
-        <div style={{ width: 24, height: 24 }} />
+        <div style={{ position: 'absolute', right: 20, width: 24, height: 24 }} />
       )}
     </header>
   )
