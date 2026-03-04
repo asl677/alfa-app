@@ -459,31 +459,6 @@ export default function ChatPage() {
           )
         })}
 
-        {isLoading && (messages.length > 0 && messages[messages.length - 1].role === 'user' || messages.length === 0) && activeAgents.length > 0 && (
-          <motion.div
-            layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'flex-start' }}
-          >
-            <motion.svg
-              animate={{ rotate: 360 }}
-              transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="var(--coral)"
-              strokeWidth="1.5"
-              strokeDasharray="4 4"
-              style={{ transformOrigin: '50% 50%' }}
-            >
-              <circle cx="12" cy="12" r="10" />
-            </motion.svg>
-          </motion.div>
-        )}
-
         <div ref={messagesEndRef} />
 
         {!isScrolledToBottom && messages.length > 0 && (
@@ -687,7 +662,7 @@ export default function ChatPage() {
       </div>
 
       <div style={{ padding: '20px 20px 30px', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 12, padding: '16px', minHeight: 100, maxWidth: '1020px', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 12, padding: '16px', minHeight: 100, maxWidth: '1020px', width: '100%', transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}>
           <motion.div
             key={promptIndex}
             initial={{ opacity: 0 }}
