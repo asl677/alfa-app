@@ -461,34 +461,19 @@ export default function ChatPage() {
                   {m.role === 'assistant' && (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12, justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
                       {m.agent?.includes('Ashley') && (
-                        <>
-                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
-                            Add to watchlist
-                          </button>
-                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
-                            Create alert
-                          </button>
-                        </>
+                        <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: 0 }}>
+                          Add to watchlist
+                        </button>
                       )}
                       {m.agent?.includes('Mike') && (
-                        <>
-                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
-                            Rebalance now
-                          </button>
-                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
-                            View analysis
-                          </button>
-                        </>
+                        <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: 0 }}>
+                          Rebalance now
+                        </button>
                       )}
                       {m.agent?.includes('Tom') && (
-                        <>
-                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
-                            Chart setup
-                          </button>
-                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
-                            Track pattern
-                          </button>
-                        </>
+                        <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: 0 }}>
+                          Chart setup
+                        </button>
                       )}
                     </div>
                   )}
@@ -506,8 +491,6 @@ export default function ChatPage() {
           {PROMPT_SUGGESTIONS.map((prompt, idx) => (
             <motion.button
               key={idx}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               onClick={() => {
                 // Auto-send the prompt without showing in input (no flicker)
                 setIsLoading(true)
