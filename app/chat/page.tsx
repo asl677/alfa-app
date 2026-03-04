@@ -56,7 +56,9 @@ export default function ChatPage() {
   const [holdingAnalysisOpen, setHoldingAnalysisOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [tickerVisible, setTickerVisible] = useState(true)
+  const [isScrolledToBottom, setIsScrolledToBottom] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
 
   // Get agent names from context
   const getAgentName = (index: number) => {
@@ -95,7 +97,22 @@ export default function ChatPage() {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    setIsScrolledToBottom(true)
   }, [messages])
+
+  useEffect(() => {
+    const container = messagesContainerRef.current
+    if (!container) return
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container
+      const isAtBottom = scrollHeight - scrollTop - clientHeight < 100
+      setIsScrolledToBottom(isAtBottom)
+    }
+
+    container.addEventListener('scroll', handleScroll)
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     if (messages.length > 0 && messages[messages.length - 1].role === 'assistant') {
@@ -373,7 +390,7 @@ export default function ChatPage() {
         </div>
       </motion.div>
 
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 0', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
+      <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 0', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative' }}>
         {messages.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -414,7 +431,7 @@ export default function ChatPage() {
                       stroke={getAgentDotColor(m.agent || 'Alfa')}
                       strokeWidth="1.5"
                       strokeDasharray="4 4"
-                      style={{ transformOrigin: '50% 50%', flexShrink: 0 }}
+                      style={{ transformOrigin: '50% 50%', flexShrink: 0, marginRight: 2, marginBottom: 2 }}
                     >
                       <circle cx="12" cy="12" r="10" />
                     </motion.svg>
@@ -468,6 +485,34 @@ export default function ChatPage() {
         )}
 
         <div ref={messagesEndRef} />
+
+        {!isScrolledToBottom && messages.length > 0 && (
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            onClick={() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            style={{
+              position: 'fixed',
+              bottom: 120,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: 'var(--coral)',
+              border: 'none',
+              borderRadius: 20,
+              padding: '8px 16px',
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: 12,
+              fontWeight: 600,
+              color: 'var(--pure-black)',
+              cursor: 'pointer',
+              zIndex: 50,
+              boxShadow: '0 4px 12px rgba(255, 112, 67, 0.3)',
+            }}
+          >
+            New message
+          </motion.button>
+        )}
       </div>
 
       <div style={{ padding: '8px 20px 0', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
@@ -496,7 +541,7 @@ export default function ChatPage() {
 
                   if (chartDetection) {
                     // Generate and store artifact
-                    const chartData = generateChartData(chartDetection.type)
+                    const chartData = generateChartData(chartDetection.type, chartDetection.symbols)
                     const artifact = {
                       id: `artifact-${Date.now()}`,
                       type: chartDetection.type,

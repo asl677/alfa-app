@@ -96,7 +96,34 @@
 - **Spinner display**: Shows when `message.text === '...'` during agent response
 - **Visual placement**: Spinner appears to the left of agent badge, fades out when response arrives
 - **Spinner style**: 20x20px, rotating 3.5s linear, colored by agent dotColor
+- **Spinner alignment**: marginRight 2px + marginBottom 2px to align with agent pill center
 - **Badge structure**: Always shown alongside spinner, contains agent name + 4px color dot
+
+## Artifact System
+
+### Chart Generation & Detection
+- **Pattern Detection**: Prompts like "Compare NVDA vs AMD" or "Chart my portfolio allocation" trigger artifact generation
+- **Detection logic**: Regex parsing in `lib/chartGenerator.ts` `detectChartPrompt()` function
+- **Stock symbols**: Extracted from comparison prompts and passed to `generateChartData()`
+- **Example formats**:
+  - "Compare NVDA vs AMD" → comparison table with real stock data
+  - "Chart my portfolio allocation" → portfolio donut/bar chart
+  - "Show sector exposure heatmap" → sector heatmap visualization
+  - "What earnings are dropping soon?" → earnings calendar table
+  - "Show dividend stocks" → dividend yields table
+
+### Comparison Chart Display
+- **Type**: Real data comparison table (not chart visualization)
+- **Stock Info**: Database in `STOCK_INFO` with 10+ major stocks (symbol, name, basePrice)
+- **Data Generation**: Realistic 90-day price movements with trend + volatility + randomness
+- **Table Columns**: Current Price, 90-Day Change (±%), 90-Day Low, 90-Day High, 90-Day Average
+- **Color coding**: Green for positive changes, red for negative
+- **File**: `app/artifacts/page.tsx` handles rendering
+
+### Artifact Storage
+- **Persistence**: Artifacts stored in `localStorage` under `'artifacts'` key
+- **Auto-save**: Triggered when chart prompt detected, before agent debate starts
+- **Artifact interface**: `{ id, type, title, data, created_at }`
 
 ## Critical Reminders
 

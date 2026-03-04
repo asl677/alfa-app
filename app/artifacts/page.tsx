@@ -157,26 +157,65 @@ export default function ArtifactsPage() {
                 )}
 
                 {selectedArtifact.type === 'comparison' && (
-                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, padding: 20, minHeight: 300 }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
-                      {selectedArtifact.data.datasets?.map((dataset: any, idx: number) => (
-                        <div key={idx} style={{ padding: 12, background: 'rgba(255,255,255,0.03)', borderRadius: 8, borderTop: `3px solid ${dataset.color}` }}>
-                          <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 14, color: 'var(--cream)', marginBottom: 8 }}>{dataset.label}</div>
-                          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--cream2)', display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                            <span>Low: ${Math.min(...dataset.data).toFixed(0)}</span>
-                            <span>Avg: ${(dataset.data.reduce((a:number, b:number) => a+b, 0)/dataset.data.length).toFixed(0)}</span>
-                          </div>
-                          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--cream2)' }}>
-                            High: ${Math.max(...dataset.data).toFixed(0)}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div style={{ height: 150, background: 'rgba(255,255,255,0.02)', borderRadius: 8, display: 'flex', alignItems: 'flex-end', gap: 2, padding: 8 }}>
-                      {selectedArtifact.data.datasets?.[0]?.data?.map((val: number, idx: number) => (
-                        <div key={idx} style={{ flex: 1, height: `${(val / 120) * 100}%`, background: selectedArtifact.data.datasets[0].color, opacity: 0.6, borderRadius: 2 }} />
-                      ))}
-                    </div>
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, overflow: 'hidden' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'DM Mono', monospace", fontSize: 12 }}>
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid var(--rule)' }}>
+                          <th style={{ padding: 16, textAlign: 'left', color: 'var(--cream2)', fontWeight: 600, fontFamily: "'Space Grotesk', sans-serif" }}>Metric</th>
+                          {selectedArtifact.data.datasets?.map((dataset: any, idx: number) => (
+                            <th key={idx} style={{ padding: 16, textAlign: 'right', color: dataset.color, fontWeight: 600, borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
+                              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, marginBottom: 4 }}>{dataset.label}</div>
+                              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)', fontWeight: 400 }}>{dataset.company}</div>
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                          <td style={{ padding: 12, color: 'var(--cream2)' }}>Current Price</td>
+                          {selectedArtifact.data.datasets?.map((dataset: any, idx: number) => (
+                            <td key={idx} style={{ padding: 12, textAlign: 'right', color: 'var(--cream)', fontWeight: 600, borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
+                              ${dataset.current}
+                            </td>
+                          ))}
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                          <td style={{ padding: 12, color: 'var(--cream2)' }}>90-Day Change</td>
+                          {selectedArtifact.data.datasets?.map((dataset: any, idx: number) => {
+                            const isPositive = parseFloat(dataset.change) >= 0
+                            return (
+                              <td key={idx} style={{ padding: 12, textAlign: 'right', color: isPositive ? '#4caf50' : '#f44336', fontWeight: 600, borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
+                                {isPositive ? '+' : ''}{dataset.change}
+                              </td>
+                            )
+                          })}
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                          <td style={{ padding: 12, color: 'var(--cream2)' }}>90-Day Low</td>
+                          {selectedArtifact.data.datasets?.map((dataset: any, idx: number) => (
+                            <td key={idx} style={{ padding: 12, textAlign: 'right', color: 'var(--cream2)', borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
+                              ${Math.min(...dataset.data).toFixed(2)}
+                            </td>
+                          ))}
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                          <td style={{ padding: 12, color: 'var(--cream2)' }}>90-Day High</td>
+                          {selectedArtifact.data.datasets?.map((dataset: any, idx: number) => (
+                            <td key={idx} style={{ padding: 12, textAlign: 'right', color: 'var(--cream2)', borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
+                              ${Math.max(...dataset.data).toFixed(2)}
+                            </td>
+                          ))}
+                        </tr>
+                        <tr>
+                          <td style={{ padding: 12, color: 'var(--cream2)' }}>90-Day Average</td>
+                          {selectedArtifact.data.datasets?.map((dataset: any, idx: number) => (
+                            <td key={idx} style={{ padding: 12, textAlign: 'right', color: 'var(--cream2)', borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
+                              ${(dataset.data.reduce((a: number, b: number) => a + b, 0) / dataset.data.length).toFixed(2)}
+                            </td>
+                          ))}
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 )}
 

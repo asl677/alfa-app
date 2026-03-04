@@ -8,7 +8,7 @@ export interface ChartData {
   created_at: string
 }
 
-export function detectChartPrompt(prompt: string): { isChart: boolean; type: ChartType; title: string } | null {
+export function detectChartPrompt(prompt: string): { isChart: boolean; type: ChartType; title: string; symbols?: [string, string] } | null {
   const lowerPrompt = prompt.toLowerCase()
 
   // Chart prompts
@@ -16,9 +16,11 @@ export function detectChartPrompt(prompt: string): { isChart: boolean; type: Cha
     return { isChart: true, type: 'portfolio', title: 'Portfolio Allocation' }
   }
   if (lowerPrompt.includes('compare') && (lowerPrompt.includes('vs') || lowerPrompt.includes('versus'))) {
-    const match = prompt.match(/compare\s+(\w+)\s+vs\s+(\w+)/i)
+    const match = prompt.match(/compare\s+([A-Z]+)\s+(?:vs|versus)\s+([A-Z]+)/i)
     if (match) {
-      return { isChart: true, type: 'comparison', title: `${match[1]} vs ${match[2]} (90-Day)` }
+      const sym1 = match[1].toUpperCase()
+      const sym2 = match[2].toUpperCase()
+      return { isChart: true, type: 'comparison', title: `${sym1} vs ${sym2} (90-Day)`, symbols: [sym1, sym2] }
     }
   }
   if ((lowerPrompt.includes('heatmap') || lowerPrompt.includes('heat map')) && lowerPrompt.includes('sector')) {
@@ -42,7 +44,20 @@ export function detectChartPrompt(prompt: string): { isChart: boolean; type: Cha
   return null
 }
 
-export function generateChartData(type: ChartType): any {
+const STOCK_INFO: Record<string, { name: string; basePrice: number }> = {
+  NVDA: { name: 'NVIDIA Corp.', basePrice: 875 },
+  AMD: { name: 'Advanced Micro Devices', basePrice: 195 },
+  TSLA: { name: 'Tesla Inc.', basePrice: 242 },
+  AAPL: { name: 'Apple Inc.', basePrice: 191 },
+  MSFT: { name: 'Microsoft Corp.', basePrice: 429 },
+  GOOGL: { name: 'Alphabet Inc.', basePrice: 171 },
+  META: { name: 'Meta Platforms', basePrice: 523 },
+  QCOM: { name: 'Qualcomm Inc.', basePrice: 178 },
+  INTC: { name: 'Intel Corp.', basePrice: 42 },
+  MU: { name: 'Micron Technology', basePrice: 107 },
+}
+
+export function generateChartData(type: ChartType, symbols?: [string, string]): any {
   switch (type) {
     case 'portfolio':
       return {
@@ -56,23 +71,51 @@ export function generateChartData(type: ChartType): any {
       }
 
     case 'comparison': {
+      const [sym1, sym2] = symbols || ['NVDA', 'AMD']
+      const stock1 = STOCK_INFO[sym1] || { name: sym1, basePrice: 150 }
+      const stock2 = STOCK_INFO[sym2] || { name: sym2, basePrice: 150 }
+
       const days = Array.from({ length: 90 }, (_, i) => {
         const date = new Date()
         date.setDate(date.getDate() - 90 + i)
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
       })
 
+      // Generate realistic price movements
+      const data1 = Array.from({ length: 90 }, (_, i) => {
+        const trend = i / 90
+        const volatility = Math.sin(i / 8) * 0.08 + Math.cos(i / 15) * 0.06
+        const random = Math.random() * 0.04 - 0.02
+        return stock1.basePrice * (1 + trend * 0.15 + volatility + random)
+      })
+
+      const data2 = Array.from({ length: 90 }, (_, i) => {
+        const trend = i / 90
+        const volatility = Math.sin(i / 12) * 0.07 + Math.cos(i / 18) * 0.05
+        const random = Math.random() * 0.03 - 0.015
+        return stock2.basePrice * (1 + trend * 0.12 + volatility + random)
+      })
+
+      const change1 = ((data1[89] - data1[0]) / data1[0] * 100).toFixed(2)
+      const change2 = ((data2[89] - data2[0]) / data2[0] * 100).toFixed(2)
+
       return {
         datasets: [
           {
-            label: 'Stock A',
-            data: Array.from({ length: 90 }, (_, i) => 100 + Math.sin(i / 10) * 15 + Math.random() * 5),
+            label: sym1,
+            company: stock1.name,
+            data: data1,
             color: '#4caf50',
+            change: `${change1}%`,
+            current: data1[89].toFixed(2),
           },
           {
-            label: 'Stock B',
-            data: Array.from({ length: 90 }, (_, i) => 100 + Math.cos(i / 10) * 12 + Math.random() * 5),
+            label: sym2,
+            company: stock2.name,
+            data: data2,
             color: '#ff7043',
+            change: `${change2}%`,
+            current: data2[89].toFixed(2),
           },
         ],
         labels: days,
