@@ -6,9 +6,31 @@ import PageTransition from '@/components/PageTransition'
 
 export const metadata: Metadata = {
   title: 'Alfa by Boosted.ai',
-  description: 'Personal financial AI agent platform',
+  description: 'Personal financial AI agent platform powered by autonomous agents',
   icons: {
     icon: '/favicon.svg',
+    apple: '/apple-touch-icon.svg',
+  },
+  openGraph: {
+    title: 'Alfa by Boosted.ai',
+    description: 'Personal financial AI agent platform powered by autonomous agents',
+    url: 'https://alfa-app-flame.vercel.app',
+    siteName: 'Alfa',
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Alfa - Financial AI Agents',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Alfa by Boosted.ai',
+    description: 'Personal financial AI agent platform',
+    images: ['/og-image.svg'],
   },
 }
 
