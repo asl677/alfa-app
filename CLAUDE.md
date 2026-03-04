@@ -93,11 +93,19 @@
 - **All messages preserved**: Never delete messages from thread, keep full debate visible
 
 ### Loading States & Spinners
-- **Spinner display**: Shows when `message.text === '...'` during agent response
+- **Spinner display**: Shows when `message.text === '...'` during agent response (inline with message)
 - **Visual placement**: Spinner appears to the left of agent badge, fades out when response arrives
 - **Spinner style**: 20x20px, rotating 3.5s linear, colored by agent dotColor
 - **Spinner alignment**: marginRight 2px + marginBottom 2px to align with agent pill center
 - **Badge structure**: Always shown alongside spinner, contains agent name + 4px color dot
+- **IMPORTANT**: NO separate bottom-of-page spinner - only use inline spinners with messages
+
+### Input Focus State
+- **Container transition**: 0.3s smooth transition on all border/shadow properties
+- **Easing**: cubic-bezier [0.25, 0.46, 0.45, 0.94]
+- **Unfocused**: 1px solid var(--rule)
+- **Focused**: 2px solid var(--coral)
+- **Effect**: Border grows/shrinks smoothly, visual feedback for active input
 
 ## Artifact System
 
@@ -120,10 +128,13 @@
 - **Color coding**: Green for positive changes, red for negative
 - **File**: `app/artifacts/page.tsx` handles rendering
 
-### Artifact Storage
+### Artifact Storage & Display
 - **Persistence**: Artifacts stored in `localStorage` under `'artifacts'` key
 - **Auto-save**: Triggered when chart prompt detected, before agent debate starts
 - **Artifact interface**: `{ id, type, title, data, created_at }`
+- **Display format**: Numbered text list (1. Title | Date · Type) with hover highlight
+- **Interaction**: Click any artifact to open detail modal with full visualization
+- **Styling**: Serif title, monospace metadata, arrow indicator on hover
 
 ## Critical Reminders
 
