@@ -8,6 +8,7 @@ import { useAgents } from '@/app/context/agents'
 export default function AgentsPage() {
   const { agents, toggleAgent, activeAgents } = useAgents()
   const [toast, setToast] = useState<{ message: string; visible: boolean }>({ message: '', visible: false })
+  const [, forceUpdate] = useState({})
 
   const handleToggle = (id: string) => {
     const agent = agents.find(a => a.id === id)
@@ -15,6 +16,7 @@ export default function AgentsPage() {
     const message = agent?.active ? `${shortName} was removed from chat` : `${shortName} was added to chat`
 
     toggleAgent(id)
+    forceUpdate({})
     setToast({ message, visible: true })
     setTimeout(() => setToast({ message, visible: false }), 2500)
   }
@@ -24,7 +26,7 @@ export default function AgentsPage() {
       <PageHeader title="Agents" />
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
-        <div style={{ paddingBottom: 12, marginBottom: 12, borderBottom: '1px solid var(--rule-subtle)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div key={`active-${activeAgents.length}`} style={{ paddingBottom: 12, marginBottom: 12, borderBottom: '1px solid var(--rule-subtle)', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, color: 'var(--cream2)' }}>Active agents:</span>
           <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--coral)', fontWeight: 600 }}>{activeAgents.length}</span>
         </div>
