@@ -346,7 +346,7 @@ export default function ChatPage() {
           </motion.div>
         )}
 
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {messages.map((m, idx) => (
             <motion.div key={m.id}
               initial={{ opacity: 0, y: 12 }}

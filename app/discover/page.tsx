@@ -121,7 +121,7 @@ export default function DiscoverPage() {
       </div>
 
       {/* notificationsContainer — vertical, gap 12, padding [0,12] */}
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 12px' }}>
           <AnimatePresence>
             {isRefreshing && (
