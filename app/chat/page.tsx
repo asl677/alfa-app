@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 import AgentsSheet from '@/components/AgentsSheet'
 import TuneWatchlist from '@/components/TuneWatchlist'
+import ToneOptions from '@/components/ToneOptions'
 import HoldingAnalysis from '@/components/HoldingAnalysis'
 import { useAgents } from '@/app/context/agents'
 import { detectChartPrompt, generateChartData } from '@/lib/chartGenerator'
@@ -49,6 +50,8 @@ export default function ChatPage() {
   const [focused, setFocused] = useState(false)
   const [agentsOpen, setAgentsOpen] = useState(false)
   const [tuneOpen, setTuneOpen] = useState(false)
+  const [toneOpen, setToneOpen] = useState(false)
+  const [selectedTone, setSelectedTone] = useState('casual')
   const [agentIndex, setAgentIndex] = useState(0)
   const [showThinking, setShowThinking] = useState(false)
   const [promptIndex, setPromptIndex] = useState(0)
@@ -451,9 +454,45 @@ export default function ChatPage() {
                 </div>
               )}
               {!isLoading && (
-                <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7, textAlign: isUser ? 'right' : 'left' }}>
-                  {m.text}
-                </div>
+                <>
+                  <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7, textAlign: isUser ? 'right' : 'left' }}>
+                    {m.text}
+                  </div>
+                  {m.role === 'assistant' && (
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12, justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
+                      {m.agent?.includes('Ashley') && (
+                        <>
+                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
+                            Add to watchlist
+                          </button>
+                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
+                            Create alert
+                          </button>
+                        </>
+                      )}
+                      {m.agent?.includes('Mike') && (
+                        <>
+                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
+                            Rebalance now
+                          </button>
+                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
+                            View analysis
+                          </button>
+                        </>
+                      )}
+                      {m.agent?.includes('Tom') && (
+                        <>
+                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
+                            Chart setup
+                          </button>
+                          <button style={{ background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}>
+                            Track pattern
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </>
               )}
             </motion.div>
           )
@@ -673,6 +712,10 @@ export default function ChatPage() {
               <span style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setTuneOpen(true)}>
                 Tune Watchlist
               </span>
+              <span style={{ color: 'var(--cream2)', fontSize: 10 }}>·</span>
+              <span style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setToneOpen(true)}>
+                Tone
+              </span>
             </div>
 
             <motion.button
@@ -692,6 +735,7 @@ export default function ChatPage() {
 
       <AgentsSheet isOpen={agentsOpen} onClose={() => setAgentsOpen(false)} />
       <TuneWatchlist isOpen={tuneOpen} onClose={() => setTuneOpen(false)} />
+      <ToneOptions isOpen={toneOpen} onClose={() => setToneOpen(false)} selectedTone={selectedTone} onSelectTone={setSelectedTone} />
       <HoldingAnalysis isOpen={holdingAnalysisOpen} onClose={() => setHoldingAnalysisOpen(false)} holding={selectedHolding} />
 
       <style>{`
