@@ -277,7 +277,7 @@ export default function ChatPage() {
 
           currentAgentIdx++
           // Longer delay between agent responses for natural debate pacing
-          setTimeout(queryNextAgent, 1500)
+          setTimeout(queryNextAgent, 2500)
         })
         .catch(err => {
           console.error(`Agent ${agentName} error:`, err)
@@ -294,12 +294,12 @@ export default function ChatPage() {
             )
           )
           currentAgentIdx++
-          setTimeout(queryNextAgent, 1500)
+          setTimeout(queryNextAgent, 2500)
         })
     }
 
     // Delay before first agent starts responding
-    setTimeout(queryNextAgent, 1200)
+    setTimeout(queryNextAgent, 2000)
   }
 
   const tickerToggleButton = (
@@ -566,7 +566,7 @@ export default function ChatPage() {
                           )
 
                           currentAgentIdx++
-                          setTimeout(queryNextAgent, 1500)
+                          setTimeout(queryNextAgent, 2500)
                         })
                         .catch(err => {
                           console.error(`Agent ${agentName} error:`, err)
@@ -582,11 +582,11 @@ export default function ChatPage() {
                             )
                           )
                           currentAgentIdx++
-                          setTimeout(queryNextAgent, 1500)
+                          setTimeout(queryNextAgent, 2500)
                         })
                     }
 
-                    setTimeout(queryNextAgent, 1200)
+                    setTimeout(queryNextAgent, 2000)
                   } else {
                     // Fetch agent response for regular prompts
                     fetch('/api/chat', {
