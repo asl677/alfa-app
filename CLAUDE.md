@@ -9,17 +9,17 @@
 - **File**: `components/PageTransition.tsx`
 
 ### Message & List Animations
-- **Pattern**: Smooth entrance without stagger delays
-- **Duration**: 0.4s for each item
-- **Easing**: `[0.25, 0.46, 0.45, 0.94]` (organic cubic-bezier)
-- **Entry**: `opacity: 0, y: 12` → `opacity: 1, y: 0`
-- **Exit**: `opacity: 0, y: -4`
-- **Note**: NO `delay: idx * 0.08` or index-based stagger for message lists
+- **Pattern**: Simple fade only, no sliding
+- **Duration**: 0.3s for all animations
+- **Easing**: `easeInOut` (no custom cubic-bezier)
+- **Entry**: `opacity: 0` → `opacity: 1`
+- **Exit**: `opacity: 0`
+- **Note**: NO y/transform animations, NO stagger delays, NO spring physics
 
 ### Micro-Animations
-- **Spinner**: 3.5s linear rotation with stroke-dasharray
-- **Loading Gradient**: 1.5s pulse opacity `[0.5, 1]`
-- **Spring Physics**: Avoided in favor of duration-based easing (more predictable on mobile)
+- **Spinner**: 3.5s linear rotation
+- **Loading Gradient**: 1.5s pulse opacity fade
+- **Rule**: NO spring physics, only duration-based linear/easeInOut
 
 ## Design System Standards
 

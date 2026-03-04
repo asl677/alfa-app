@@ -66,9 +66,9 @@ export default function TuneWatchlist({ isOpen, onClose }: { isOpen: boolean; on
             padding: '18px 0',
             borderBottom: '1px solid var(--rule-subtle)',
           }}
-          initial={{ opacity: 0, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 + idx * 0.05, duration: 0.3 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
         >
           <div style={{ flex: 1 }}>
             <div style={{
@@ -131,9 +131,9 @@ export default function TuneWatchlist({ isOpen, onClose }: { isOpen: boolean; on
           fontSize: 14,
           color: 'var(--dust)',
         }}
-        initial={{ opacity: 0, y: 4 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 + items.length * 0.05 + 0.15, duration: 0.3 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
           <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>

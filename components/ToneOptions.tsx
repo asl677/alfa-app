@@ -34,10 +34,10 @@ export default function ToneOptions({ isOpen, onClose, selectedTone, onSelectTon
             }}
           />
           <motion.div
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
             style={{
               position: 'fixed',
               bottom: 0,
@@ -69,8 +69,6 @@ export default function ToneOptions({ isOpen, onClose, selectedTone, onSelectTon
                       onSelectTone(tone.id)
                       onClose()
                     }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
                     style={{
                       padding: '16px',
                       background: selectedTone === tone.id ? 'rgba(255, 112, 67, 0.15)' : 'rgba(255,255,255,0.02)',

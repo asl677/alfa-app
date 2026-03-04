@@ -29,9 +29,9 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
           />
           <motion.div
             key="sheet"
-            initial={{ y: '100%' }}
-            animate={{ y: 0, transition: { type: 'spring', damping: 30, stiffness: 300 } }}
-            exit={{ y: '100%', transition: { duration: 0.2 } }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             drag="y"
             dragConstraints={{ top: 0 }}
             onDragEnd={(_, info) => { if (info.offset.y > 120) onClose() }}
@@ -66,8 +66,8 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
                   letterSpacing: -0.8,
                   marginBottom: 8,
                 }}
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ delay: 0.15, duration: 0.3 }}
               >
                 {title}
