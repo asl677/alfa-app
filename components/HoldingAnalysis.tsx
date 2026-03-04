@@ -120,20 +120,21 @@ export default function HoldingAnalysis({
               </motion.div>
 
               {loading ? (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                   {AGENTS.map((agent) => (
                     <motion.div
                       key={agent.name}
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       style={{
-                        padding: 16,
-                        background: 'rgba(255,255,255,0.05)',
-                        borderRadius: 12,
-                        border: '1px solid var(--rule)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 8,
+                        paddingBottom: 24,
+                        borderBottom: '1px solid var(--rule-subtle)',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <div style={{ width: 8, height: 8, borderRadius: '50%', background: agent.color }} />
                         <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>
                           {agent.name}
@@ -152,7 +153,7 @@ export default function HoldingAnalysis({
                   ))}
                 </div>
               ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                   {AGENTS.map((agent) => (
                     <motion.div
                       key={agent.name}
@@ -160,23 +161,25 @@ export default function HoldingAnalysis({
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4 }}
                       style={{
-                        padding: 16,
-                        background: 'rgba(255,255,255,0.05)',
-                        borderRadius: 12,
-                        border: '1px solid var(--rule)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 8,
+                        paddingBottom: 24,
+                        borderBottom: '1px solid var(--rule-subtle)',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <div style={{ width: 8, height: 8, borderRadius: '50%', background: agent.color }} />
                         <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>
                           {agent.name}
                         </span>
                       </div>
                       <p style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: 12,
+                        fontFamily: "'EB Garamond', serif",
+                        fontSize: 15,
+                        fontWeight: 300,
                         color: 'var(--cream2)',
-                        lineHeight: 1.6,
+                        lineHeight: 1.7,
                         margin: 0,
                       }}>
                         {analyses[agent.name]}

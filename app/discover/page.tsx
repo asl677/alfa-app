@@ -121,21 +121,20 @@ export default function DiscoverPage() {
       </div>
 
       {/* notificationsContainer — vertical, gap 12, padding [0,12] */}
-      <AnimatePresence mode="popLayout">
-        <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 12px' }}>
-          <AnimatePresence>
+      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 12px' }}>
+        <AnimatePresence>
             {isRefreshing && (
               <motion.div
                 key="refresh-spinner"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.6, ease: 'easeInOut' }}
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12, flexShrink: 0 }}
               >
                 <motion.svg
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                   width="20"
                   height="20"
                   viewBox="0 0 24 24"
@@ -150,17 +149,17 @@ export default function DiscoverPage() {
                 <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)' }}>Refreshing...</span>
               </motion.div>
             )}
-          </AnimatePresence>
           {displayedSources.map((source, i) => (
             <motion.div
               key={`${active}-${i}-${source.title}`}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ duration: 1, ease: 'easeInOut' }}
               onClick={() => {
                 setSelectedSource(source)
                 setDetailOpen(true)
               }}
+              whileHover={{ scale: 1.02 }}
               style={{
                 background: 'var(--surface)',
                 border: '1px solid var(--rule)',
@@ -170,15 +169,6 @@ export default function DiscoverPage() {
                 flexDirection: 'column',
                 gap: 10,
                 cursor: 'pointer',
-                transition: 'all 0.2s',
-              }}
-              onMouseOver={(e) => {
-                ;(e.currentTarget as HTMLElement).style.borderColor = 'var(--coral)'
-                ;(e.currentTarget as HTMLElement).style.background = 'rgba(255, 193, 7, 0.05)'
-              }}
-              onMouseOut={(e) => {
-                ;(e.currentTarget as HTMLElement).style.borderColor = 'var(--rule)'
-                ;(e.currentTarget as HTMLElement).style.background = 'var(--surface)'
               }}
             >
             {/* cardHeader */}
@@ -211,8 +201,8 @@ export default function DiscoverPage() {
             </div>
             </motion.div>
           ))}
-        </div>
-      </AnimatePresence>
+        </AnimatePresence>
+      </div>
 
       <SourceDetail isOpen={detailOpen} onClose={() => setDetailOpen(false)} source={selectedSource} />
     </div>

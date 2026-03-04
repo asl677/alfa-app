@@ -302,8 +302,8 @@ export default function ChatPage() {
       <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 10px' }}>
         {messages.length === 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
             style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 8 }}
           >
@@ -343,50 +343,48 @@ export default function ChatPage() {
           </motion.div>
         )}
 
-        <AnimatePresence mode="popLayout">
-          {messages.map((m, idx) => (
-            <motion.div key={m.id}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.4, delay: idx * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-              style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start' }}
-            >
-              {m.role === 'assistant' && <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)', marginBottom: 4 }}>{m.agent || 'Alfa'}</div>}
-              <div style={{ maxWidth: m.role === 'user' ? 240 : 280, fontFamily: "'EB Garamond', serif", fontSize: 15, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7 }}>
-                {m.text}
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+        {messages.map((m) => (
+          <motion.div key={m.id}
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start' }}
+          >
+            {m.role === 'assistant' && <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)', marginBottom: 4 }}>{m.agent || 'Alfa'}</div>}
+            <div style={{ maxWidth: m.role === 'user' ? 240 : 280, fontFamily: "'EB Garamond', serif", fontSize: 15, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7 }}>
+              {m.text}
+            </div>
+          </motion.div>
+        ))}
 
-        <AnimatePresence>
-          {isLoading && (messages.length > 0 && messages[messages.length - 1].role === 'user' || messages.length === 0) && activeAgents.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.3 }}
-              style={{ padding: '0 10px', display: 'flex', alignItems: 'center', gap: 8 }}
+        {isLoading && (messages.length > 0 && messages[messages.length - 1].role === 'user' || messages.length === 0) && activeAgents.length > 0 && (
+          <motion.div
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 8 }}
+          >
+            <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)' }}>
+              {getAgentName(agentIndex)}
+            </div>
+            <motion.svg
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--coral)"
+              strokeWidth="1.5"
+              strokeDasharray="4 4"
+              style={{ transformOrigin: '50% 50%' }}
             >
-              <motion.svg
-                animate={{ rotate: 360 }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--coral)"
-                strokeWidth="1.5"
-                strokeDasharray="4 4"
-                style={{ transformOrigin: '50% 50%' }}
-              >
-                <circle cx="12" cy="12" r="10" />
-              </motion.svg>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
+              <circle cx="12" cy="12" r="10" />
+            </motion.svg>
+          </motion.div>
+        )}
 
         <div ref={messagesEndRef} />
       </div>
@@ -394,9 +392,12 @@ export default function ChatPage() {
       <div style={{ padding: '8px 20px 0', flexShrink: 0 }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {PROMPT_SUGGESTIONS.map((prompt, idx) => (
-            <button
+            <motion.button
               key={idx}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => {
+
                 setInput(prompt)
                 // Auto-send the prompt after a brief delay
                 setTimeout(() => {
@@ -455,7 +456,7 @@ export default function ChatPage() {
               }}
             >
               {prompt}
-            </button>
+            </motion.button>
           ))}
           <style>{`::-webkit-scrollbar { display: none; }`}</style>
         </div>
@@ -507,9 +508,17 @@ export default function ChatPage() {
               </span>
             </div>
 
-            <button onClick={handleSend} disabled={isLoading || !input.trim()} style={{ background: 'none', border: 'none', padding: '0 4px', cursor: input.trim() ? 'pointer' : 'default', color: input.trim() ? 'var(--coral)' : 'var(--dust)', display: 'flex', flexShrink: 0 }}>
-              <IconSend />
-            </button>
+            <motion.button
+              onClick={handleSend}
+              disabled={isLoading || !input.trim()}
+              whileHover={{ scale: input.trim() ? 1.1 : 1 }}
+              whileTap={{ scale: input.trim() ? 0.92 : 1 }}
+              style={{ background: 'none', border: 'none', padding: '0 4px', cursor: input.trim() ? 'pointer' : 'default', color: input.trim() ? 'var(--coral)' : 'var(--dust)', display: 'flex', flexShrink: 0 }}
+            >
+              <motion.div animate={isLoading ? { rotate: 360 } : {}} transition={isLoading ? { duration: 2, repeat: Infinity, ease: 'linear' } : {}}>
+                <IconSend />
+              </motion.div>
+            </motion.button>
           </div>
         </div>
       </div>
