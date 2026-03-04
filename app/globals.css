@@ -74,9 +74,12 @@ body {
   overflow: hidden;
 }
 
-::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar { width: 0; height: 0; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: transparent; }
+
+/* Firefox scrollbar hide */
+* { scrollbar-width: none; }
 
 @keyframes marquee {
   0% {

@@ -107,6 +107,18 @@
 - **Focused**: 2px solid var(--coral)
 - **Effect**: Border grows/shrinks smoothly, visual feedback for active input
 
+### Interactive Links & Buttons
+- **Links in replies**: NEVER use underlined text links
+- **Max links per reply**: One action link maximum per message
+- **Button style**: Consistent card or list-style buttons that work reliably
+- **No mixed patterns**: Do not mix link styles across same component
+
+### Page Loading States
+- **Slow page detection**: Show centered spinner when page load > 1.5s
+- **Spinner style**: Circle dotted spinner (animated border rotation)
+- **Position**: Centered on page, z-index above other content
+- **Animation**: Continuous rotation, 1.5s cycle time
+
 ## Artifact System
 
 ### Chart Generation & Detection
