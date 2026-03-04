@@ -179,10 +179,18 @@ export default function ChatPage() {
       // Build conversation history: user message + previous agent responses
       const conversationHistory = [userMsg, ...agentResponses]
 
+      // Add debate system message if not first agent
+      const systemPrompt = currentAgentIdx > 0
+        ? `You are ${agentName}. The previous agents have shared their perspectives. Challenge, debate, or build upon their points. Disagree if you see flaws. Be authentic and engaging in the discussion.`
+        : `You are ${agentName}. Give your initial perspective on this market question.`
+
       fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: conversationHistory }),
+        body: JSON.stringify({
+          messages: conversationHistory,
+          systemPrompt: systemPrompt
+        }),
       })
         .then(res => res.text())
         .then(text => {
@@ -209,7 +217,18 @@ export default function ChatPage() {
         })
         .catch(err => {
           console.error(`Agent ${agentName} error:`, err)
-          setMessages(prev => prev.filter(m => m.id !== spinnerId))
+          // Keep the message in thread but show error
+          const errorResponse: Message = {
+            id: spinnerId,
+            role: 'assistant',
+            text: 'I need to reconsider that position based on the debate.',
+            agent: agentName,
+          }
+          setMessages(prev =>
+            prev.map(m =>
+              m.id === spinnerId ? errorResponse : m
+            )
+          )
           currentAgentIdx++
           setTimeout(queryNextAgent, 800)
         })
