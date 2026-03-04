@@ -71,6 +71,7 @@ body {
   background-color: var(--bg);
   color: var(--cream);
   line-height: 1.5;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar { width: 4px; }

@@ -152,9 +152,10 @@ export default function DiscoverPage() {
           {displayedSources.map((source, i) => (
             <motion.div
               key={`${active}-${i}-${source.title}`}
+              layoutId={`${active}-${source.title}`}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: 'easeInOut' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 300, delay: i * 0.04 }}
               onClick={() => {
                 setSelectedSource(source)
                 setDetailOpen(true)

@@ -28,6 +28,9 @@ const PROMPT_SUGGESTIONS = [
   "Should I hedge up?",
   "Which sectors are getting hot?",
   "Whats the dividend action look like?",
+  "Compare NVDA vs AMD last 90 days →",
+  "Chart my portfolio allocation →",
+  "Show sector exposure heatmap →",
 ]
 
 const IconSend = () => (
@@ -241,7 +244,7 @@ export default function ChatPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
       <PageHeader title="Chat" />
 
-      <div style={{ padding: '12px 20px', flexShrink: 0, overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none', background: 'rgba(0,0,0,0.2)' }}>
+      <div style={{ padding: '12px 20px', flexShrink: 0, overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <div style={{ display: 'inline-flex', gap: 12, animation: 'marquee 40s linear infinite' }}>
           {HOLDINGS.map((h) => (
             <div
@@ -436,17 +439,18 @@ export default function ChatPage() {
                 }, 50)
               }}
               style={{
-                padding: '4px 0',
-                background: 'transparent',
-                border: 'none',
+                padding: '6px 12px',
+                background: 'rgba(28, 24, 16, 0.7)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 6,
                 fontFamily: "'EB Garamond', serif",
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: 300,
                 color: 'var(--cream2)',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 flexShrink: 0,
-                transition: 'color 0.2s',
+                transition: 'all 0.2s',
               }}
               onMouseOver={(e) => {
                 e.currentTarget.style.color = 'var(--coral)'
