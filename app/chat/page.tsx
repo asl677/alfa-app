@@ -425,7 +425,7 @@ export default function ChatPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)' }}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)' }}
             >
               {m.role === 'assistant' && !isLoading && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
