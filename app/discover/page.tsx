@@ -73,6 +73,18 @@ export default function DiscoverPage() {
   const [sources, setSources] = useState(SOURCES)
   const [selectedSource, setSelectedSource] = useState<typeof sources[0] | null>(null)
   const [detailOpen, setDetailOpen] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  const handleRefresh = () => {
+    setIsRefreshing(true)
+    setTimeout(() => {
+      setSources(generateSources())
+      setIsRefreshing(false)
+    }, 1200)
+  }
+
+  // Show Insights data only when active
+  const displayedSources = active === 'Insights' ? generateSources() : sources
 
   // Refresh sources every minute
   useEffect(() => {
@@ -87,25 +99,52 @@ export default function DiscoverPage() {
       <PageHeader title="Discover" />
 
       {/* chipRow2 — gap 10, padding [10,20] */}
-      <div style={{ display: 'flex', gap: 10, padding: '10px 20px', flexShrink: 0 }}>
-        {CHIPS.map((chip) => (
-          <button key={chip} onClick={() => setActive(chip)} style={{
-            padding: '8px 18px', borderRadius: 6, cursor: 'pointer',
-            fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
-            background: active === chip ? 'var(--coral)' : 'var(--surface)',
-            color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
-            border: active === chip ? 'none' : '1px solid var(--rule)',
-            transition: 'all 0.15s',
-          }}>
-            {chip}
-          </button>
-        ))}
+      <div style={{ display: 'flex', gap: 10, padding: '10px 20px', flexShrink: 0, justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 10 }}>
+          {CHIPS.map((chip) => (
+            <button key={chip} onClick={() => setActive(chip)} style={{
+              padding: '8px 18px', borderRadius: 6, cursor: 'pointer',
+              fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
+              background: active === chip ? 'var(--coral)' : 'var(--surface)',
+              color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
+              border: active === chip ? 'none' : '1px solid var(--rule)',
+              transition: 'all 0.15s',
+            }}>
+              {chip}
+            </button>
+          ))}
+        </div>
+
+        <button onClick={handleRefresh} disabled={isRefreshing} style={{
+          background: 'none',
+          border: 'none',
+          cursor: isRefreshing ? 'not-allowed' : 'pointer',
+          color: 'var(--coral)',
+          padding: '4px 8px',
+          display: 'flex',
+          alignItems: 'center',
+        }}>
+          <motion.svg
+            animate={{ rotate: isRefreshing ? 360 : 0 }}
+            transition={{ duration: 1.5, repeat: isRefreshing ? Infinity : 0 }}
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeDasharray="4 4"
+            style={{ transformOrigin: '12px 12px' }}
+          >
+            <circle cx="12" cy="12" r="10" />
+          </motion.svg>
+        </button>
       </div>
 
       {/* notificationsContainer — vertical, gap 12, padding [0,12] */}
       <AnimatePresence>
         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '0 12px' }}>
-          {sources.map((source, i) => (
+          {displayedSources.map((source, i) => (
             <motion.div
               key={source.title}
               custom={i} variants={fadeUp} initial="hidden" animate="visible"

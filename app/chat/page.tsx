@@ -20,14 +20,14 @@ const AGENT_CONFIG: Record<string, { shortName: string; fullName: string; color:
 }
 
 const PROMPT_SUGGESTIONS = [
-  "What's moving right now?",
-  "How should I rebalance?",
-  "What earnings are coming?",
-  "Is this a good entry?",
-  "What's your market outlook?",
-  "Should I hedge my portfolio?",
-  "Which sectors are hot?",
-  "What about dividend yields?",
+  "Yo, what's popping in the market?",
+  "How do I rebalance this thing?",
+  "What earnings are dropping soon?",
+  "Good time to jump in?",
+  "What's your vibe on the market?",
+  "Should I hedge up?",
+  "Which sectors are getting hot?",
+  "Whats the dividend action look like?",
 ]
 
 const IconSend = () => (
