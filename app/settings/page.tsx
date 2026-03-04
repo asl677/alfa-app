@@ -7,7 +7,7 @@ export default function SettingsPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
-      <PageHeader title="SETTINGS" />
+      <PageHeader title="Settings" />
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px' }}>
         <h1 style={{ fontFamily: "'EB Garamond', serif", fontSize: 28, fontWeight: 300, color: 'var(--cream)', padding: '20px 0 8px', letterSpacing: -0.5 }}>

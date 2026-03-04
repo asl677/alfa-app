@@ -346,47 +346,52 @@ export default function ChatPage() {
           </motion.div>
         )}
 
-        {messages.map((m, idx) => (
-          <motion.div key={m.id}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] }}
-            style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start' }}
-          >
-            {m.role === 'assistant' && <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)', marginBottom: 4 }}>{m.agent || 'Alfa'}</div>}
-            <div style={{ maxWidth: m.role === 'user' ? 240 : 280, fontFamily: "'EB Garamond', serif", fontSize: 15, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7 }}>
-              {m.text}
-              {m.role === 'assistant' && isLoading && <span style={{ display: 'inline-block', width: 2, height: 14, background: 'var(--coral)', marginLeft: 2, animation: 'blink 1s infinite' }} />}
-            </div>
-          </motion.div>
-        ))}
-
-        {isLoading && (messages.length > 0 && messages[messages.length - 1].role === 'user' || messages.length === 0) && activeAgents.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: messages.length * 0.05 }}
-            style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}
-          >
-            <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)' }}>
-              {showThinking ? `${getAgentName(agentIndex)} thinking...` : getAgentName(agentIndex)}
-            </div>
-            <motion.svg
-              animate={{ rotate: 360 }}
-              transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke={showThinking ? 'var(--cream2)' : 'var(--coral)'}
-              strokeWidth="2"
-              strokeDasharray="4 4"
-              style={{ transformOrigin: '12px 12px' }}
+        <AnimatePresence>
+          {messages.map((m, idx) => (
+            <motion.div key={m.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.4, delay: idx * 0.02, ease: [0.16, 1, 0.3, 1] as [number,number,number,number] }}
+              style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start' }}
             >
-              <circle cx="12" cy="12" r="10" />
-            </motion.svg>
-          </motion.div>
-        )}
+              {m.role === 'assistant' && <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)', marginBottom: 4 }}>{m.agent || 'Alfa'}</div>}
+              <div style={{ maxWidth: m.role === 'user' ? 240 : 280, fontFamily: "'EB Garamond', serif", fontSize: 15, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7 }}>
+                {m.text}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {isLoading && (messages.length > 0 && messages[messages.length - 1].role === 'user' || messages.length === 0) && activeAgents.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.3 }}
+              style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}
+            >
+              <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)' }}>
+                {showThinking ? `${getAgentName(agentIndex)} thinking...` : getAgentName(agentIndex)}
+              </div>
+              <motion.svg
+                animate={{ rotate: 360 }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke={showThinking ? 'var(--cream2)' : 'var(--coral)'}
+                strokeWidth="2"
+                strokeDasharray="4 4"
+                style={{ transformOrigin: '12px 12px' }}
+              >
+                <circle cx="12" cy="12" r="10" />
+              </motion.svg>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
 
         <div ref={messagesEndRef} />
@@ -521,7 +526,7 @@ export default function ChatPage() {
 
       <style>{`
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
       `}</style>
     </div>
   )

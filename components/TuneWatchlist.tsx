@@ -1,7 +1,8 @@
 'use client'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { useAgents } from '@/app/context/agents'
+import BottomSheet from './BottomSheet'
 
 const STOCK_POOLS = {
   ashley: [
@@ -22,12 +23,6 @@ const STOCK_POOLS = {
     { symbol: 'CL', name: 'Crude Oil', tracked: false },
     { symbol: 'RIG', name: 'Transocean', tracked: true },
   ],
-}
-
-const sheet = {
-  hidden: { y: '100%' },
-  visible: { y: 0, transition: { type: 'spring' as const, damping: 30, stiffness: 300 } },
-  exit: { y: '100%', transition: { duration: 0.2 } },
 }
 
 export default function TuneWatchlist({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -59,150 +54,92 @@ export default function TuneWatchlist({ isOpen, onClose }: { isOpen: boolean; on
     setItems(prev => prev.map(item => item.symbol === symbol ? { ...item, tracked: !item.tracked } : item))
   }
 
-  if (!isOpen) return null
-
   return (
-    <AnimatePresence>
-      <motion.div
-        key="backdrop"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        style={{
-          position: 'fixed', inset: 0,
-          background: 'rgba(0,0,0,0.6)',
-          backdropFilter: 'blur(8px)',
-          zIndex: 100,
-        }}
-      />
-      <motion.div
-        key="sheet"
-        variants={sheet}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        drag="y"
-        dragConstraints={{ top: 0 }}
-        onDragEnd={(_, info) => { if (info.offset.y > 80) onClose() }}
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: 101,
-          background: 'rgba(13,13,13,0.92)',
-          backdropFilter: 'blur(32px)',
-          borderRadius: '28px 28px 0 0',
-          borderTop: '1px solid rgba(255,255,255,0.09)',
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '12px 0 16px' }}>
-          <div style={{ width: 36, height: 4, borderRadius: 2, background: 'var(--dust)' }} />
-        </div>
-
+    <BottomSheet isOpen={isOpen} onClose={onClose} title="Tune Watchlist">
+      {items.map((item, idx) => (
         <motion.div
-          style={{ padding: '0 20px 40px', maxHeight: '80vh', overflowY: 'auto' }}
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
-          initial="hidden"
-          animate="visible"
+          key={item.symbol}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 14,
+            padding: '18px 0',
+            borderBottom: '1px solid var(--rule-subtle)',
+          }}
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 + idx * 0.05, duration: 0.3 }}
         >
-          <motion.h2
-            style={{
-              fontFamily: "'EB Garamond', serif",
-              fontSize: 28,
-              fontWeight: 300,
-              color: 'var(--cream)',
-              letterSpacing: -0.8,
-              marginBottom: 8,
-            }}
-            variants={{ initial: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 8 } }}
-          >
-            Tune Watchlist
-          </motion.h2>
-
-          {items.map((item) => (
-            <motion.div
-              key={item.symbol}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                padding: '18px 0',
-                borderBottom: '1px solid var(--rule-subtle)',
-              }}
-              variants={{ initial: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 }, hidden: { opacity: 0, x: -10 } }}
-            >
-              <div style={{ flex: 1 }}>
-                <div style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 15,
-                  fontWeight: 500,
-                  color: item.tracked ? 'var(--cream)' : 'var(--dust)',
-                  letterSpacing: 1,
-                }}>
-                  {item.symbol}
-                </div>
-                <div style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 13,
-                  color: 'var(--dust)',
-                  marginTop: 3,
-                }}>
-                  {item.name}
-                </div>
-              </div>
-
-              <button
-                onClick={() => toggleItem(item.symbol)}
-                style={{
-                  width: 48,
-                  height: 28,
-                  borderRadius: 14,
-                  background: item.tracked ? 'var(--cream)' : 'var(--bg2)',
-                  border: item.tracked ? 'none' : '1px solid var(--rule)',
-                  padding: 3,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  justifyContent: item.tracked ? 'flex-end' : 'flex-start',
-                  alignItems: 'center',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                <div style={{
-                  width: 22,
-                  height: 22,
-                  borderRadius: '50%',
-                  background: item.tracked ? 'var(--pure-black)' : 'var(--dust)',
-                }} />
-              </button>
-            </motion.div>
-          ))}
-
-          <motion.button
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              width: '100%',
-              padding: '18px 0',
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
+          <div style={{ flex: 1 }}>
+            <div style={{
               fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: 14,
+              fontSize: 15,
+              fontWeight: 500,
+              color: item.tracked ? 'var(--cream)' : 'var(--dust)',
+              letterSpacing: 1,
+            }}>
+              {item.symbol}
+            </div>
+            <div style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: 13,
               color: 'var(--dust)',
+              marginTop: 3,
+            }}>
+              {item.name}
+            </div>
+          </div>
+
+          <button
+            onClick={() => toggleItem(item.symbol)}
+            style={{
+              width: 48,
+              height: 28,
+              borderRadius: 14,
+              background: item.tracked ? 'var(--cream)' : 'var(--bg2)',
+              border: item.tracked ? 'none' : '1px solid var(--rule)',
+              padding: 3,
+              cursor: 'pointer',
+              display: 'flex',
+              justifyContent: item.tracked ? 'flex-end' : 'flex-start',
+              alignItems: 'center',
+              transition: 'all 0.2s ease',
             }}
-            variants={{ initial: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 8 } }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-            </svg>
-            Add stock
-          </motion.button>
+            <div style={{
+              width: 22,
+              height: 22,
+              borderRadius: '50%',
+              background: item.tracked ? 'var(--pure-black)' : 'var(--dust)',
+            }} />
+          </button>
         </motion.div>
-      </motion.div>
-    </AnimatePresence>
+      ))}
+
+      <motion.button
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 8,
+          width: '100%',
+          padding: '18px 0',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontSize: 14,
+          color: 'var(--dust)',
+        }}
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 + items.length * 0.05 + 0.15, duration: 0.3 }}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Add stock
+      </motion.button>
+    </BottomSheet>
   )
 }

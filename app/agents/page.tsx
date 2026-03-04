@@ -27,7 +27,7 @@ export default function AgentsPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
-      <PageHeader title="AGENTS" />
+      <PageHeader title="Agents" />
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px' }}>
         <motion.h1 custom={0} variants={fadeUp} initial="hidden" animate="visible"
