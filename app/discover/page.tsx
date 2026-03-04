@@ -123,34 +123,37 @@ export default function DiscoverPage() {
       {/* notificationsContainer — vertical, gap 12, padding [0,12] */}
       <AnimatePresence>
         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 12px' }}>
-          {isRefreshing && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12 }}
-            >
-              <motion.svg
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--coral)"
-                strokeWidth="1.5"
-                strokeDasharray="4 4"
-                style={{ transformOrigin: '50% 50%' }}
+          <AnimatePresence>
+            {isRefreshing && (
+              <motion.div
+                key="refresh-spinner"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12, flexShrink: 0 }}
               >
-                <circle cx="12" cy="12" r="10" />
-              </motion.svg>
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)' }}>Refreshing...</span>
-            </motion.div>
-          )}
+                <motion.svg
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--coral)"
+                  strokeWidth="1.5"
+                  strokeDasharray="4 4"
+                  style={{ transformOrigin: '50% 50%' }}
+                >
+                  <circle cx="12" cy="12" r="10" />
+                </motion.svg>
+                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)' }}>Refreshing...</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
           {displayedSources.map((source, i) => (
             <motion.div
-              key={source.title}
+              key={`${active}-${i}-${source.title}`}
               custom={i} variants={fadeUp} initial="hidden" animate="visible"
               onClick={() => {
                 setSelectedSource(source)
