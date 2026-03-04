@@ -14,6 +14,12 @@ const INITIAL_AGENTS: Agent[] = [
   { id: 'ashley', name: 'ANALYST ASHLEY', desc: 'Market scanner. Concise signals.', active: true },
   { id: 'mike', name: 'MONITOR MIKE', desc: 'Deep analyst. Fundamentals & sentiment.', active: true },
   { id: 'tom', name: 'TRADER TOM', desc: 'Friendly advisor. Explains like a human.', active: false },
+  { id: 'portfolio', name: 'PORTFOLIO PETE', desc: 'Allocation strategist. Rebalancing focus.', active: false },
+  { id: 'risk', name: 'RISK RACHEL', desc: 'Volatility expert. Risk-adjusted returns.', active: false },
+  { id: 'macro', name: 'MACRO MARCUS', desc: 'Economic trends. Macro outlook & flows.', active: false },
+  { id: 'news', name: 'NEWS NADIA', desc: 'News aggregator. Breaking catalysts.', active: false },
+  { id: 'crypto', name: 'CRYPTO CARLOS', desc: 'Digital assets specialist. On-chain data.', active: false },
+  { id: 'options', name: 'OPTIONS OLE', desc: 'Derivatives expert. IV & skew analysis.', active: false },
 ]
 
 export default function AgentsSheet({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
