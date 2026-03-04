@@ -223,7 +223,7 @@ export default function ChatPage() {
       <PageHeader title="Chat" />
 
       <div style={{ padding: '12px 20px', flexShrink: 0, overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none', background: 'rgba(0,0,0,0.2)' }}>
-        <div style={{ display: 'inline-flex', gap: 24, animation: 'marquee 40s linear infinite' }}>
+        <div style={{ display: 'inline-flex', gap: 12, animation: 'marquee 40s linear infinite' }}>
           {HOLDINGS.map((h) => (
             <div
               key={h.symbol}
@@ -501,7 +501,7 @@ export default function ChatPage() {
 
       <style>{`
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
       `}</style>
     </div>
   )
