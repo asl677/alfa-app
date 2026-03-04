@@ -7,6 +7,9 @@ import PageTransition from '@/components/PageTransition'
 export const metadata: Metadata = {
   title: 'Alfa by Boosted.ai',
   description: 'Personal financial AI agent platform',
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export const viewport: Viewport = {
