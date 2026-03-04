@@ -367,7 +367,7 @@ export default function ChatPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 8 }}
+            style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'flex-start' }}
           >
             <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)' }}>
               {getAgentName(agentIndex)}
@@ -440,7 +440,7 @@ export default function ChatPage() {
               }}
               style={{
                 padding: '6px 12px',
-                background: 'rgba(28, 24, 16, 0.7)',
+                background: 'transparent',
                 border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: 6,
                 fontFamily: "'EB Garamond', serif",
