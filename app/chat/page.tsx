@@ -370,22 +370,19 @@ export default function ChatPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.3 }}
-              style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}
+              style={{ padding: '0 10px', display: 'flex', alignItems: 'center', gap: 8 }}
             >
-              <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)' }}>
-                {showThinking ? `${getAgentName(agentIndex)} thinking...` : getAgentName(agentIndex)}
-              </div>
               <motion.svg
                 animate={{ rotate: 360 }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-                width="24"
-                height="24"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke={showThinking ? 'var(--cream2)' : 'var(--coral)'}
-                strokeWidth="2"
+                stroke="var(--coral)"
+                strokeWidth="1.5"
                 strokeDasharray="4 4"
-                style={{ transformOrigin: '12px 12px' }}
+                style={{ transformOrigin: '50% 50%' }}
               >
                 <circle cx="12" cy="12" r="10" />
               </motion.svg>
