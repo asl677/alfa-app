@@ -266,7 +266,7 @@ export default function ChatPage() {
           }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>
           </svg>
         </button>
       </div>
@@ -278,60 +278,35 @@ export default function ChatPage() {
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         style={{ overflow: 'hidden', flexShrink: 0 }}
       >
-        <div style={{ padding: '12px 20px', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-        <div style={{ display: 'inline-flex', gap: 12, animation: 'marquee 40s linear infinite' }}>
-          {HOLDINGS.map((h) => (
-            <div
-              key={h.symbol}
-              onClick={() => {
-                setSelectedHolding(h)
-                setHoldingAnalysisOpen(true)
-              }}
-              style={{ display: 'flex', gap: 16, flexShrink: 0, minWidth: 'fit-content', cursor: 'pointer', padding: '8px 12px', borderRadius: 8, transition: 'all 0.2s', }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
-                e.currentTarget.style.borderRadius = '8px'
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.background = 'transparent'
-              }}
-            >
-              <div>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 13, color: 'var(--cream)', letterSpacing: 0.5, fontWeight: 600 }}>{h.symbol}</div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)', marginTop: 2 }}>{h.name}</div>
+        <div style={{ padding: '12px 20px', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none', background: 'var(--bg)' }}>
+        <div style={{ display: 'inline-flex', gap: 12, animation: 'marquee 60s linear infinite' }}>
+          {[...Array(4)].map((_, round) =>
+            HOLDINGS.map((h) => (
+              <div
+                key={`${round}-${h.symbol}`}
+                onClick={() => {
+                  setSelectedHolding(h)
+                  setHoldingAnalysisOpen(true)
+                }}
+                style={{ display: 'flex', gap: 16, flexShrink: 0, minWidth: 'fit-content', cursor: 'pointer', padding: '8px 12px', borderRadius: 8, transition: 'all 0.2s' }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'transparent'
+                }}
+              >
+                <div>
+                  <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 13, color: 'var(--cream)', letterSpacing: 0.5, fontWeight: 600 }}>{h.symbol}</div>
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)', marginTop: 2 }}>{h.name}</div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 13, color: 'var(--cream)', fontWeight: 600 }}>{h.price}</div>
+                  <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: h.neg ? '#f44336' : '#4caf50', marginTop: 2 }}>{h.change}</div>
+                </div>
               </div>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 13, color: 'var(--cream)', fontWeight: 600 }}>{h.price}</div>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: h.neg ? '#f44336' : '#4caf50', marginTop: 2 }}>{h.change}</div>
-              </div>
-            </div>
-          ))}
-          {/* Loop the holdings for seamless marquee */}
-          {HOLDINGS.map((h) => (
-            <div
-              key={`loop-${h.symbol}`}
-              onClick={() => {
-                setSelectedHolding(h)
-                setHoldingAnalysisOpen(true)
-              }}
-              style={{ display: 'flex', gap: 16, flexShrink: 0, minWidth: 'fit-content', cursor: 'pointer', padding: '8px 12px', borderRadius: 8, transition: 'all 0.2s', }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.background = 'transparent'
-              }}
-            >
-              <div>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 13, color: 'var(--cream)', letterSpacing: 0.5, fontWeight: 600 }}>{h.symbol}</div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)', marginTop: 2 }}>{h.name}</div>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 13, color: 'var(--cream)', fontWeight: 600 }}>{h.price}</div>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: h.neg ? '#f44336' : '#4caf50', marginTop: 2 }}>{h.change}</div>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
         <style>{`::-webkit-scrollbar { display: none; }`}</style>
         </div>
