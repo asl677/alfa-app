@@ -417,9 +417,6 @@ export default function ChatPage() {
             transition={{ duration: 0.3 }}
             style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'flex-start' }}
           >
-            <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)' }}>
-              {getAgentName(agentIndex)}
-            </div>
             <motion.svg
               animate={{ rotate: 360 }}
               transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
