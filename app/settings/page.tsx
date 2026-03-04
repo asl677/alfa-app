@@ -1,6 +1,8 @@
 'use client'
+import { motion } from 'framer-motion'
 import { useTheme } from '@/components/ThemeProvider'
 import PageHeader from '@/components/PageHeader'
+import { fadeUp } from '@/lib/animations'
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
@@ -10,16 +12,16 @@ export default function SettingsPage() {
       <PageHeader title="Settings" />
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px' }}>
-        <h1 style={{ fontFamily: "'EB Garamond', serif", fontSize: 28, fontWeight: 300, color: 'var(--cream)', padding: '20px 0 8px', letterSpacing: -0.5 }}>
+        <motion.h1 custom={0} variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'EB Garamond', serif", fontSize: 28, fontWeight: 300, color: 'var(--cream)', padding: '20px 0 8px', letterSpacing: -0.5 }}>
           Settings
-        </h1>
+        </motion.h1>
 
-        <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)' }}>
+        <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)' }}>
           Theme
-        </div>
+        </motion.div>
 
-        {(['dark', 'light', 'classic'] as const).map((t) => (
-          <button key={t} onClick={() => setTheme(t)} style={{
+        {(['dark', 'light', 'classic'] as const).map((t, idx) => (
+          <motion.button key={t} custom={2 + idx} variants={fadeUp} initial="hidden" animate="visible" onClick={() => setTheme(t)} style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
             width: '100%', padding: '16px 0',
             background: 'none', border: 'none', cursor: 'pointer',
@@ -33,20 +35,20 @@ export default function SettingsPage() {
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             )}
-          </button>
+          </motion.button>
         ))}
 
-        <div style={{ marginTop: 32, fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)' }}>
+        <motion.div custom={5} variants={fadeUp} initial="hidden" animate="visible" style={{ marginTop: 32, fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)' }}>
           Account
-        </div>
-        <div style={{ padding: '16px 0', borderBottom: '1px solid var(--rule-subtle)', display: 'flex', justifyContent: 'space-between' }}>
+        </motion.div>
+        <motion.div custom={6} variants={fadeUp} initial="hidden" animate="visible" style={{ padding: '16px 0', borderBottom: '1px solid var(--rule-subtle)', display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, color: 'var(--cream)' }}>Plan</span>
           <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--cream2)' }}>Boosted Pro</span>
-        </div>
-        <div style={{ padding: '16px 0', borderBottom: '1px solid var(--rule-subtle)', display: 'flex', justifyContent: 'space-between' }}>
+        </motion.div>
+        <motion.div custom={7} variants={fadeUp} initial="hidden" animate="visible" style={{ padding: '16px 0', borderBottom: '1px solid var(--rule-subtle)', display: 'flex', justifyContent: 'space-between' }}>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, color: 'var(--cream)' }}>Version</span>
           <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--cream2)' }}>2.0.0</span>
-        </div>
+        </motion.div>
       </div>
     </div>
   )
