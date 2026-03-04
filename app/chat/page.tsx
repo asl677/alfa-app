@@ -13,10 +13,28 @@ const HOLDINGS = [
   { symbol: 'TSLA', name: 'Tesla Inc.',    price: '$12,257.40', change: '-2.08%', neg: true },
 ]
 
-const AGENT_CONFIG: Record<string, { shortName: string; fullName: string; color: string }> = {
-  ashley: { shortName: 'Analyst Ashley', fullName: 'Analyst Ashley', color: 'var(--positive)' },
-  mike: { shortName: 'Monitor Mike', fullName: 'Monitor Mike', color: 'var(--coral)' },
-  tom: { shortName: 'Tom Tracker', fullName: 'Tom Tracker', color: 'var(--accent-red)' },
+const AGENT_COLORS: Record<string, string> = {
+  ashley: '#4caf50',
+  mike: '#ff7043',
+  tom: '#f44336',
+  portfolio: '#2196f3',
+  risk: '#ff9800',
+  macro: '#9c27b0',
+  news: '#00bcd4',
+  crypto: '#ffc107',
+  options: '#e91e63',
+}
+
+const AGENT_CONFIG: Record<string, { shortName: string; fullName: string; color: string; dotColor: string }> = {
+  ashley: { shortName: 'Analyst Ashley', fullName: 'Analyst Ashley', color: 'var(--positive)', dotColor: AGENT_COLORS.ashley },
+  mike: { shortName: 'Monitor Mike', fullName: 'Monitor Mike', color: 'var(--coral)', dotColor: AGENT_COLORS.mike },
+  tom: { shortName: 'Tom Tracker', fullName: 'Tom Tracker', color: 'var(--accent-red)', dotColor: AGENT_COLORS.tom },
+  portfolio: { shortName: 'Portfolio Pete', fullName: 'Portfolio Pete', color: 'var(--coral)', dotColor: AGENT_COLORS.portfolio },
+  risk: { shortName: 'Risk Rachel', fullName: 'Risk Rachel', color: 'var(--coral)', dotColor: AGENT_COLORS.risk },
+  macro: { shortName: 'Macro Marcus', fullName: 'Macro Marcus', color: 'var(--coral)', dotColor: AGENT_COLORS.macro },
+  news: { shortName: 'News Nadia', fullName: 'News Nadia', color: 'var(--coral)', dotColor: AGENT_COLORS.news },
+  crypto: { shortName: 'Crypto Carlos', fullName: 'Crypto Carlos', color: 'var(--coral)', dotColor: AGENT_COLORS.crypto },
+  options: { shortName: 'Options Ole', fullName: 'Options Ole', color: 'var(--coral)', dotColor: AGENT_COLORS.options },
 }
 
 const PROMPT_SUGGESTIONS = [
@@ -66,6 +84,16 @@ export default function ChatPage() {
   const getAgentName = (index: number) => {
     if (activeAgents.length === 0) return 'Monitor Mike'
     return AGENT_CONFIG[activeAgents[index % activeAgents.length].id].fullName
+  }
+
+  // Get agent dot color from agent name
+  const getAgentDotColor = (agentName: string) => {
+    for (const [key, config] of Object.entries(AGENT_CONFIG)) {
+      if (config.fullName === agentName) {
+        return config.dotColor
+      }
+    }
+    return '#ff7043' // Default to coral if not found
   }
 
   // Simulate agent thinking states
@@ -312,64 +340,74 @@ export default function ChatPage() {
         </div>
       </motion.div>
 
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 10px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 10px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
         {messages.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 8 }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)' }}
           >
-            <div style={{ display: 'inline-flex', alignSelf: 'flex-start', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)' }}>
-              Monitor Mike
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)', marginBottom: 8 }}>
+              <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#ff7043', flexShrink: 0 }} />
+              Alfa Intro
             </div>
-            <motion.div
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 0 }}
-              transition={{ duration: 0.3, delay: 1.0 }}
-              style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
-            >
-              <motion.svg
-                animate={{ rotate: 360 }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--coral)"
-                strokeWidth="2"
-                strokeDasharray="4 4"
-                style={{ transformOrigin: '12px 12px' }}
-              >
-                <circle cx="12" cy="12" r="10" />
-              </motion.svg>
-            </motion.div>
-            <motion.div
-              key="message"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 1.2 }}
-              style={{ fontFamily: "'EB Garamond', serif", fontSize: 15, fontWeight: 300, color: 'var(--cream2)', lineHeight: 1.7, maxWidth: 280 }}
-            >
-              Markets are mostly down today. Your portfolio is off -1.96% (-$1,247). NVDA leading losses at -5.51%, MSFT the only green at +0.27%.
-            </motion.div>
+            <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: 'var(--cream2)', lineHeight: 1.7, width: '100%' }}>
+              Hey! I'm Alfa, your AI investment analyst. Ask me about your portfolio, market trends, earnings, sector rotation, or use prompts like "Compare NVDA vs AMD" to generate charts. Your active agents are analyzing the market 24/7 — let's get to work.
+            </div>
           </motion.div>
         )}
 
-        {messages.map((m) => (
-          <motion.div key={m.id}
-            layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start' }}
-          >
-            {m.role === 'assistant' && <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)', marginBottom: 4 }}>{m.agent || 'Alfa'}</div>}
-            <div style={{ maxWidth: m.role === 'user' ? 240 : 280, fontFamily: "'EB Garamond', serif", fontSize: 15, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7 }}>
-              {m.text}
-            </div>
-          </motion.div>
-        ))}
+        {messages.map((m) => {
+          const isLoading = m.role === 'assistant' && m.text === '...'
+          return (
+            <motion.div key={m.id}
+              layout
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)' }}
+            >
+              {m.role === 'assistant' && !isLoading && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)' }}>
+                    <div
+                      style={{
+                        width: 4,
+                        height: 4,
+                        borderRadius: '50%',
+                        background: getAgentDotColor(m.agent || 'Alfa'),
+                        flexShrink: 0,
+                      }}
+                    />
+                    {m.agent || 'Alfa'}
+                  </div>
+                </div>
+              )}
+              {!isLoading && (
+                <div style={{ width: '100%', fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7 }}>
+                  {m.text}
+                </div>
+              )}
+              {isLoading && (
+                <motion.svg
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={getAgentDotColor(m.agent || 'Alfa')}
+                  strokeWidth="1.5"
+                  strokeDasharray="4 4"
+                  style={{ transformOrigin: '50% 50%', marginTop: 12 }}
+                >
+                  <circle cx="12" cy="12" r="10" />
+                </motion.svg>
+              )}
+            </motion.div>
+          )
+        })}
 
         {isLoading && (messages.length > 0 && messages[messages.length - 1].role === 'user' || messages.length === 0) && activeAgents.length > 0 && (
           <motion.div
@@ -402,8 +440,8 @@ export default function ChatPage() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div style={{ padding: '8px 20px 0', flexShrink: 0 }}>
-        <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div style={{ padding: '8px 20px 0', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
           {PROMPT_SUGGESTIONS.map((prompt, idx) => (
             <motion.button
               key={idx}
@@ -454,7 +492,7 @@ export default function ChatPage() {
                 border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: 6,
                 fontFamily: "'EB Garamond', serif",
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: 300,
                 color: 'var(--cream2)',
                 cursor: 'pointer',
@@ -476,8 +514,8 @@ export default function ChatPage() {
         </div>
       </div>
 
-      <div style={{ padding: '20px 20px 30px', flexShrink: 0 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 12, padding: '16px', minHeight: 100 }}>
+      <div style={{ padding: '20px 20px 30px', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 12, padding: '16px', minHeight: 100, maxWidth: '1020px', width: '100%' }}>
           <motion.div
             key={promptIndex}
             initial={{ opacity: 0 }}

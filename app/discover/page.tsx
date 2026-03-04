@@ -34,6 +34,12 @@ const SOURCES = [
   { agent: 'Monitor Mike', time: '4h', title: 'Fed Rate Decision', desc: 'Fed rate cut probability increased 25bp this month', risk: 'Low', action: 'Monitor', name: 'MarketWatch', domain: 'marketwatch.com' },
   { agent: 'Analyst Ashley', time: '15m', title: 'Tech Giants Diverge', desc: 'Mega-cap stocks showing divergence; rotation brewing', risk: 'High', action: 'Watch', name: 'Financial Times', domain: 'ft.com' },
   { agent: 'Tom Tracker', time: '45m', title: 'Oil Rally Continues', desc: 'Energy sector outperformance amid supply concerns', risk: 'Medium', action: 'Monitor', name: 'Seeking Alpha', domain: 'seekingalpha.com' },
+  { agent: 'Analyst Ashley', time: '8m', title: 'China Trade Tensions', desc: 'Tariff escalation expected to impact supply chains', risk: 'High', action: 'Watch', name: 'Bloomberg', domain: 'bloomberg.com' },
+  { agent: 'Monitor Mike', time: '22m', title: 'Credit Markets Stress', desc: 'High-yield spreads widening amid economic concerns', risk: 'Medium', action: 'Analyze', name: 'Reuters', domain: 'reuters.com' },
+  { agent: 'Tom Tracker', time: '37m', title: 'Renewable Energy Rally', desc: 'Solar stocks surging on new climate legislation', risk: 'Low', action: 'Monitor', name: 'CNBC', domain: 'cnbc.com' },
+  { agent: 'Analyst Ashley', time: '51m', title: 'Consumer Pullback Signal', desc: 'Retail spending decelerating faster than expected', risk: 'High', action: 'Alert', name: 'MarketWatch', domain: 'marketwatch.com' },
+  { agent: 'Monitor Mike', time: '63m', title: 'Crypto Momentum Builds', desc: 'Bitcoin breaking key resistance level on institutional buying', risk: 'High', action: 'Watch', name: 'Financial Times', domain: 'ft.com' },
+  { agent: 'Tom Tracker', time: '74m', title: 'Healthcare Sector Strength', desc: 'Pharma stocks rallying on pipeline breakthrough announcements', risk: 'Low', action: 'Monitor', name: 'Seeking Alpha', domain: 'seekingalpha.com' },
 ]
 
 const RISK_COLOR: Record<string, string> = { High: 'var(--accent-red)', Medium: 'var(--positive)', Low: 'var(--cream2)' }
@@ -98,30 +104,31 @@ export default function DiscoverPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
       <PageHeader title="Discover" />
 
-      {/* chipRow2 — gap 10, padding [10,20] */}
-      <div style={{ display: 'flex', gap: 10, padding: '10px 20px', flexShrink: 0, justifyContent: 'flex-start', alignItems: 'center' }}>
-        <div style={{ display: 'flex', gap: 10 }}>
-          {CHIPS.map((chip) => (
-            <button key={chip} onClick={() => {
-              setActive(chip)
-              setIsRefreshing(true)
-              setTimeout(() => setIsRefreshing(false), 1200)
-            }} style={{
-              padding: '8px 18px', borderRadius: 6, cursor: 'pointer',
-              fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
-              background: active === chip ? 'var(--coral)' : 'var(--surface)',
-              color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
-              border: active === chip ? 'none' : '1px solid var(--rule)',
-              transition: 'all 0.15s',
-            }}>
-              {chip}
-            </button>
-          ))}
+      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
+        {/* chipRow2 — gap 10, padding [20,20] */}
+        <div style={{ display: 'flex', gap: 10, padding: '20px 20px 0', flexShrink: 0, justifyContent: 'flex-start', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 10 }}>
+            {CHIPS.map((chip) => (
+              <button key={chip} onClick={() => {
+                setActive(chip)
+                setIsRefreshing(true)
+                setTimeout(() => setIsRefreshing(false), 1200)
+              }} style={{
+                padding: '8px 18px', borderRadius: 6, cursor: 'pointer',
+                fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
+                background: active === chip ? 'var(--coral)' : 'var(--surface)',
+                color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
+                border: active === chip ? 'none' : '1px solid var(--rule)',
+                transition: 'all 0.15s',
+              }}>
+                {chip}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* notificationsContainer — vertical, gap 12, padding [0,12] */}
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 12px' }}>
+        {/* notificationsContainer — vertical, gap 12, padding [0,12] */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 20px 0' }}>
         <AnimatePresence>
             {isRefreshing && (
               <motion.div
@@ -198,6 +205,7 @@ export default function DiscoverPage() {
             </div>
           ))}
         </AnimatePresence>
+        </div>
       </div>
 
       <SourceDetail isOpen={detailOpen} onClose={() => setDetailOpen(false)} source={selectedSource} />

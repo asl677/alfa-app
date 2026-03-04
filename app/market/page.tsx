@@ -18,7 +18,7 @@ export default function MarketPage() {
   const [active, setActive] = useState('All')
 
   return (
-    <div style={{ padding: '20px', maxWidth: 600 }}>
+    <div style={{ padding: '20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
       <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" style={{ marginBottom: 20 }}>
         <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 8 }}>
           DISCOVER

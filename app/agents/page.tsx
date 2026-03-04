@@ -29,12 +29,7 @@ export default function AgentsPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
       <PageHeader title="Agents" />
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px' }}>
-        <motion.h1 custom={0} variants={fadeUp} initial="hidden" animate="visible"
-          style={{ fontFamily: "'EB Garamond', serif", fontSize: 28, fontWeight: 300, color: 'var(--cream)', padding: '20px 0 8px', letterSpacing: -0.5 }}>
-          Agents
-        </motion.h1>
-
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
         {agents.map((a, i) => {
           const details = AGENT_DETAILS[a.id]
           return (

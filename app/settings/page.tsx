@@ -11,12 +11,8 @@ export default function SettingsPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
       <PageHeader title="Settings" />
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px' }}>
-        <motion.h1 custom={0} variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'EB Garamond', serif", fontSize: 28, fontWeight: 300, color: 'var(--cream)', padding: '20px 0 8px', letterSpacing: -0.5 }}>
-          Settings
-        </motion.h1>
-
-        <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
+        <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)', marginTop: 20 }}>
           Theme
         </motion.div>
 

@@ -34,7 +34,7 @@ export default function ArtifactsPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
       <PageHeader title="Artifacts" />
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
         {artifacts.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
