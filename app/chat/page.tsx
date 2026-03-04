@@ -143,12 +143,10 @@ export default function ChatPage() {
     setInput('')
     setIsLoading(true)
 
-    // Generate unique message IDs upfront
-    const userId = `user-${Date.now()}`
-    const agent1SpinnerId = `spinner-1-${Date.now()}`
-    const agent2SpinnerId = `spinner-2-${Date.now()}`
+    // Reset agent index for fresh debate on each query
+    setAgentIndex(0)
 
-    // Add user message
+    const userId = `user-${Date.now()}`
     const userMsg: Message = {
       id: userId,
       role: 'user',
@@ -156,88 +154,68 @@ export default function ChatPage() {
     }
     setMessages(prev => [...prev, userMsg])
 
-    // Add spinner for first agent
-    const agent1Name = getAgentName(agentIndex)
-    const spinner1: Message = {
-      id: agent1SpinnerId,
-      role: 'assistant',
-      text: '...',
-      agent: agent1Name,
-    }
-    setMessages(prev => [...prev, spinner1])
+    // Sequential agent responses with debate
+    const agentsToQuery = activeAgents
+    let agentResponses: Message[] = []
+    let currentAgentIdx = 0
 
-    // Fetch first agent response
-    fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: [userMsg] }),
-    })
-      .then(res => res.text())
-      .then(text => {
-        // Replace spinner with response using matching ID
-        setMessages(prev =>
-          prev.map(m =>
-            m.id === agent1SpinnerId
-              ? { id: agent1SpinnerId, role: 'assistant', text: text.trim() || 'Market conditions remain uncertain. Monitor your positions closely.', agent: agent1Name }
-              : m
-          )
-        )
-
-        // Second agent responds after delay
-        setTimeout(() => {
-          if (activeAgents.length < 2) {
-            // If only one agent, don't show second response
-            setAgentIndex(prev => prev + 1)
-            setIsLoading(false)
-            return
-          }
-          const agent2Name = getAgentName(agentIndex + 1)
-          const spinner2: Message = {
-            id: agent2SpinnerId,
-            role: 'assistant',
-            text: '...',
-            agent: agent2Name,
-          }
-          setMessages(prev => [...prev, spinner2])
-
-          // Get the first agent's response from messages for context
-          setMessages(prev => {
-            const firstAgentMsg = prev.find(m => m.id === agent1SpinnerId)
-
-            fetch('/api/chat', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                messages: [userMsg, firstAgentMsg || { role: 'assistant', text: '' }]
-              }),
-            })
-              .then(res => res.text())
-              .then(text => {
-                setMessages(curr =>
-                  curr.map(m =>
-                    m.id === agent2SpinnerId
-                      ? { id: agent2SpinnerId, role: 'assistant', text: text.trim() || 'Consider diversifying your portfolio across different sectors.', agent: agent2Name }
-                      : m
-                  )
-                )
-                setAgentIndex(prev => prev + 2)
-                setIsLoading(false)
-              })
-              .catch(err => {
-                console.error('Second agent error:', err)
-                setMessages(curr => curr.filter(m => m.id !== agent2SpinnerId))
-                setIsLoading(false)
-              })
-
-            return prev
-          })
-        }, 1500)
-      })
-      .catch(err => {
-        console.error('First agent error:', err)
-        setMessages(prev => prev.filter(m => m.id !== agent1SpinnerId))
+    const queryNextAgent = () => {
+      if (currentAgentIdx >= agentsToQuery.length) {
         setIsLoading(false)
+        return
+      }
+
+      const agentName = agentsToQuery[currentAgentIdx].name
+      const spinnerId = `spinner-${currentAgentIdx}-${Date.now()}`
+      const spinnerMsg: Message = {
+        id: spinnerId,
+        role: 'assistant',
+        text: '...',
+        agent: agentName,
+      }
+
+      setMessages(prev => [...prev, spinnerMsg])
+
+      // Build conversation history: user message + previous agent responses
+      const conversationHistory = [userMsg, ...agentResponses]
+
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: conversationHistory }),
       })
+        .then(res => res.text())
+        .then(text => {
+          const agentResponse: Message = {
+            id: spinnerId,
+            role: 'assistant',
+            text: text.trim() || 'I agree with my colleagues. Let me add my perspective.',
+            agent: agentName,
+          }
+          agentResponses.push(agentResponse)
+
+          // Replace spinner with response
+          setMessages(prev =>
+            prev.map(m =>
+              m.id === spinnerId
+                ? agentResponse
+                : m
+            )
+          )
+
+          currentAgentIdx++
+          // Small delay between agent responses for natural debate pacing
+          setTimeout(queryNextAgent, 800)
+        })
+        .catch(err => {
+          console.error(`Agent ${agentName} error:`, err)
+          setMessages(prev => prev.filter(m => m.id !== spinnerId))
+          currentAgentIdx++
+          setTimeout(queryNextAgent, 800)
+        })
+    }
+
+    queryNextAgent()
   }
 
   return (
