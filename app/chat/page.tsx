@@ -390,7 +390,7 @@ export default function ChatPage() {
         </div>
       </motion.div>
 
-      <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 0', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative' }}>
+      <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 20px', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative', boxSizing: 'border-box' }}>
         {messages.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
