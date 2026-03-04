@@ -396,7 +396,7 @@ export default function ChatPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
           >
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)', marginBottom: 8 }}>
               <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#ff7043', flexShrink: 0 }} />
@@ -416,7 +416,7 @@ export default function ChatPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
             >
               {m.role === 'assistant' && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
@@ -498,18 +498,15 @@ export default function ChatPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                setInput(prompt)
-                // Auto-send the prompt after a brief delay
-                setTimeout(() => {
-                  setInput('')
-                  setIsLoading(true)
+                // Auto-send the prompt without showing in input (no flicker)
+                setIsLoading(true)
 
-                  const userMsg: Message = {
-                    id: Date.now().toString(),
-                    role: 'user',
-                    text: prompt,
-                  }
-                  setMessages(prev => [...prev, userMsg])
+                const userMsg: Message = {
+                  id: Date.now().toString(),
+                  role: 'user',
+                  text: prompt,
+                }
+                setMessages(prev => [...prev, userMsg])
 
                   // Check if this is a chart/artifact prompt
                   const chartDetection = detectChartPrompt(prompt)
