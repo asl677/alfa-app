@@ -628,7 +628,6 @@ export default function ChatPage() {
                         setIsLoading(false)
                       })
                   }
-                }, 50)
               }}
               style={{
                 padding: '6px 12px',
