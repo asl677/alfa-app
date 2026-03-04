@@ -6,6 +6,7 @@ import AgentsSheet from '@/components/AgentsSheet'
 import TuneWatchlist from '@/components/TuneWatchlist'
 import HoldingAnalysis from '@/components/HoldingAnalysis'
 import { useAgents } from '@/app/context/agents'
+import { detectChartPrompt, generateChartData } from '@/lib/chartGenerator'
 
 const HOLDINGS = [
   { symbol: 'NVDA', name: 'NVIDIA Corp.',  price: '$4,992.03',  change: '-5.51%', neg: true },
@@ -504,7 +505,6 @@ export default function ChatPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-
                 setInput(prompt)
                 // Auto-send the prompt after a brief delay
                 setTimeout(() => {
@@ -518,28 +518,60 @@ export default function ChatPage() {
                   }
                   setMessages(prev => [...prev, userMsg])
 
-                  // Fetch agent response
-                  fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ messages: [...messages, userMsg] }),
-                  })
-                    .then(res => res.text())
-                    .then(text => {
-                      const agentMsg: Message = {
-                        id: (Date.now() + 1).toString(),
-                        role: 'assistant',
-                        text: text || 'Market conditions remain uncertain. Monitor your positions closely.',
-                        agent: getAgentName(agentIndex),
-                      }
-                      setMessages(prev => [...prev, agentMsg])
-                      setAgentIndex(prev => prev + 1)
-                      setIsLoading(false)
+                  // Check if this is a chart/artifact prompt
+                  const chartDetection = detectChartPrompt(prompt)
+
+                  if (chartDetection) {
+                    // Generate and store artifact
+                    const chartData = generateChartData(chartDetection.type)
+                    const artifact = {
+                      id: `artifact-${Date.now()}`,
+                      type: chartDetection.type,
+                      title: chartDetection.title,
+                      data: chartData,
+                      created_at: new Date().toISOString(),
+                    }
+
+                    // Save to localStorage
+                    const existing = localStorage.getItem('artifacts')
+                    const artifacts = existing ? JSON.parse(existing) : []
+                    artifacts.unshift(artifact)
+                    localStorage.setItem('artifacts', JSON.stringify(artifacts))
+
+                    // Show success message
+                    const agentMsg: Message = {
+                      id: (Date.now() + 1).toString(),
+                      role: 'assistant',
+                      text: `Generated: ${chartDetection.title}. Check your Artifacts to view and analyze.`,
+                      agent: getAgentName(agentIndex),
+                    }
+                    setMessages(prev => [...prev, agentMsg])
+                    setAgentIndex(prev => prev + 1)
+                    setIsLoading(false)
+                  } else {
+                    // Fetch agent response for regular prompts
+                    fetch('/api/chat', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ messages: [...messages, userMsg] }),
                     })
-                    .catch(err => {
-                      console.error('Error:', err)
-                      setIsLoading(false)
-                    })
+                      .then(res => res.text())
+                      .then(text => {
+                        const agentMsg: Message = {
+                          id: (Date.now() + 1).toString(),
+                          role: 'assistant',
+                          text: text || 'Market conditions remain uncertain. Monitor your positions closely.',
+                          agent: getAgentName(agentIndex),
+                        }
+                        setMessages(prev => [...prev, agentMsg])
+                        setAgentIndex(prev => prev + 1)
+                        setIsLoading(false)
+                      })
+                      .catch(err => {
+                        console.error('Error:', err)
+                        setIsLoading(false)
+                      })
+                  }
                 }, 50)
               }}
               style={{
