@@ -134,12 +134,12 @@ export default function ChatPage() {
       if (lastUserMessage) {
         // Trigger response from the first newly added agent
         const newAgents = activeAgents.filter(agent =>
-          !messages.some(m => m.agent === AGENT_CONFIG[agent.id]?.fullName)
+          !messages.some(m => m.agent === agent.fullName)
         )
 
         if (newAgents.length > 0) {
           const newAgent = newAgents[0]
-          const agentName = AGENT_CONFIG[newAgent.id].fullName
+          const agentName = newAgent.fullName
           const spinnerId = `spinner-${Date.now()}`
 
           setMessages(prev => [...prev, {
