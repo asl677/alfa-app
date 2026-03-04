@@ -7,17 +7,18 @@ export const fadeUp: Variants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { type: 'spring', stiffness: 80, damping: 15, mass: 0.5, delay: i * 0.2 },
+    transition: { type: 'spring', stiffness: 80, damping: 15, mass: 0.5, delay: i * 0.2, ease: 'easeInOut' },
   }),
 }
 
-// Standard stagger pattern: 0.2s delay between items with spring physics
+// Standard stagger pattern: 0.2s delay between items with spring physics + easeInOut
 export const staggerSpring = (i: number) => ({
   type: 'spring' as const,
   stiffness: 80,
   damping: 15,
   mass: 0.5,
   delay: i * 0.2,
+  ease: 'easeInOut' as const,
 })
 
 export const page: Variants = {
