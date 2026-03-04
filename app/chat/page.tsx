@@ -244,8 +244,8 @@ export default function ChatPage() {
           )
 
           currentAgentIdx++
-          // Small delay between agent responses for natural debate pacing
-          setTimeout(queryNextAgent, 800)
+          // Longer delay between agent responses for natural debate pacing
+          setTimeout(queryNextAgent, 1500)
         })
         .catch(err => {
           console.error(`Agent ${agentName} error:`, err)
@@ -262,11 +262,12 @@ export default function ChatPage() {
             )
           )
           currentAgentIdx++
-          setTimeout(queryNextAgent, 800)
+          setTimeout(queryNextAgent, 1500)
         })
     }
 
-    queryNextAgent()
+    // Delay before first agent starts responding
+    setTimeout(queryNextAgent, 1200)
   }
 
   const tickerToggleButton = (
