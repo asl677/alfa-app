@@ -59,6 +59,7 @@ export default function ChatPage() {
   const [selectedHolding, setSelectedHolding] = useState<typeof HOLDINGS[0] | null>(null)
   const [holdingAnalysisOpen, setHoldingAnalysisOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [tickerVisible, setTickerVisible] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // Get agent names from context
@@ -242,9 +243,42 @@ export default function ChatPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 20px 0' }}>
+        <div style={{ flex: 1 }} />
+        <button
+          onClick={() => setTickerVisible(!tickerVisible)}
+          style={{
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--cream2)',
+            padding: '4px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.2s',
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.color = 'var(--cream)'
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.color = 'var(--cream2)'
+          }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
       <PageHeader title="Chat" />
 
-      <div style={{ padding: '12px 20px', flexShrink: 0, overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <motion.div
+        initial={false}
+        animate={{ height: tickerVisible ? 'auto' : 0, opacity: tickerVisible ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        style={{ overflow: 'hidden', flexShrink: 0 }}
+      >
+        <div style={{ padding: '12px 20px', overflowX: 'auto', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <div style={{ display: 'inline-flex', gap: 12, animation: 'marquee 40s linear infinite' }}>
           {HOLDINGS.map((h) => (
             <div
@@ -300,7 +334,8 @@ export default function ChatPage() {
           ))}
         </div>
         <style>{`::-webkit-scrollbar { display: none; }`}</style>
-      </div>
+        </div>
+      </motion.div>
 
       <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 10px' }}>
         {messages.length === 0 && (
