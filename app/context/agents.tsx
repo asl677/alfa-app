@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, ReactNode, useMemo, useCallback } from 'react'
 
 interface Agent {
   id: string
@@ -106,14 +106,16 @@ const INITIAL_AGENTS: Agent[] = [
 export function AgentProvider({ children }: { children: ReactNode }) {
   const [agents, setAgents] = useState<Agent[]>(INITIAL_AGENTS)
 
-  const toggleAgent = (id: string) => {
+  const toggleAgent = useCallback((id: string) => {
     setAgents(prev => prev.map(a => a.id === id ? { ...a, active: !a.active } : a))
-  }
+  }, [])
 
-  const activeAgents = agents.filter(a => a.active)
+  const activeAgents = useMemo(() => agents.filter(a => a.active), [agents])
+
+  const value = useMemo(() => ({ agents, toggleAgent, activeAgents }), [agents, toggleAgent, activeAgents])
 
   return (
-    <AgentContext.Provider value={{ agents, toggleAgent, activeAgents }}>
+    <AgentContext.Provider value={value}>
       {children}
     </AgentContext.Provider>
   )

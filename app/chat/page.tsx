@@ -373,13 +373,13 @@ export default function ChatPage() {
         </div>
       </motion.div>
 
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 10px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
+      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 0', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
         {messages.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)' }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
           >
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)', marginBottom: 8 }}>
               <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#ff7043', flexShrink: 0 }} />
