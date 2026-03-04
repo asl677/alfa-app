@@ -352,7 +352,7 @@ export default function ChatPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
-              transition={{ type: 'spring', stiffness: 80, damping: 15, mass: 0.5, delay: idx * 0.08, ease: 'easeInOut' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30, delay: idx * 0.08 }}
               style={{ padding: '0 10px', display: 'flex', flexDirection: 'column', alignItems: m.role === 'user' ? 'flex-end' : 'flex-start' }}
             >
               {m.role === 'assistant' && <div style={{ display: 'inline-flex', padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)', marginBottom: 4 }}>{m.agent || 'Alfa'}</div>}

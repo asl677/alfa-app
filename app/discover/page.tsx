@@ -130,7 +130,7 @@ export default function DiscoverPage() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ type: 'spring', stiffness: 100, damping: 20, ease: 'easeInOut' }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12, flexShrink: 0 }}
               >
                 <motion.svg
