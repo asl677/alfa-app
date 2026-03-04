@@ -393,13 +393,14 @@ export default function ChatPage() {
 
         {messages.map((m) => {
           const isLoading = m.role === 'assistant' && m.text === '...'
+          const isUser = m.role === 'user'
           return (
             <motion.div key={m.id}
               layout
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)' }}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)' }}
             >
               {m.role === 'assistant' && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
@@ -434,7 +435,7 @@ export default function ChatPage() {
                 </div>
               )}
               {!isLoading && (
-                <div style={{ width: '100%', fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7 }}>
+                <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7, maxWidth: isUser ? '70%' : '100%', textAlign: isUser ? 'right' : 'left' }}>
                   {m.text}
                 </div>
               )}
