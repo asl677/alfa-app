@@ -10,7 +10,7 @@ const IconMenu = () => (
   </svg>
 )
 
-export default function PageHeader({ title }: { title: string }) {
+export default function PageHeader({ title, rightButton }: { title: string; rightButton?: React.ReactNode }) {
   const { openMenu } = useMenu()
 
   return (
@@ -59,8 +59,14 @@ export default function PageHeader({ title }: { title: string }) {
         {title}
       </span>
 
-      {/* Spacer matching design 24x24 */}
-      <div style={{ width: 24, height: 24 }} />
+      {/* Right button or spacer matching design 24x24 */}
+      {rightButton ? (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24 }}>
+          {rightButton}
+        </div>
+      ) : (
+        <div style={{ width: 24, height: 24 }} />
+      )}
     </header>
   )
 }

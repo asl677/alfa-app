@@ -241,36 +241,36 @@ export default function ChatPage() {
     queryNextAgent()
   }
 
+  const tickerToggleButton = (
+    <button
+      onClick={() => setTickerVisible(!tickerVisible)}
+      style={{
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        color: 'var(--cream2)',
+        padding: '0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'all 0.2s',
+      }}
+      onMouseOver={(e) => {
+        e.currentTarget.style.color = 'var(--cream)'
+      }}
+      onMouseOut={(e) => {
+        e.currentTarget.style.color = 'var(--cream2)'
+      }}
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>
+      </svg>
+    </button>
+  )
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 20px 0' }}>
-        <div style={{ flex: 1 }} />
-        <button
-          onClick={() => setTickerVisible(!tickerVisible)}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            color: 'var(--cream2)',
-            padding: '4px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s',
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.color = 'var(--cream)'
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.color = 'var(--cream2)'
-          }}
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>
-          </svg>
-        </button>
-      </div>
-      <PageHeader title="Chat" />
+      <PageHeader title="Chat" rightButton={tickerToggleButton} />
 
       <motion.div
         initial={false}
