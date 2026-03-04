@@ -460,34 +460,6 @@ export default function ChatPage() {
         })}
 
         <div ref={messagesEndRef} />
-
-        {!isScrolledToBottom && messages.length > 0 && (
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            onClick={() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })}
-            style={{
-              position: 'fixed',
-              bottom: '200px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              background: 'var(--coral)',
-              border: 'none',
-              borderRadius: 20,
-              padding: '8px 16px',
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: 12,
-              fontWeight: 600,
-              color: 'var(--pure-black)',
-              cursor: 'pointer',
-              zIndex: 50,
-              boxShadow: '0 4px 12px rgba(255, 112, 67, 0.3)',
-            }}
-          >
-            New message
-          </motion.button>
-        )}
       </div>
 
       <div style={{ padding: '8px 20px 0', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
