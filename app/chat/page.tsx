@@ -14,29 +14,6 @@ const HOLDINGS = [
   { symbol: 'TSLA', name: 'Tesla Inc.',    price: '$12,257.40', change: '-2.08%', neg: true },
 ]
 
-const AGENT_COLORS: Record<string, string> = {
-  ashley: '#4caf50',
-  mike: '#ff7043',
-  tom: '#f44336',
-  portfolio: '#2196f3',
-  risk: '#ff9800',
-  macro: '#9c27b0',
-  news: '#00bcd4',
-  crypto: '#ffc107',
-  options: '#e91e63',
-}
-
-const AGENT_CONFIG: Record<string, { shortName: string; fullName: string; color: string; dotColor: string }> = {
-  ashley: { shortName: 'Analyst Ashley', fullName: 'Analyst Ashley', color: 'var(--positive)', dotColor: AGENT_COLORS.ashley },
-  mike: { shortName: 'Monitor Mike', fullName: 'Monitor Mike', color: 'var(--coral)', dotColor: AGENT_COLORS.mike },
-  tom: { shortName: 'Tom Tracker', fullName: 'Tom Tracker', color: 'var(--accent-red)', dotColor: AGENT_COLORS.tom },
-  portfolio: { shortName: 'Portfolio Pete', fullName: 'Portfolio Pete', color: 'var(--coral)', dotColor: AGENT_COLORS.portfolio },
-  risk: { shortName: 'Risk Rachel', fullName: 'Risk Rachel', color: 'var(--coral)', dotColor: AGENT_COLORS.risk },
-  macro: { shortName: 'Macro Marcus', fullName: 'Macro Marcus', color: 'var(--coral)', dotColor: AGENT_COLORS.macro },
-  news: { shortName: 'News Nadia', fullName: 'News Nadia', color: 'var(--coral)', dotColor: AGENT_COLORS.news },
-  crypto: { shortName: 'Crypto Carlos', fullName: 'Crypto Carlos', color: 'var(--coral)', dotColor: AGENT_COLORS.crypto },
-  options: { shortName: 'Options Ole', fullName: 'Options Ole', color: 'var(--coral)', dotColor: AGENT_COLORS.options },
-}
 
 const PROMPT_SUGGESTIONS = [
   "Yo, what's popping in the market?",
@@ -66,7 +43,7 @@ interface Message {
 }
 
 export default function ChatPage() {
-  const { activeAgents } = useAgents()
+  const { activeAgents, agents } = useAgents()
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [focused, setFocused] = useState(false)
@@ -84,17 +61,13 @@ export default function ChatPage() {
   // Get agent names from context
   const getAgentName = (index: number) => {
     if (activeAgents.length === 0) return 'Monitor Mike'
-    return AGENT_CONFIG[activeAgents[index % activeAgents.length].id].fullName
+    return activeAgents[index % activeAgents.length].fullName
   }
 
   // Get agent dot color from agent name
   const getAgentDotColor = (agentName: string) => {
-    for (const [key, config] of Object.entries(AGENT_CONFIG)) {
-      if (config.fullName === agentName) {
-        return config.dotColor
-      }
-    }
-    return '#ff7043' // Default to coral if not found
+    const agent = agents.find(a => a.fullName === agentName)
+    return agent?.dotColor || '#ff7043' // Default to coral if not found
   }
 
   // Simulate agent thinking states
@@ -256,7 +229,7 @@ export default function ChatPage() {
         return
       }
 
-      const agentName = agentsToQuery[currentAgentIdx].name
+      const agentName = agentsToQuery[currentAgentIdx].fullName
       const spinnerId = `spinner-${currentAgentIdx}-${Date.now()}`
       const spinnerMsg: Message = {
         id: spinnerId,
@@ -428,8 +401,24 @@ export default function ChatPage() {
               transition={{ duration: 0.3 }}
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, paddingLeft: 20, paddingRight: 20, borderBottom: '1px solid var(--rule-subtle)' }}
             >
-              {m.role === 'assistant' && !isLoading && (
+              {m.role === 'assistant' && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  {isLoading && (
+                    <motion.svg
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke={getAgentDotColor(m.agent || 'Alfa')}
+                      strokeWidth="1.5"
+                      strokeDasharray="4 4"
+                      style={{ transformOrigin: '50% 50%', flexShrink: 0 }}
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                    </motion.svg>
+                  )}
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)' }}>
                     <div
                       style={{
@@ -448,22 +437,6 @@ export default function ChatPage() {
                 <div style={{ width: '100%', fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7 }}>
                   {m.text}
                 </div>
-              )}
-              {isLoading && (
-                <motion.svg
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={getAgentDotColor(m.agent || 'Alfa')}
-                  strokeWidth="1.5"
-                  strokeDasharray="4 4"
-                  style={{ transformOrigin: '50% 50%', marginTop: 12 }}
-                >
-                  <circle cx="12" cy="12" r="10" />
-                </motion.svg>
               )}
             </motion.div>
           )
@@ -498,7 +471,12 @@ export default function ChatPage() {
       </div>
 
       <div style={{ padding: '8px 20px 0', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 8, maxWidth: '1020px', width: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, paddingLeft: 2 }}>
+            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)' }}>Active agents:</span>
+            <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--coral)', fontWeight: 600 }}>{activeAgents.length}</span>
+          </div>
+          <div style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {PROMPT_SUGGESTIONS.map((prompt, idx) => (
             <motion.button
               key={idx}
@@ -542,7 +520,7 @@ export default function ChatPage() {
                     const agentMsg: Message = {
                       id: (Date.now() + 1).toString(),
                       role: 'assistant',
-                      text: `Generated: ${chartDetection.title}. Check your Artifacts to view and analyze.`,
+                      text: `Pulled up ${chartDetection.title} for you. Check your Artifacts to dig into it.`,
                       agent: getAgentName(agentIndex),
                     }
                     setMessages(prev => [...prev, agentMsg])
@@ -599,6 +577,7 @@ export default function ChatPage() {
             </motion.button>
           ))}
           <style>{`::-webkit-scrollbar { display: none; }`}</style>
+          </div>
         </div>
       </div>
 

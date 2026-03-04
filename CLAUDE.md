@@ -75,6 +75,29 @@
 - **Other Agents**: "Challenge, debate, or build upon previous points"
 - **Note**: Keep all messages in thread, no deletion
 
+## Agent System
+
+### Agent Data & Syncing
+- **Single source of truth**: All agents defined in `app/context/agents.tsx`
+- **Agent interface**: `{ id, shortName, fullName, role, lastAction, dotColor, active }`
+- **Unified access**: Pages use `useAgents()` hook from context
+- **Pages synced**: Chat page, Agents page, and any other pages auto-sync agent counts and status
+- **Counter display**: Shows `activeAgents.length` in both chat and agents pages
+
+### Agent Response Messaging
+- **Tone**: Casual, conversational, like talking to a friend (e.g., "Yo," "Here's my take", "Real talk")
+- **FORBIDDEN words**: Never use "Generated", "Created", "Processed", or robotic language
+- **Natural language**: Replace "Generated X" with "Pulled up X for you"
+- **First agent**: Gives initial perspective with fresh analysis
+- **Subsequent agents**: Challenge, debate, or build upon previous points
+- **All messages preserved**: Never delete messages from thread, keep full debate visible
+
+### Loading States & Spinners
+- **Spinner display**: Shows when `message.text === '...'` during agent response
+- **Visual placement**: Spinner appears to the left of agent badge, fades out when response arrives
+- **Spinner style**: 20x20px, rotating 3.5s linear, colored by agent dotColor
+- **Badge structure**: Always shown alongside spinner, contains agent name + 4px color dot
+
 ## Critical Reminders
 
 - **Never** use `popLayout` mode on message AnimatePresence (causes layout shifts)
@@ -82,3 +105,5 @@
 - **Always** use serif fonts for body content (EB Garamond)
 - **Always** document new patterns in this file
 - **Holdings/Agent Content**: Remove cards, use dividers instead
+- **Never use robotic language**: Avoid "Generated", "Created", "Processed" — use natural phrasing
+- **Agent syncing**: Keep all agent data in context, not scattered across multiple files
