@@ -7,7 +7,7 @@ export const fadeUp: Variants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease, delay: i * 0.06 },
+    transition: { type: 'spring', stiffness: 80, damping: 15, mass: 0.5 },
   }),
 }
 

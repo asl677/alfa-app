@@ -99,10 +99,14 @@ export default function DiscoverPage() {
       <PageHeader title="Discover" />
 
       {/* chipRow2 — gap 10, padding [10,20] */}
-      <div style={{ display: 'flex', gap: 10, padding: '10px 20px', flexShrink: 0, justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 10, padding: '10px 20px', flexShrink: 0, justifyContent: 'flex-start', alignItems: 'center' }}>
         <div style={{ display: 'flex', gap: 10 }}>
           {CHIPS.map((chip) => (
-            <button key={chip} onClick={() => setActive(chip)} style={{
+            <button key={chip} onClick={() => {
+              setActive(chip)
+              setIsRefreshing(true)
+              setTimeout(() => setIsRefreshing(false), 1200)
+            }} style={{
               padding: '8px 18px', borderRadius: 6, cursor: 'pointer',
               fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
               background: active === chip ? 'var(--coral)' : 'var(--surface)',
@@ -114,36 +118,36 @@ export default function DiscoverPage() {
             </button>
           ))}
         </div>
-
-        <button onClick={handleRefresh} disabled={isRefreshing} style={{
-          background: 'none',
-          border: 'none',
-          cursor: isRefreshing ? 'not-allowed' : 'pointer',
-          color: 'var(--coral)',
-          padding: '4px 8px',
-          display: 'flex',
-          alignItems: 'center',
-        }}>
-          <motion.svg
-            animate={{ rotate: isRefreshing ? 360 : 0 }}
-            transition={{ duration: 1.5, repeat: isRefreshing ? Infinity : 0 }}
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeDasharray="4 4"
-            style={{ transformOrigin: '12px 12px' }}
-          >
-            <circle cx="12" cy="12" r="10" />
-          </motion.svg>
-        </button>
       </div>
 
       {/* notificationsContainer — vertical, gap 12, padding [0,12] */}
       <AnimatePresence>
-        <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '0 12px' }}>
+        <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 12px' }}>
+          {isRefreshing && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12 }}
+            >
+              <motion.svg
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--coral)"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+                style={{ transformOrigin: '50% 50%' }}
+              >
+                <circle cx="12" cy="12" r="10" />
+              </motion.svg>
+              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)' }}>Refreshing...</span>
+            </motion.div>
+          )}
           {displayedSources.map((source, i) => (
             <motion.div
               key={source.title}
@@ -180,7 +184,7 @@ export default function DiscoverPage() {
               <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, fontWeight: 600, color: RISK_COLOR[source.risk] }}>{source.risk}</span>
             </div>
             {/* title */}
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, fontWeight: 600, color: 'var(--cream)' }}>{source.title}</div>
+            <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 400, color: 'var(--cream)' }}>{source.title}</div>
             {/* desc */}
             <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)' }}>{source.desc}</div>
             {/* footer: source favicon + action */}
