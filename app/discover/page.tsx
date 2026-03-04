@@ -150,17 +150,12 @@ export default function DiscoverPage() {
               </motion.div>
             )}
           {displayedSources.map((source, i) => (
-            <motion.div
+            <div
               key={`${active}-${i}-${source.title}`}
-              layoutId={`${active}-${source.title}`}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: 'spring', damping: 28, stiffness: 300, delay: i * 0.04 }}
               onClick={() => {
                 setSelectedSource(source)
                 setDetailOpen(true)
               }}
-              whileHover={{ scale: 1.02 }}
               style={{
                 background: 'var(--surface)',
                 border: '1px solid var(--rule)',
@@ -200,7 +195,7 @@ export default function DiscoverPage() {
                 {source.action}
               </button>
             </div>
-            </motion.div>
+            </div>
           ))}
         </AnimatePresence>
       </div>
