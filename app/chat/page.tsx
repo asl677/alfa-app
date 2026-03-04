@@ -159,7 +159,7 @@ export default function ChatPage() {
             agent: agentName,
           }])
 
-          const systemPrompt = `You are ${agentName}. The previous agents have shared their perspectives. Challenge, debate, or build upon their points. Disagree if you see flaws. Be authentic and engaging in the discussion.`
+          const systemPrompt = `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. Throw in some personality. The other agents already shared their takes - either build on them or tell them why they're wrong. Keep it real, no BS.`
           const conversationHistory = [lastUserMessage, ...messages.filter(m => m.role === 'assistant')]
 
           fetch('/api/chat', {
@@ -175,7 +175,7 @@ export default function ChatPage() {
               setMessages(prev =>
                 prev.map(m =>
                   m.id === spinnerId
-                    ? { ...m, text: text.trim() || 'I agree with my colleagues. Let me add my perspective.' }
+                    ? { ...m, text: text.trim() || 'Yeah, I feel you on that. Here\'s my take...' }
                     : m
                 )
               )
@@ -197,16 +197,16 @@ export default function ChatPage() {
       if (isLoading) return
 
       const suggestions = [
-        'Consider taking profits on NVDA at current resistance level',
-        'Watch AAPL for a potential bounce off support',
-        'MSFT showing bullish divergence on the daily chart',
-        'Sector rotation from tech into utilities accelerating',
-        'Recommend rebalancing toward defensive positions',
-        'Oil prices supporting energy sector outperformance',
-        'Fed rate decision could be catalyst for reversal',
-        'Earnings expectations too low relative to analyst views',
-        'Market breadth improving despite headline weakness',
-        'Supply/demand imbalance creating trading opportunity',
+        'Yo, NVDA might be a good place to take some profits right now',
+        'Heads up - AAPL looking like it could bounce here',
+        'MSFT chart is looking pretty bullish if you ask me',
+        'Tech is getting overheated - might see rotation into utilities soon',
+        'Real talk, I\'d probably trim some of my tech exposure',
+        'Energy\'s looking strong on the oil uptick',
+        'Fed decision next week could shake things up',
+        'These earnings expectations might be too pessimistic',
+        'Market breadth is actually improving - that\'s bullish',
+        'There\'s a real supply/demand mismatch here - opportunity incoming',
       ]
       const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)]
       const agentName = getAgentName(agentIndex)
@@ -272,8 +272,8 @@ export default function ChatPage() {
 
       // Add debate system message if not first agent
       const systemPrompt = currentAgentIdx > 0
-        ? `You are ${agentName}. The previous agents have shared their perspectives. Challenge, debate, or build upon their points. Disagree if you see flaws. Be authentic and engaging in the discussion.`
-        : `You are ${agentName}. Give your initial perspective on this market question.`
+        ? `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. Challenge the previous agents if you disagree, throw in some personality, keep it real. No corporate jargon.`
+        : `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. Share your real take on their question with personality and authenticity. Keep it brief and actionable.`
 
       fetch('/api/chat', {
         method: 'POST',
@@ -288,7 +288,7 @@ export default function ChatPage() {
           const agentResponse: Message = {
             id: spinnerId,
             role: 'assistant',
-            text: text.trim() || 'I agree with my colleagues. Let me add my perspective.',
+            text: text.trim() || 'Yeah, that makes sense. Here\'s what I\'m seeing though...',
             agent: agentName,
           }
           agentResponses.push(agentResponse)
