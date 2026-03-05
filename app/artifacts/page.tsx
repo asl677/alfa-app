@@ -57,7 +57,7 @@ export default function ArtifactsPage() {
                   key={artifact.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.3, delay: idx * 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
                   onClick={() => handleExpand(artifact)}
                   style={{
                     padding: '16px 0',
@@ -119,7 +119,7 @@ export default function ArtifactsPage() {
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
               style={{
                 position: 'fixed',
                 bottom: 0,
