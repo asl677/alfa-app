@@ -144,8 +144,9 @@ export default function ChatPage() {
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const [pageLoading, setPageLoading] = useState(true)
   const [promptLibraryOpen, setPromptLibraryOpen] = useState(false)
-  const [scrollingDown, setScrollingDown] = useState(false)
+  const [hideUI, setHideUI] = useState(false)
   const lastScrollRef = useRef(0)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Initialize page loading
   useEffect(() => {
@@ -218,14 +219,33 @@ export default function ChatPage() {
       const isAtBottom = scrollHeight - scrollTop - clientHeight < 100
       setIsScrolledToBottom(isAtBottom)
 
-      // Detect scroll direction
-      const direction = scrollTop > lastScrollRef.current ? 'down' : 'up'
-      lastScrollRef.current = scrollTop
-      setScrollingDown(direction === 'down')
+      // Detect scroll direction with threshold
+      if (scrollTop > lastScrollRef.current + 5) {
+        // Scrolling down significantly
+        setHideUI(true)
+        lastScrollRef.current = scrollTop
+      } else if (scrollTop < lastScrollRef.current - 5) {
+        // Scrolling up significantly
+        setHideUI(false)
+        lastScrollRef.current = scrollTop
+      }
+
+      // Clear any existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+
+      // Show UI when scroll stops (after 3 seconds of no scrolling)
+      scrollTimeoutRef.current = setTimeout(() => {
+        setHideUI(false)
+      }, 3000)
     }
 
     container.addEventListener('scroll', handleScroll)
-    return () => container.removeEventListener('scroll', handleScroll)
+    return () => {
+      container.removeEventListener('scroll', handleScroll)
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+    }
   }, [])
 
   useEffect(() => {
@@ -646,7 +666,7 @@ export default function ChatPage() {
 
       <motion.div
         initial={false}
-        animate={{ height: tickerVisible && !scrollingDown ? 'auto' : 0, opacity: tickerVisible && !scrollingDown ? 1 : 0 }}
+        animate={{ height: tickerVisible && !hideUI ? 'auto' : 0, opacity: tickerVisible && !hideUI ? 1 : 0 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         style={{ overflow: 'hidden', flexShrink: 0 }}
       >
@@ -808,7 +828,7 @@ export default function ChatPage() {
 
       <motion.div
         initial={false}
-        animate={{ opacity: scrollingDown ? 0 : 1, height: scrollingDown ? 0 : 'auto' }}
+        animate={{ opacity: hideUI ? 0 : 1, height: hideUI ? 0 : 'auto' }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '8px 20px 0' }}
       >
@@ -1029,7 +1049,7 @@ export default function ChatPage() {
 
       <motion.div
         initial={false}
-        animate={{ opacity: scrollingDown ? 0 : 1, height: scrollingDown ? 0 : 'auto' }}
+        animate={{ opacity: hideUI ? 0 : 1, height: hideUI ? 0 : 'auto' }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '20px 20px 30px' }}
       >
