@@ -27,8 +27,7 @@ export default function LoadingScreen() {
         {letters.map((letter, idx) => (
           <motion.span
             key={idx}
-            initial={{ opacity: 0.4 }}
-            animate={{ opacity: [0.4, 1, 0.4] }}
+            animate={{ opacity: [0.2, 1, 0.2] }}
             transition={{
               duration: 3,
               repeat: Infinity,
