@@ -6,6 +6,7 @@ import AgentsSheet from '@/components/AgentsSheet'
 import TuneWatchlist from '@/components/TuneWatchlist'
 import ToneOptions from '@/components/ToneOptions'
 import HoldingAnalysis from '@/components/HoldingAnalysis'
+import PromptLibrarySheet from '@/components/PromptLibrarySheet'
 import { useAgents } from '@/app/context/agents'
 import { detectChartPrompt, generateChartData } from '@/lib/chartGenerator'
 
@@ -105,6 +106,13 @@ const IconArrowUp = () => (
   </svg>
 )
 
+const IconBook = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+  </svg>
+)
+
 interface Message {
   id: string
   role: 'user' | 'assistant'
@@ -133,6 +141,7 @@ export default function ChatPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const [pageLoading, setPageLoading] = useState(true)
+  const [promptLibraryOpen, setPromptLibraryOpen] = useState(false)
 
   // Initialize page loading
   useEffect(() => {
@@ -309,6 +318,111 @@ export default function ChatPage() {
     return () => clearInterval(interval)
   }, [isLoading, agentIndex, activeAgents.length])
 
+  const handlePromptSelect = (prompt: string) => {
+    if (isLoading || activeAgents.length === 0) return
+
+    setIsLoading(true)
+    setAgentIndex(0)
+
+    const userMsg: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      text: prompt,
+    }
+    setMessages(prev => [...prev, userMsg])
+
+    // Check if this is a chart/artifact prompt
+    const chartDetection = detectChartPrompt(prompt)
+
+    if (chartDetection) {
+      // Generate and store artifact
+      const chartData = generateChartData(chartDetection.type, chartDetection.symbols)
+      const artifact = {
+        id: `artifact-${Date.now()}`,
+        type: chartDetection.type,
+        title: chartDetection.title,
+        data: chartData,
+        created_at: new Date().toISOString(),
+      }
+
+      // Save to localStorage
+      const existing = localStorage.getItem('artifacts')
+      const artifacts = existing ? JSON.parse(existing) : []
+      artifacts.unshift(artifact)
+      localStorage.setItem('artifacts', JSON.stringify(artifacts))
+    }
+
+    // Trigger agent responses
+    const agentsToQuery = activeAgents
+    let agentResponses: Message[] = []
+    let currentAgentIdx = 0
+
+    const queryNextAgent = () => {
+      if (currentAgentIdx >= agentsToQuery.length) {
+        setIsLoading(false)
+        return
+      }
+
+      const agentName = agentsToQuery[currentAgentIdx].fullName
+      const spinnerId = `spinner-${currentAgentIdx}-${Date.now()}`
+      const spinnerMsg: Message = {
+        id: spinnerId,
+        role: 'assistant',
+        text: '...',
+        agent: agentName,
+      }
+
+      setMessages(prev => [...prev, spinnerMsg])
+
+      const conversationHistory = [userMsg, ...agentResponses]
+
+      const systemPrompt = currentAgentIdx > 0
+        ? `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. Challenge the previous agents if you disagree, throw in some personality, keep it real. No corporate jargon.`
+        : `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. Share your real take on their question with personality and authenticity. Keep it brief and actionable.`
+
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: conversationHistory, systemPrompt }),
+      })
+        .then(res => res.text())
+        .then(text => {
+          const agentResponse: Message = {
+            id: spinnerId,
+            role: 'assistant',
+            text: text.trim() || 'Yeah, that makes sense. Here\'s what I\'m seeing though...',
+            agent: agentName,
+          }
+          agentResponses.push(agentResponse)
+
+          setMessages(prev =>
+            prev.map(m =>
+              m.id === spinnerId ? agentResponse : m
+            )
+          )
+
+          currentAgentIdx++
+          setTimeout(queryNextAgent, 4000)
+        })
+        .catch(err => {
+          console.error(`Agent ${agentName} error:`, err)
+          const errorResponse: Message = {
+            id: spinnerId,
+            role: 'assistant',
+            text: 'I need to reconsider that position based on the debate.',
+            agent: agentName,
+          }
+          setMessages(prev =>
+            prev.map(m => m.id === spinnerId ? errorResponse : m)
+          )
+          currentAgentIdx++
+          setTimeout(queryNextAgent, 4000)
+        })
+    }
+
+    setTimeout(queryNextAgent, 3000)
+  }
+
   const handleSend = () => {
     if (!input.trim() || isLoading) return
     if (activeAgents.length === 0) {
@@ -453,6 +567,33 @@ export default function ChatPage() {
     </button>
   )
 
+  const promptLibraryButton = (
+    <button
+      onClick={() => setPromptLibraryOpen(true)}
+      style={{
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        color: 'var(--cream2)',
+        padding: '0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'all 0.2s',
+        marginRight: 12,
+      }}
+      onMouseOver={(e) => {
+        e.currentTarget.style.color = 'var(--coral)'
+      }}
+      onMouseOut={(e) => {
+        e.currentTarget.style.color = 'var(--cream2)'
+      }}
+      title="Prompt Library"
+    >
+      <IconBook />
+    </button>
+  )
+
   const tickerToggleButton = (
     <button
       onClick={() => setTickerVisible(!tickerVisible)}
@@ -503,7 +644,7 @@ export default function ChatPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
-      <PageHeader title="Chat" rightButton={<div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>{clearChatButton}{tickerToggleButton}</div>} />
+      <PageHeader title="Chat" rightButton={<div style={{ display: 'flex', alignItems: 'center', gap: 0, minWidth: 0, overflow: 'hidden' }}>{clearChatButton}{promptLibraryButton}{tickerToggleButton}</div>} />
 
       <motion.div
         initial={false}
@@ -937,6 +1078,12 @@ export default function ChatPage() {
       <TuneWatchlist isOpen={tuneOpen} onClose={() => setTuneOpen(false)} />
       <ToneOptions isOpen={toneOpen} onClose={() => setToneOpen(false)} selectedTone={selectedTone} onSelectTone={setSelectedTone} />
       <HoldingAnalysis isOpen={holdingAnalysisOpen} onClose={() => setHoldingAnalysisOpen(false)} holding={selectedHolding} />
+      <PromptLibrarySheet
+        isOpen={promptLibraryOpen}
+        onClose={() => setPromptLibraryOpen(false)}
+        prompts={dynamicPrompts}
+        onSelectPrompt={handlePromptSelect}
+      />
 
       <style>{`
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
