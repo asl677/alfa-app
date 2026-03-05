@@ -700,7 +700,7 @@ export default function ChatPage() {
                         key="spinner"
                         exit={{ opacity: 0 }}
                         animate={{ rotate: 360 }}
-                        transition={{ rotate: { duration: 3.5, repeat: Infinity, ease: 'linear' }, exit: { duration: 0.2 } }}
+                        transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
                         width="20"
                         height="20"
                         viewBox="0 0 24 24"
