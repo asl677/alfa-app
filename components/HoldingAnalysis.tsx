@@ -87,7 +87,7 @@ export default function HoldingAnalysis({
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: agent.color }} />
-                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>
+                <span style={{ fontFamily: "'EB Garamond', serif", fontSize: 14, fontWeight: 400, color: 'var(--cream)' }}>
                   {agent.name}
                 </span>
               </div>
@@ -120,7 +120,7 @@ export default function HoldingAnalysis({
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: agent.color }} />
-                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>
+                <span style={{ fontFamily: "'EB Garamond', serif", fontSize: 14, fontWeight: 400, color: 'var(--cream)' }}>
                   {agent.name}
                 </span>
               </div>
