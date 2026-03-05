@@ -604,7 +604,7 @@ export default function ChatPage() {
 
       <div style={{ padding: '8px 20px 0', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
-          {PROMPT_SUGGESTIONS.map((prompt, idx) => (
+          {dynamicPrompts.map((prompt, idx) => (
             <motion.button
               key={idx}
               onClick={() => {
