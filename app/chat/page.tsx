@@ -222,9 +222,6 @@ export default function ChatPage() {
       const { scrollTop, scrollHeight, clientHeight } = container
       const isAtBottom = scrollHeight - scrollTop - clientHeight < 100
       setIsScrolledToBottom(isAtBottom)
-
-      // Direct scroll tracking - show at top, hide when scrolled down
-      setShowPrompts(scrollTop < 50)
     }
 
     container.addEventListener('scroll', handleScroll, { passive: true })
