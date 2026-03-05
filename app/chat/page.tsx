@@ -722,7 +722,6 @@ export default function ChatPage() {
           const messageIsLoading = m.role === 'assistant' && m.text === '...'
           if (messageIsLoading) console.log('SPINNER FOUND:', m.agent, m.text)
           const isUser = m.role === 'user'
-          const isFirstMessage = messageIdx === 0
           return (
             <motion.div key={m.id}
               variants={fadeUp}
@@ -814,12 +813,6 @@ export default function ChatPage() {
                       color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)',
                       lineHeight: 1.7,
                       textAlign: isUser ? 'right' : 'left',
-                      background: isFirstMessage && !isUser ? 'linear-gradient(90deg, var(--cream2) 0%, rgba(255, 127, 67, 0.6) 50%, var(--cream2) 100%)' : 'transparent',
-                      backgroundSize: isFirstMessage && !isUser ? '200% center' : 'auto',
-                      backgroundClip: isFirstMessage && !isUser ? 'text' : 'unset',
-                      WebkitBackgroundClip: isFirstMessage && !isUser ? 'text' : 'unset',
-                      WebkitTextFillColor: isFirstMessage && !isUser ? 'transparent' : 'unset',
-                      animation: isFirstMessage && !isUser ? 'gradientShimmer 2s infinite' : 'none',
                     }}>
                       {m.text}
                     </div>
