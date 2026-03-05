@@ -757,12 +757,12 @@ export default function ChatPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderRadius: 46, background: `${getAgentDotColor(m.agent || 'Alfa')}15`, border: `1px solid ${getAgentDotColor(m.agent || 'Alfa')}40`, fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 500, color: getAgentDotColor(m.agent || 'Alfa') }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: getAgentDotColor(m.agent || 'Alfa') }}
                       >
                         <div
                           style={{
-                            width: 5,
-                            height: 5,
+                            width: 4,
+                            height: 4,
                             borderRadius: '50%',
                             background: getAgentDotColor(m.agent || 'Alfa'),
                             flexShrink: 0,
