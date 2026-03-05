@@ -153,7 +153,10 @@ export default function ChatPage() {
 
   // Initialize page loading
   useEffect(() => {
-    setPageLoading(false)
+    const timer = setTimeout(() => {
+      setPageLoading(false)
+    }, 3500)
+    return () => clearTimeout(timer)
   }, [])
 
   // Load chat history from localStorage on mount
