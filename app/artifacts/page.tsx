@@ -71,7 +71,7 @@ export default function ArtifactsPage() {
                 >
                   <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--dust)', minWidth: 32 }}>{idx + 1}.</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 15, fontWeight: 300, color: 'var(--cream)', marginBottom: 2 }}>
+                    <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--cream)', marginBottom: 2 }}>
                       {artifact.title}
                     </div>
                     <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--dust)' }}>
