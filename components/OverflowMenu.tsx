@@ -20,7 +20,9 @@ const IconEllipsis = () => (
 
 export default function OverflowMenu({ items }: { items: MenuItem[] }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [menuPos, setMenuPos] = useState({ top: 0, right: 0 })
   const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -35,10 +37,19 @@ export default function OverflowMenu({ items }: { items: MenuItem[] }) {
     }
   }, [isOpen])
 
+  const handleOpen = () => {
+    if (!isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect()
+      setMenuPos({ top: rect.bottom + 8, right: window.innerWidth - rect.right })
+    }
+    setIsOpen(!isOpen)
+  }
+
   return (
     <div style={{ position: 'relative' }} ref={menuRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        ref={buttonRef}
+        onClick={handleOpen}
         style={{
           background: 'transparent',
           border: 'none',
@@ -71,10 +82,9 @@ export default function OverflowMenu({ items }: { items: MenuItem[] }) {
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.15 }}
             style={{
-              position: 'absolute',
-              top: '100%',
-              right: 0,
-              marginTop: 8,
+              position: 'fixed',
+              top: menuPos.top,
+              right: menuPos.right,
               background: 'rgba(13,13,13,0.95)',
               backdropFilter: 'blur(16px)',
               border: '1px solid rgba(255,255,255,0.09)',
