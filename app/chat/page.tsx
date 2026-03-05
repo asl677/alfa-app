@@ -444,8 +444,8 @@ export default function ChatPage() {
 
   const sendMessage = (messageText: string) => {
     console.log('sendMessage called with:', messageText, 'isLoading:', isLoading, 'activeAgents:', activeAgents.length)
-    if (!messageText.trim() || isLoading) {
-      console.log('Early return - empty or loading')
+    if (!messageText.trim()) {
+      console.log('Early return - empty message')
       return
     }
     if (activeAgents.length === 0) {
