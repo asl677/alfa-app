@@ -443,12 +443,17 @@ export default function ChatPage() {
   }
 
   const sendMessage = (messageText: string) => {
-    if (!messageText.trim() || isLoading) return
+    console.log('sendMessage called with:', messageText, 'isLoading:', isLoading, 'activeAgents:', activeAgents.length)
+    if (!messageText.trim() || isLoading) {
+      console.log('Early return - empty or loading')
+      return
+    }
     if (activeAgents.length === 0) {
       alert('Please enable at least one agent in the Agents page')
       return
     }
 
+    console.log('Sending message:', messageText)
     const userMessage = messageText.trim()
     setInput('')
     setIsLoading(true)
@@ -909,6 +914,7 @@ export default function ChatPage() {
               <button
                 key={`prompt-mobile-${idx}`}
                 onClick={() => {
+                  console.log('Mobile prompt clicked:', prompt)
                   sendMessage(prompt)
                 }}
                 style={{
@@ -960,6 +966,7 @@ export default function ChatPage() {
                   <button
                     key={`prompt-desktop-${idx}`}
                     onClick={() => {
+                      console.log('Desktop prompt clicked:', prompt)
                       sendMessage(prompt)
                     }}
                     style={{
