@@ -13,6 +13,10 @@ export default function LoadingScreen() {
         height: '100dvh',
         width: '100%',
         backgroundColor: 'var(--bg)',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        zIndex: 9999,
       }}
     >
       <div
