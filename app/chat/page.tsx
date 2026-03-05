@@ -906,9 +906,12 @@ export default function ChatPage() {
 
           <div className="chat-prompts-mobile" style={{ gap: 6, overflow: 'auto', width: '100%', scrollBehavior: 'smooth', paddingBottom: 8, justifyContent: 'flex-start' }}>
             {dynamicPrompts.slice(0, 3).map((prompt, idx) => (
-              <motion.button
+              <button
                 key={`prompt-mobile-${idx}`}
-                onClick={() => sendMessage(prompt)}
+                onClick={() => {
+                  console.log('Prompt clicked:', prompt)
+                  sendMessage(prompt)
+                }}
                 style={{
                   padding: '5px 10px',
                   background: 'rgba(255,255,255,0.03)',
@@ -933,7 +936,7 @@ export default function ChatPage() {
                 }}
               >
                 {prompt}
-              </motion.button>
+              </button>
             ))}
           </div>
 
@@ -955,9 +958,12 @@ export default function ChatPage() {
             <div className="chat-prompts-desktop" style={{ gap: 6, alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden', justifyContent: 'flex-end' }}>
               <div style={{ display: 'flex', gap: 6, overflow: 'auto', flex: 1, scrollBehavior: 'smooth', paddingRight: 8, justifyContent: 'flex-end' }}>
                 {dynamicPrompts.slice(0, 3).map((prompt, idx) => (
-                  <motion.button
+                  <button
                     key={`prompt-desktop-${idx}`}
-                    onClick={() => sendMessage(prompt)}
+                    onClick={() => {
+                      console.log('Prompt clicked:', prompt)
+                      sendMessage(prompt)
+                    }}
                     style={{
                       padding: '5px 10px',
                       background: 'rgba(255,255,255,0.03)',
@@ -982,7 +988,7 @@ export default function ChatPage() {
                     }}
                   >
                     {prompt}
-                  </motion.button>
+                  </button>
                 ))}
                 <style>{`::-webkit-scrollbar { display: none; }`}</style>
               </div>
