@@ -62,6 +62,12 @@ export default function ChatPage() {
   const [isScrolledToBottom, setIsScrolledToBottom] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
+  const [pageLoading, setPageLoading] = useState(true)
+
+  // Initialize page loading
+  useEffect(() => {
+    setPageLoading(false)
+  }, [])
 
   // Get agent names from context
   const getAgentName = (index: number) => {
@@ -348,6 +354,27 @@ export default function ChatPage() {
       </svg>
     </button>
   )
+
+  if (pageLoading) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100dvh', background: 'var(--bg)' }}>
+        <motion.svg
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+          width="40"
+          height="40"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="var(--coral)"
+          strokeWidth="1.5"
+          strokeDasharray="6 6"
+          style={{ transformOrigin: '50% 50%' }}
+        >
+          <circle cx="12" cy="12" r="10" />
+        </motion.svg>
+      </div>
+    )
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
