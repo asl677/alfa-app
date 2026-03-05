@@ -5,18 +5,16 @@ export default function LoadingScreen() {
   return (
     <div
       style={{
-        width: '393px',
-        height: '852px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column',
+        height: '100dvh',
+        width: '100%',
         backgroundColor: 'var(--bg)',
-        borderRadius: '20px',
-        overflow: 'hidden',
       }}
     >
       <motion.div
+        initial={{ opacity: 0.4 }}
         animate={{ opacity: [0.4, 1, 0.4] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         style={{
@@ -25,7 +23,6 @@ export default function LoadingScreen() {
           fontWeight: 300,
           color: 'var(--cream2)',
           textAlign: 'center',
-          width: '100%',
         }}
       >
         Alfa
