@@ -1078,18 +1078,17 @@ export default function ChatPage() {
               {isLoading ? (
                 <motion.svg
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
                   width="18"
                   height="18"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="currentColor"
+                  stroke={messages.filter(m => m.role === 'assistant').pop()?.agent ? (agents.find(a => a.fullName === messages.filter(m => m.role === 'assistant').pop()?.agent)?.dotColor || '#ff7043') : '#ff7043'}
                   strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  strokeDasharray="4 4"
                   style={{ transformOrigin: '50% 50%' }}
                 >
-                  <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
+                  <circle cx="12" cy="12" r="10" />
                 </motion.svg>
               ) : (
                 <IconArrowUp />
