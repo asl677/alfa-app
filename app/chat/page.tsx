@@ -620,12 +620,26 @@ export default function ChatPage() {
     },
   ]
 
-  if (pageLoading) {
-    return <LoadingScreen />
-  }
-
   return (
-    <div style={{
+    <AnimatePresence mode="wait">
+      {pageLoading ? (
+        <motion.div
+          key="loading"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <LoadingScreen />
+        </motion.div>
+      ) : (
+        <motion.div
+          key="content"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          style={{ display: 'flex', height: '100dvh', width: '100%' }}
+        >
+          <div style={{
       display: 'flex',
       flexDirection: 'column',
       height: '100dvh',
@@ -1035,6 +1049,9 @@ export default function ChatPage() {
           100% { background-position: -200% center; }
         }
       `}</style>
-    </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
