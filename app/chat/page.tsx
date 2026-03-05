@@ -713,7 +713,7 @@ export default function ChatPage() {
         </motion.div>
       )}
 
-      <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 20px 100px', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative', boxSizing: 'border-box', maskImage: 'linear-gradient(180deg, black 0%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(180deg, black 0%, black 85%, transparent 100%)' }}>
+      <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 20px 40px', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative', boxSizing: 'border-box', maskImage: 'linear-gradient(180deg, black 0%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(180deg, black 0%, black 85%, transparent 100%)' }}>
 
         {messages.map((m, messageIdx) => {
           const messageIsLoading = m.role === 'assistant' && m.text === '...'
