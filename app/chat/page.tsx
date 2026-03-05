@@ -220,7 +220,11 @@ export default function ChatPage() {
 
       // Track scroll direction for show/hide prompts
       const scrollDelta = scrollTop - lastScrollY.current
-      if (scrollDelta > 0) {
+
+      // Always show prompts at the very top
+      if (scrollTop < 20) {
+        setShowPrompts(true)
+      } else if (scrollDelta > 0) {
         // Scrolling down - hide prompts
         setShowPrompts(false)
       } else if (scrollDelta < -2) {
@@ -1036,7 +1040,16 @@ export default function ChatPage() {
         </div>
       </motion.div>
 
-      <div style={{ padding: '20px 20px 30px', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <motion.div
+        initial={false}
+        animate={{
+          height: showPrompts ? 'auto' : 0,
+          opacity: showPrompts ? 1 : 0,
+          marginTop: showPrompts ? 0 : -100,
+        }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: showPrompts ? '20px 20px 30px' : '0 20px' }}
+      >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 16, padding: '16px', minHeight: 100, maxWidth: '1020px', width: '100%', transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}>
           <motion.div
             key={promptIndex}
@@ -1114,7 +1127,7 @@ export default function ChatPage() {
             </motion.button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <AgentsSheet isOpen={agentsOpen} onClose={() => setAgentsOpen(false)} />
       <TuneWatchlist isOpen={tuneOpen} onClose={() => setTuneOpen(false)} />
