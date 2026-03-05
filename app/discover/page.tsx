@@ -191,23 +191,24 @@ export default function DiscoverPage() {
                 <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)' }}>{source.title}</div>
                 {/* desc */}
                 <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', lineHeight: 1.5 }}>{source.desc}</div>
-                {/* footer: source favicon + action */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
+                {/* footer: source favicon */}
+                <div style={{ display: 'flex', alignItems: 'center', marginTop: 4, marginBottom: 8 }}>
                   <img
                     src={`https://www.google.com/s2/favicons?sz=32&domain=${source.domain}`}
                     alt={source.name}
                     style={{ width: 20, height: 20, borderRadius: 2 }}
                   />
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setSelectedSource(source)
-                      setDetailOpen(true)
-                    }}
-                    style={{ padding: 0, background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer' }}>
-                    {source.action}
-                  </button>
                 </div>
+                {/* action button below source */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setSelectedSource(source)
+                    setDetailOpen(true)
+                  }}
+                  style={{ padding: 0, background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textAlign: 'left' }}>
+                  {source.action}
+                </button>
               </motion.div>
             ))}
           </AnimatePresence>
