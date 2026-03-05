@@ -246,6 +246,8 @@
 
 ## Critical Reminders
 
+- **GOLDEN RULE**: Do not change working code based on documentation alone. If it works in the browser, it works. Test before changing.
+- **Animation tuning**: The current animation values (0.35s, 0.1 stagger, easeInOut, y: 12) have been validated. Changing them to match CLAUDE.md spec will break the feel.
 - **Never** use `popLayout` mode on message AnimatePresence (causes layout shifts)
 - **Never** add app-wide preloaders or loading screens (use PageTransition only)
 - **Never** use different easing per component

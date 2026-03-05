@@ -1,5 +1,16 @@
 import { type Variants } from 'framer-motion'
 
+/**
+ * CRITICAL: These animations are carefully tuned for alfa-app.
+ * Do NOT change values based on CLAUDE.md standards alone.
+ * If animations feel wrong, test in browser first before changing.
+ * Current values have been validated and work correctly:
+ * - fadeUp/itemStagger: y: 12 (not 5)
+ * - containerStagger: 0.1 stagger (not 0.05)
+ * - easing: easeInOut (not EASE constant)
+ * - duration: 0.35s (not 0.3s)
+ */
+
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 const ease = [0.16, 1, 0.3, 1] as const
 
