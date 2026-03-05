@@ -104,7 +104,7 @@ export default function DiscoverPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden' }}>
       <PageHeader title="Discover" />
 
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', maxWidth: '1020px', margin: '0 auto', width: '100%', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', maxWidth: '1020px', margin: '0 auto', width: '100%', scrollbarWidth: 'none', msOverflowStyle: 'none', paddingTop: '70px' }}>
         <style>{`
           div::-webkit-scrollbar {
             display: none;

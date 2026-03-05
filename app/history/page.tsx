@@ -65,7 +65,7 @@ export default function HistoryPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)' }}>
       <PageHeader title="History" />
-      <div style={{ flex: 1, padding: '0 20px', display: 'flex', flexDirection: 'column', gap: 0, maxWidth: '1020px', margin: '0 auto', width: '100%', overflowY: 'auto' }}>
+      <div style={{ flex: 1, padding: '0 20px', display: 'flex', flexDirection: 'column', gap: 0, maxWidth: '1020px', margin: '0 auto', width: '100%', overflowY: 'auto', paddingTop: '70px' }}>
         <AnimatePresence mode="wait">
           {messages.length === 0 ? (
             <motion.div key="empty" variants={fadeUp} initial="hidden" animate="visible" exit="exit" style={{ padding: '20px 0', color: 'var(--cream2)', fontFamily: "'Space Grotesk', sans-serif" }}>
