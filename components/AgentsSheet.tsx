@@ -54,11 +54,10 @@ export default function AgentsSheet({ isOpen, onClose }: { isOpen: boolean; onCl
         >
           <div style={{ flex: 1 }}>
             <div style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: 15,
-              fontWeight: 500,
+              fontFamily: "'EB Garamond', serif",
+              fontSize: 18,
+              fontWeight: 300,
               color: agent.active ? 'var(--cream)' : 'var(--dust)',
-              letterSpacing: 1,
             }}>
               {agent.name}
             </div>
