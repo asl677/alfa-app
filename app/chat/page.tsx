@@ -1031,7 +1031,7 @@ export default function ChatPage() {
 
       <style>{`
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-75%); } }
         @keyframes gradientShimmer {
           0% { background-position: 200% center; }
           100% { background-position: -200% center; }

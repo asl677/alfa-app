@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 import ArtifactCard from '@/components/ArtifactCard'
-import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
+import ListItem from '@/components/ListItem'
+import { fadeUp, containerStagger } from '@/lib/animations'
 
 interface Artifact {
   id: string
@@ -56,30 +57,16 @@ export default function ArtifactsPage() {
           ) : (
             <motion.div variants={containerStagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
               {artifacts.map((artifact, idx) => (
-                <motion.div
+                <ListItem
                   key={artifact.id}
-                  variants={itemStagger}
-                  onClick={() => handleExpand(artifact)}
-                  style={{
-                    padding: '16px 0',
-                    borderBottom: '1px solid var(--rule-subtle)',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 12,
+                  title={artifact.title}
+                  metadata={{
+                    label: `${idx + 1}.`,
+                    time: new Date(artifact.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                    badge: artifact.type,
                   }}
-                >
-                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--dust)', minWidth: 32 }}>{idx + 1}.</div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--cream)', marginBottom: 2 }}>
-                      {artifact.title}
-                    </div>
-                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--dust)' }}>
-                      {new Date(artifact.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} • {artifact.type}
-                    </div>
-                  </div>
-                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--dust)' }}>→</div>
-                </motion.div>
+                  onClick={() => handleExpand(artifact)}
+                />
               ))}
             </motion.div>
           )}

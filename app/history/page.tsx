@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
-import { fadeUp } from '@/lib/animations'
+import ListItem from '@/components/ListItem'
 
 interface Message {
   id: string
@@ -68,43 +68,32 @@ export default function HistoryPage() {
       <div style={{ flex: 1, padding: '0 20px', display: 'flex', flexDirection: 'column', gap: 0, maxWidth: '1020px', margin: '0 auto', width: '100%', overflowY: 'auto' }}>
         <AnimatePresence mode="wait">
           {messages.length === 0 ? (
-            <motion.div key="empty" variants={fadeUp} initial="hidden" animate="visible" exit="exit" style={{ padding: '20px 0', color: 'var(--cream2)', fontFamily: "'Space Grotesk', sans-serif" }}>
+            <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ padding: '20px 0', color: 'var(--cream2)', fontFamily: "'Space Grotesk', sans-serif" }}>
               No chat history yet. Start a conversation in Chat to see history here.
             </motion.div>
           ) : (
-            <motion.div
-              key="history"
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              style={{ borderBottom: '1px solid var(--rule-subtle)', paddingTop: 20, paddingBottom: 20, cursor: 'pointer' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
-              <div>
-                <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--cream)', marginBottom: 4 }}>
-                  Current Chat
-                </div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, color: 'var(--cream2)', lineHeight: 1.5 }}>
-                  {conversationPreview}
-                </div>
-              </div>
-              <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: 16 }}>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--dust)', letterSpacing: 0.5 }}>
-                  {getFormattedDate()}
-                </div>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              {agents.map((agent) => (
-                <span key={agent} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--dust)', background: 'var(--bg2)', padding: '2px 6px', borderRadius: 3 }}>
-                  {agent.split(' ')[0]}
-                </span>
-              ))}
-              <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--cream2)', marginLeft: 'auto' }}>
-                {messages.length} messages
-              </span>
-            </div>
-          </motion.div>
+            <motion.div key="history" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ paddingTop: 20, paddingBottom: 20 }}>
+              <ListItem
+                title="Current Chat"
+                description={conversationPreview}
+                metadata={{
+                  label: 'Chat',
+                  time: getFormattedDate(),
+                }}
+                footer={
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', width: '100%' }}>
+                    {agents.map((agent) => (
+                      <span key={agent} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--dust)', background: 'var(--bg2)', padding: '2px 6px', borderRadius: 3 }}>
+                        {agent.split(' ')[0]}
+                      </span>
+                    ))}
+                    <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--cream2)', marginLeft: 'auto' }}>
+                      {messages.length} messages
+                    </span>
+                  </div>
+                }
+              />
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
