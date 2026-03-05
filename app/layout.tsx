@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Providers from '@/components/Providers'
 import NavWrapper from '@/components/NavWrapper'
+import PageWrapper from '@/components/PageWrapper'
 
 export const metadata: Metadata = {
   title: 'Alfa by Boosted.ai',
@@ -77,7 +78,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               height: '100%',
               overflow: 'hidden',
             }}>
-              {children}
+              <PageWrapper>
+                {children}
+              </PageWrapper>
             </main>
           </div>
         </Providers>
