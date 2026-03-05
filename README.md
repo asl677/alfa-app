@@ -22,7 +22,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Tools & Resources
 
-- [Claude Chat Assistant](https://claude.ai/public/artifacts/16a6c6ca-39a7-4b42-b7d4-40a82a15b8ef) - Web interface for market analysis
+- [Alfa 2026 Proposal](https://claude.ai/public/artifacts/16a6c6ca-39a7-4b42-b7d4-40a82a15b8ef)
 
 ## Learn More
 
