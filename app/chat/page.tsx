@@ -826,17 +826,20 @@ export default function ChatPage() {
                   {m.role === 'assistant' && (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12, justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
                       {m.agent?.includes('Ashley') && (
-                        <button style={{ background: 'transparent', border: '1px solid var(--rule-subtle)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 4, transition: 'all 0.2s' }} onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--coral)' }} onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--rule-subtle)' }}>
+                        <button style={{ background: 'transparent', border: '1px solid var(--coral)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 4, transition: 'all 0.2s', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: 8, color: 'var(--cream2)', opacity: 0.6, letterSpacing: 0.5, textTransform: 'uppercase' }}>Ashley</span>
                           Add to watchlist
                         </button>
                       )}
                       {m.agent?.includes('Mike') && (
-                        <button style={{ background: 'transparent', border: '1px solid var(--rule-subtle)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 4, transition: 'all 0.2s' }} onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--coral)' }} onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--rule-subtle)' }}>
+                        <button style={{ background: 'transparent', border: '1px solid var(--coral)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 4, transition: 'all 0.2s', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: 8, color: 'var(--cream2)', opacity: 0.6, letterSpacing: 0.5, textTransform: 'uppercase' }}>Mike</span>
                           Rebalance now
                         </button>
                       )}
                       {m.agent?.includes('Tom') && (
-                        <button style={{ background: 'transparent', border: '1px solid var(--rule-subtle)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 4, transition: 'all 0.2s' }} onMouseOver={(e) => { e.currentTarget.style.borderColor = 'var(--coral)' }} onMouseOut={(e) => { e.currentTarget.style.borderColor = 'var(--rule-subtle)' }}>
+                        <button style={{ background: 'transparent', border: '1px solid var(--coral)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 4, transition: 'all 0.2s', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'flex-start' }}>
+                          <span style={{ fontSize: 8, color: 'var(--cream2)', opacity: 0.6, letterSpacing: 0.5, textTransform: 'uppercase' }}>Tom</span>
                           Chart setup
                         </button>
                       )}
