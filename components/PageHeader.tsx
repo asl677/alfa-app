@@ -62,9 +62,9 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
         {title}
       </span>
 
-      {/* Right button or spacer matching design 24x24 */}
+      {/* Right button or spacer matching design - flexible width for multiple buttons */}
       {rightButton ? (
-        <div style={{ position: 'absolute', right: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', width: 24, height: 24 }}>
+        <div style={{ position: 'absolute', right: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 24, gap: 0 }}>
           {rightButton}
         </div>
       ) : (

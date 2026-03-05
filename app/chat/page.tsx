@@ -644,7 +644,7 @@ export default function ChatPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
-      <PageHeader title="Chat" rightButton={<div style={{ display: 'flex', alignItems: 'center', gap: 0, minWidth: 0, overflow: 'hidden' }}>{clearChatButton}{promptLibraryButton}{tickerToggleButton}</div>} />
+      <PageHeader title="Chat" rightButton={<div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>{clearChatButton}{promptLibraryButton}{tickerToggleButton}</div>} />
 
       <motion.div
         initial={false}
