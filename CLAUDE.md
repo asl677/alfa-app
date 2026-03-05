@@ -3,10 +3,9 @@
 ## Animation Standards
 
 ### Page Transitions
-- **Pattern**: 0.5s fade between all page route changes
-- **Implementation**: Use `PageTransition` component wrapping all children in layout
-- **Easing**: CSS cubic-bezier `[0.25, 0.46, 0.45, 0.94]`
-- **File**: `components/PageTransition.tsx`
+- **Pattern**: No page transition animations (removed due to complexity with Next.js App Router)
+- **Behavior**: Pages load instantly without animation
+- **Reason**: Client-side routing in SPA makes traditional page transitions problematic
 
 ### Message & List Animations
 - **Pattern**: Simple fade only, no sliding
