@@ -1,0 +1,5352 @@
+{
+  "version": "2.8",
+  "children": [
+    {
+      "type": "frame",
+      "id": "6YduW",
+      "x": -1134,
+      "y": 100,
+      "name": "Component/TabBar",
+      "reusable": true,
+      "width": 296,
+      "height": 83,
+      "fill": "$bg-primary",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border-strong"
+      },
+      "padding": [
+        12,
+        0,
+        20,
+        0
+      ],
+      "justifyContent": "space_around",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "fMqPb",
+          "name": "tab1",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 4,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "b2dJA",
+              "name": "tab1Icon",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "message-circle",
+              "iconFontFamily": "lucide",
+              "fill": "$text-primary"
+            },
+            {
+              "type": "text",
+              "id": "EOFiF",
+              "name": "tab1Label",
+              "fill": "$text-primary",
+              "content": "CHAT",
+              "fontFamily": "DM Mono",
+              "fontSize": 9,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "zPfu6",
+          "name": "tab2",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 4,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "dneBO",
+              "name": "tab2Icon",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "chart-bar",
+              "iconFontFamily": "lucide",
+              "fill": "$text-primary"
+            },
+            {
+              "type": "text",
+              "id": "nSmOx",
+              "name": "tab2Label",
+              "fill": "$text-secondary",
+              "content": "PORTFOLIO",
+              "fontFamily": "DM Mono",
+              "fontSize": 9,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "GE6j2",
+          "name": "tab3",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 4,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "IMbhW",
+              "name": "tab3Icon",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "search",
+              "iconFontFamily": "lucide",
+              "fill": "$text-primary"
+            },
+            {
+              "type": "text",
+              "id": "GC4HC",
+              "name": "tab3Label",
+              "fill": "$text-secondary",
+              "content": "DISCOVER",
+              "fontFamily": "DM Mono",
+              "fontSize": 9,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rXPBn",
+          "name": "tab4",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 4,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "sKrIM",
+              "name": "tab4Icon",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "user",
+              "iconFontFamily": "lucide",
+              "fill": "$text-primary"
+            },
+            {
+              "type": "text",
+              "id": "6iUwi",
+              "name": "tab4Label",
+              "fill": "$text-secondary",
+              "content": "PROFILE",
+              "fontFamily": "DM Mono",
+              "fontSize": 9,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ys1Ag",
+      "x": -1134,
+      "y": 223,
+      "name": "Component/ChatBubble/User",
+      "reusable": true,
+      "fill": "transparent",
+      "layout": "vertical",
+      "padding": [
+        8,
+        12
+      ],
+      "children": [
+        {
+          "type": "text",
+          "id": "SI3K5",
+          "name": "message",
+          "fill": "$text-primary",
+          "textGrowth": "fixed-width",
+          "width": 240,
+          "content": "Message text",
+          "fontFamily": "EB Garamond",
+          "fontSize": 14,
+          "fontWeight": "300"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "3fJfi",
+      "x": -1134,
+      "y": 277,
+      "name": "Component/ChatBubble/AI",
+      "reusable": true,
+      "fill": "transparent",
+      "layout": "vertical",
+      "padding": [
+        8,
+        12
+      ],
+      "children": [
+        {
+          "type": "text",
+          "id": "RoYNN",
+          "name": "message",
+          "fill": "$text-secondary",
+          "textGrowth": "fixed-width",
+          "width": 260,
+          "content": "AI response text",
+          "fontFamily": "EB Garamond",
+          "fontSize": 14,
+          "fontWeight": "300"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "21xqM",
+      "x": -14,
+      "y": 100,
+      "name": "0.1 Chat Screen",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg-primary",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "1vV8R",
+          "name": "tradeHeader",
+          "width": "fill_container",
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border-strong"
+          },
+          "padding": [
+            16,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "CE8Dq",
+              "name": "tradeBack",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "menu",
+              "iconFontFamily": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
+              "type": "text",
+              "id": "qtm4H",
+              "name": "tradeTitle",
+              "fill": "$text-tertiary",
+              "content": "CHAT",
+              "fontFamily": "DM Mono",
+              "fontSize": 11,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "9P1dc",
+              "name": "tradeSpacer",
+              "width": 24,
+              "height": 24
+            }
+          ]
+        },
+        {
+          "id": "gjZ9w",
+          "type": "ref",
+          "ref": "lCpy1",
+          "x": 0,
+          "y": 56,
+          "padding": [
+            0,
+            20
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "4o50p",
+          "name": "chatMessages",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": [
+            "$bg-primary",
+            {
+              "type": "mesh_gradient",
+              "opacity": 0.92,
+              "enabled": false,
+              "columns": 3,
+              "rows": 4,
+              "colors": [
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#06022200",
+                "#00000000",
+                "#C03DDD7A",
+                "#2233CC52",
+                "#3D0DAA30"
+              ],
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.5,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0.33
+                ],
+                [
+                  0.5,
+                  0.28
+                ],
+                [
+                  1,
+                  0.36
+                ],
+                [
+                  0.02,
+                  0.6
+                ],
+                [
+                  0.58,
+                  0.55
+                ],
+                [
+                  1,
+                  0.71
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.42,
+                  0.89
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
+          ],
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            12,
+            10
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "YJUMc",
+              "name": "aiMsg1",
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                0,
+                10
+              ],
+              "children": [
+                {
+                  "id": "7JW5L",
+                  "type": "ref",
+                  "ref": "O4H0b",
+                  "name": "c4",
+                  "fill": "$bg-card",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border-strong"
+                  },
+                  "x": 10,
+                  "y": 0,
+                  "padding": [
+                    6,
+                    10
+                  ],
+                  "cornerRadius": 46,
+                  "height": "fit_content",
+                  "descendants": {
+                    "rZJcH": {
+                      "content": "Monitor Mike",
+                      "fontFamily": "Space Grotesk",
+                      "fill": "$text-secondary",
+                      "fontSize": 10
+                    }
+                  }
+                },
+                {
+                  "id": "fkn6K",
+                  "type": "ref",
+                  "ref": "3fJfi",
+                  "name": "ai1",
+                  "fill": "transparent",
+                  "padding": [
+                    8,
+                    0
+                  ],
+                  "descendants": {
+                    "RoYNN": {
+                      "content": "Markets are mostly down today. Your portfolio is off -1.96% (-$1,247). NVDA leading losses at -5.51%, MSFT the only green at +0.27%.",
+                      "fontFamily": "Space Grotesk",
+                      "fill": "$text-secondary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "nKhPm",
+              "name": "aiMsg1",
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                0,
+                10
+              ],
+              "children": [
+                {
+                  "id": "6tn5i",
+                  "type": "ref",
+                  "ref": "O4H0b",
+                  "name": "c4",
+                  "fill": "$bg-card",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border-strong"
+                  },
+                  "x": 10,
+                  "y": 0,
+                  "padding": [
+                    6,
+                    10
+                  ],
+                  "cornerRadius": 46,
+                  "height": "fit_content",
+                  "descendants": {
+                    "rZJcH": {
+                      "content": "Analyst Ashley",
+                      "fontFamily": "Space Grotesk",
+                      "fill": "$text-secondary",
+                      "fontSize": 10
+                    }
+                  }
+                },
+                {
+                  "id": "P2EjE",
+                  "type": "ref",
+                  "ref": "3fJfi",
+                  "name": "ai1",
+                  "fill": "transparent",
+                  "padding": [
+                    8,
+                    0
+                  ],
+                  "justifyContent": "start",
+                  "alignItems": "start",
+                  "x": 10,
+                  "y": 25,
+                  "descendants": {
+                    "RoYNN": {
+                      "content": "That doesnt matter, i looked at the last trends, all you need to worry about is what happens next week.",
+                      "fontFamily": "Space Grotesk",
+                      "fill": "$text-secondary",
+                      "textAlign": "left",
+                      "x": 0,
+                      "y": 8
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "SIEpX",
+              "name": "aiMsg1",
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                0,
+                10
+              ],
+              "children": [
+                {
+                  "id": "9YfcE",
+                  "type": "ref",
+                  "ref": "40qaZ",
+                  "name": "r1check",
+                  "x": 10,
+                  "y": 0,
+                  "cornerRadius": 12,
+                  "descendants": {
+                    "i5xuM": {
+                      "flipX": false,
+                      "flipY": false,
+                      "width": 18,
+                      "height": 18,
+                      "x": 2,
+                      "y": 2
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "XvEgl",
+          "name": "userMsg1",
+          "width": "fill_container",
+          "padding": [
+            0,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "0Arkx",
+              "type": "ref",
+              "ref": "ys1Ag",
+              "name": "u1",
+              "fill": "transparent",
+              "width": 201,
+              "height": "fit_content",
+              "x": 10,
+              "y": 0,
+              "flipX": false,
+              "flipY": false,
+              "descendants": {
+                "SI3K5": {
+                  "content": "What's moving right now?",
+                  "fontFamily": "Space Grotesk",
+                  "fill": "$text-primary"
+                }
+              }
+            },
+            {
+              "id": "BVQ9q",
+              "type": "ref",
+              "ref": "ys1Ag",
+              "name": "u1",
+              "fill": "transparent",
+              "width": "fit_content",
+              "height": "fit_content",
+              "x": 211,
+              "y": 0,
+              "descendants": {
+                "SI3K5": {
+                  "content": "What should I do?",
+                  "fontFamily": "Space Grotesk",
+                  "fill": "$text-primary"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "uXyna",
+          "type": "ref",
+          "ref": "3Tej5",
+          "flipX": false,
+          "flipY": false,
+          "width": "fill_container",
+          "height": "fit_content",
+          "x": 0,
+          "y": 716,
+          "textGrowth": "auto",
+          "descendants": {
+            "QVZhN/uaT13": {
+              "height": "fit_content",
+              "width": "fit_content",
+              "clip": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "WDF92",
+      "x": -475,
+      "y": 100,
+      "name": "00 Loading",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg-primary",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "2iMF3",
+          "name": "description",
+          "context": "Alfa",
+          "fill": "$text-secondary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Alfa",
+          "textAlign": "center",
+          "fontFamily": "EB Garamond",
+          "fontSize": 52,
+          "fontWeight": "300"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "QLIhT",
+      "x": 449,
+      "y": 100,
+      "name": "0.2 Watchlist",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg-primary",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "wqKrL",
+          "name": "tradeHeader",
+          "opacity": 0.3,
+          "width": "fill_container",
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border-strong"
+          },
+          "padding": [
+            16,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "S5HyC",
+              "name": "tradeBack",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "menu",
+              "iconFontFamily": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
+              "type": "text",
+              "id": "p6Kun",
+              "name": "tradeTitle",
+              "fill": "$text-tertiary",
+              "content": "CHAT",
+              "fontFamily": "DM Mono",
+              "fontSize": 11,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "8iPLF",
+              "name": "tradeSpacer",
+              "width": 24,
+              "height": 24
+            }
+          ]
+        },
+        {
+          "id": "xNeWl",
+          "type": "ref",
+          "ref": "lCpy1",
+          "x": 0,
+          "y": 56,
+          "padding": [
+            0,
+            20
+          ],
+          "opacity": 0.3
+        },
+        {
+          "type": "frame",
+          "id": "hqsR6",
+          "name": "chatMessages",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": [
+            "$bg-primary",
+            {
+              "type": "mesh_gradient",
+              "opacity": 0.92,
+              "enabled": false,
+              "columns": 3,
+              "rows": 4,
+              "colors": [
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#06022200",
+                "#00000000",
+                "#C03DDD7A",
+                "#2233CC52",
+                "#3D0DAA30"
+              ],
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.5,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0.33
+                ],
+                [
+                  0.5,
+                  0.28
+                ],
+                [
+                  1,
+                  0.36
+                ],
+                [
+                  0.02,
+                  0.6
+                ],
+                [
+                  0.58,
+                  0.55
+                ],
+                [
+                  1,
+                  0.71
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.42,
+                  0.89
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
+          ],
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            12,
+            0
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "nuNKV",
+              "name": "aiMsg1",
+              "opacity": 0.3,
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                0,
+                10
+              ],
+              "children": [
+                {
+                  "id": "ijXP5",
+                  "type": "ref",
+                  "ref": "O4H0b",
+                  "name": "c4",
+                  "fill": "$bg-card",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border-strong"
+                  },
+                  "x": 10,
+                  "y": 0,
+                  "padding": [
+                    6,
+                    10
+                  ],
+                  "cornerRadius": 46,
+                  "height": "fit_content",
+                  "descendants": {
+                    "rZJcH": {
+                      "content": "Monitor Mike",
+                      "fontFamily": "Space Grotesk",
+                      "fill": "$text-secondary",
+                      "fontSize": 10
+                    }
+                  }
+                },
+                {
+                  "id": "RerOk",
+                  "type": "ref",
+                  "ref": "3fJfi",
+                  "name": "ai1",
+                  "fill": "transparent",
+                  "padding": [
+                    8,
+                    0
+                  ],
+                  "descendants": {
+                    "RoYNN": {
+                      "content": "Markets are mostly down today. Your portfolio is off -1.96% (-$1,247). NVDA leading losses at -5.51%, MSFT the only green at +0.27%.",
+                      "fontFamily": "Space Grotesk",
+                      "fill": "$text-secondary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "41Mzl",
+              "name": "bottomSheet",
+              "width": "fill_container",
+              "height": 639,
+              "fill": "#0d0d0de8",
+              "cornerRadius": [
+                28,
+                28,
+                0,
+                0
+              ],
+              "stroke": {
+                "thickness": {
+                  "top": 1
+                },
+                "fill": "#FFFFFF18"
+              },
+              "effect": {
+                "type": "background_blur",
+                "radius": 32
+              },
+              "layout": "vertical",
+              "gap": 20,
+              "padding": [
+                20,
+                20,
+                0,
+                20
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "eujag",
+                  "name": "handle",
+                  "width": "fill_container",
+                  "padding": [
+                    12,
+                    0,
+                    16,
+                    0
+                  ],
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 2,
+                      "id": "1S6Va",
+                      "name": "handleBar",
+                      "fill": "$text-tertiary",
+                      "width": 36,
+                      "height": 4
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JMfH7",
+                  "name": "portHeader",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wt6Se",
+                      "name": "portTitle",
+                      "fill": "$text-primary",
+                      "content": "Tune Watchlist",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 28,
+                      "fontWeight": "300",
+                      "letterSpacing": -0.8
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fzf2V",
+                  "name": "chipRow2",
+                  "clip": true,
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "id": "mpacM",
+                      "type": "ref",
+                      "ref": "O4H0b",
+                      "name": "c4",
+                      "fill": "$bg-card",
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border-strong"
+                      },
+                      "x": 0,
+                      "y": 0,
+                      "descendants": {
+                        "rZJcH": {
+                          "content": "Swing Trading",
+                          "fontFamily": "Space Grotesk",
+                          "fill": "$text-secondary"
+                        }
+                      }
+                    },
+                    {
+                      "id": "H427y",
+                      "type": "ref",
+                      "ref": "O4H0b",
+                      "name": "c6",
+                      "fill": "$bg-card",
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "$border-strong"
+                      },
+                      "x": 140,
+                      "y": 0,
+                      "descendants": {
+                        "rZJcH": {
+                          "content": "Hedging Risk",
+                          "fontFamily": "Space Grotesk",
+                          "fill": "$text-secondary"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "16ruc",
+                  "name": "searchBar",
+                  "width": "fill_container",
+                  "height": 44,
+                  "fill": "$bg-input",
+                  "cornerRadius": 50,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$bg-card"
+                  },
+                  "gap": 10,
+                  "padding": [
+                    14,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "db6e8",
+                      "name": "searchIcon",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "search",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "fjLH0",
+                      "name": "searchText",
+                      "fill": "$text-tertiary",
+                      "content": "Search stocks, ETFs, crypto...",
+                      "fontFamily": "Space Grotesk",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "6zcnN",
+                  "name": "stockList",
+                  "width": "fill_container",
+                  "height": 383,
+                  "layout": "vertical",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "6xPxR",
+                      "name": "row1",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "padding": [
+                        14,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "wFtUS",
+                          "type": "ref",
+                          "ref": "40qaZ",
+                          "name": "r1check"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "8bxIG",
+                          "name": "r1info",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "gpMdI",
+                              "name": "r1ticker",
+                              "fill": "$text-primary",
+                              "content": "AAPL",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "aFUWl",
+                              "name": "r1name",
+                              "fill": "$text-secondary",
+                              "content": "Apple Inc.",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "xDYur",
+                          "name": "r1price",
+                          "fill": "$text-primary",
+                          "content": "$272.95",
+                          "fontFamily": "Space Grotesk",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "HQCun",
+                      "name": "row2",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "padding": [
+                        14,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "515YO",
+                          "type": "ref",
+                          "ref": "40qaZ",
+                          "name": "r2check"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Cq9gR",
+                          "name": "r2info",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "5FsnB",
+                              "name": "r2ticker",
+                              "fill": "$text-primary",
+                              "content": "NVDA",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "cz2WJ",
+                              "name": "r2name",
+                              "fill": "$text-secondary",
+                              "content": "NVIDIA Corp.",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "df1PH",
+                          "name": "r2price",
+                          "fill": "$text-primary",
+                          "content": "$184.89",
+                          "fontFamily": "Space Grotesk",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pmGn6",
+                      "name": "row3",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "padding": [
+                        14,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "BSdO9",
+                          "type": "ref",
+                          "ref": "zbnig",
+                          "name": "r3check"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "7ZDKy",
+                          "name": "r3info",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "7bOmI",
+                              "name": "r3ticker",
+                              "fill": "$text-primary",
+                              "content": "TSLA",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "LI9mD",
+                              "name": "r3name",
+                              "fill": "$text-secondary",
+                              "content": "Tesla Inc.",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "qr0Ng",
+                          "name": "r3price",
+                          "fill": "$text-primary",
+                          "content": "$408.58",
+                          "fontFamily": "Space Grotesk",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "bbZxe",
+                      "name": "row4",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "padding": [
+                        14,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "yK2or",
+                          "type": "ref",
+                          "ref": "zbnig",
+                          "name": "r4check"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "oCcD0",
+                          "name": "r4info",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "3RlzV",
+                              "name": "r4ticker",
+                              "fill": "$text-primary",
+                              "content": "MSFT",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "lpzif",
+                              "name": "r4name",
+                              "fill": "$text-secondary",
+                              "content": "Microsoft Corp.",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "f9U2l",
+                          "name": "r4price",
+                          "fill": "$text-primary",
+                          "content": "$401.72",
+                          "fontFamily": "Space Grotesk",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "73IoX",
+                      "name": "row5",
+                      "width": "fill_container",
+                      "gap": 12,
+                      "padding": [
+                        14,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "id": "Sor2C",
+                          "type": "ref",
+                          "ref": "40qaZ",
+                          "name": "r5check"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "cV0Bn",
+                          "name": "r5info",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "NbBA9",
+                              "name": "r5ticker",
+                              "fill": "$text-primary",
+                              "content": "BTC",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 16,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "OwneD",
+                              "name": "r5name",
+                              "fill": "$text-secondary",
+                              "content": "Bitcoin",
+                              "fontFamily": "Space Grotesk",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "F4Qil",
+                          "name": "r5price",
+                          "fill": "$text-primary",
+                          "content": "$67,213",
+                          "fontFamily": "Space Grotesk",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "uq5cx",
+      "x": 3622,
+      "y": 92,
+      "name": "0.9 Discover",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg-primary",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "9IMD3",
+          "name": "tradeHeader",
+          "width": "fill_container",
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border-strong"
+          },
+          "padding": [
+            16,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "u3gsL",
+              "name": "tradeBack",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "menu",
+              "iconFontFamily": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
+              "type": "text",
+              "id": "G6OtB",
+              "name": "tradeTitle",
+              "fill": "$text-tertiary",
+              "content": "DISCOVER",
+              "fontFamily": "DM Mono",
+              "fontSize": 11,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "1CSnc",
+              "name": "tradeSpacer",
+              "width": 24,
+              "height": 24
+            }
+          ]
+        },
+        {
+          "id": "na8iJ",
+          "type": "ref",
+          "ref": "lCpy1",
+          "x": 0,
+          "y": 56,
+          "padding": [
+            0,
+            20
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "zNi7N",
+          "name": "chipRow2",
+          "clip": true,
+          "width": "fill_container",
+          "gap": 10,
+          "padding": [
+            10,
+            20
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "Xe8xg",
+              "type": "ref",
+              "ref": "O4H0b",
+              "name": "c4",
+              "fill": "$bg-card",
+              "stroke": {
+                "thickness": 1,
+                "fill": "$coral"
+              },
+              "x": 20,
+              "y": 10,
+              "descendants": {
+                "rZJcH": {
+                  "content": "Trending",
+                  "fontFamily": "Space Grotesk",
+                  "fill": "$text-secondary"
+                }
+              }
+            },
+            {
+              "id": "AZufy",
+              "type": "ref",
+              "ref": "O4H0b",
+              "name": "c6",
+              "fill": "$bg-card",
+              "stroke": {
+                "thickness": 1,
+                "fill": "$border-strong"
+              },
+              "x": 125,
+              "y": 10,
+              "descendants": {
+                "rZJcH": {
+                  "content": "Insights",
+                  "fontFamily": "Space Grotesk",
+                  "fill": "$text-secondary"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "tQDZm",
+          "name": "chatMessages",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": [
+            "$bg-primary",
+            {
+              "type": "mesh_gradient",
+              "opacity": 0.92,
+              "enabled": false,
+              "columns": 3,
+              "rows": 4,
+              "colors": [
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#06022200",
+                "#00000000",
+                "#C03DDD7A",
+                "#2233CC52",
+                "#3D0DAA30"
+              ],
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.5,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0.33
+                ],
+                [
+                  0.5,
+                  0.28
+                ],
+                [
+                  1,
+                  0.36
+                ],
+                [
+                  0.02,
+                  0.6
+                ],
+                [
+                  0.58,
+                  0.55
+                ],
+                [
+                  1,
+                  0.71
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.42,
+                  0.89
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
+          ],
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            12,
+            10
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Z57BJ",
+              "name": "notificationsContainer",
+              "clip": true,
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": [
+                0,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "id": "I3rPc",
+                  "type": "ref",
+                  "ref": "S8PKB",
+                  "name": "card1",
+                  "descendants": {
+                    "4oTRJ": {
+                      "content": "Analyst Ashley"
+                    },
+                    "AQcOX": {
+                      "content": "2m"
+                    },
+                    "c987D": {
+                      "content": "High"
+                    },
+                    "w9735": {
+                      "content": "AI Boom Drives Semis"
+                    },
+                    "FmpfH": {
+                      "content": "NVDA dropped below MA200, technical breakout incoming"
+                    },
+                    "PNMu3": {
+                      "content": "F"
+                    },
+                    "luNqV": {
+                      "content": "T"
+                    },
+                    "7U40D": {
+                      "content": "W"
+                    },
+                    "dmWWb/e5Yu4": {
+                      "content": "Alert"
+                    }
+                  }
+                },
+                {
+                  "id": "wX98X",
+                  "type": "ref",
+                  "ref": "S8PKB",
+                  "name": "card2",
+                  "descendants": {
+                    "4oTRJ": {
+                      "content": "Tom Tracker"
+                    },
+                    "AQcOX": {
+                      "content": "1h"
+                    },
+                    "c987D": {
+                      "content": "Medium"
+                    },
+                    "w9735": {
+                      "content": "Earnings Season Peak"
+                    },
+                    "FmpfH": {
+                      "content": "20% of tech stocks reporting earnings this week"
+                    },
+                    "PNMu3": {
+                      "content": "B"
+                    },
+                    "luNqV": {
+                      "content": "F"
+                    },
+                    "7U40D": {
+                      "content": "C"
+                    },
+                    "dmWWb/e5Yu4": {
+                      "content": "Analyze"
+                    }
+                  }
+                },
+                {
+                  "id": "8HLew",
+                  "type": "ref",
+                  "ref": "S8PKB",
+                  "name": "card3",
+                  "descendants": {
+                    "4oTRJ": {
+                      "content": "Monitor Mike"
+                    },
+                    "AQcOX": {
+                      "content": "30m"
+                    },
+                    "c987D": {
+                      "content": "High"
+                    },
+                    "w9735": {
+                      "content": "Sector Rotation Alert"
+                    },
+                    "FmpfH": {
+                      "content": "Tech outflows to Utilities - rebalance recommended"
+                    },
+                    "PNMu3": {
+                      "content": "F"
+                    },
+                    "luNqV": {
+                      "content": "M"
+                    },
+                    "7U40D": {
+                      "content": "T"
+                    },
+                    "dmWWb/e5Yu4": {
+                      "content": "Rebalance"
+                    }
+                  }
+                },
+                {
+                  "id": "9tAfI",
+                  "type": "ref",
+                  "ref": "S8PKB",
+                  "name": "card4",
+                  "descendants": {
+                    "4oTRJ": {
+                      "content": "Monitor Mike"
+                    },
+                    "AQcOX": {
+                      "content": "4h"
+                    },
+                    "c987D": {
+                      "content": "Low"
+                    },
+                    "w9735": {
+                      "content": "Fed Rate Decision"
+                    },
+                    "FmpfH": {
+                      "content": "Fed rate cut probability increased 25bp this month"
+                    },
+                    "PNMu3": {
+                      "content": "F"
+                    },
+                    "luNqV": {
+                      "content": "C"
+                    },
+                    "7U40D": {
+                      "content": "B"
+                    },
+                    "dmWWb/e5Yu4": {
+                      "content": "Monitor"
+                    }
+                  }
+                },
+                {
+                  "id": "zcad9",
+                  "type": "ref",
+                  "ref": "S8PKB",
+                  "name": "card5",
+                  "descendants": {
+                    "4oTRJ": {
+                      "content": "Energy Scout"
+                    },
+                    "AQcOX": {
+                      "content": "5m"
+                    },
+                    "c987D": {
+                      "content": "High"
+                    },
+                    "w9735": {
+                      "content": "Oil Prices Surge"
+                    },
+                    "FmpfH": {
+                      "content": "OPEC production cuts drive crude 3.1% higher"
+                    },
+                    "PNMu3": {
+                      "content": "M"
+                    },
+                    "luNqV": {
+                      "content": "C"
+                    },
+                    "7U40D": {
+                      "content": "F"
+                    },
+                    "dmWWb/e5Yu4": {
+                      "content": "Trade"
+                    }
+                  }
+                },
+                {
+                  "id": "LHb8L",
+                  "type": "ref",
+                  "ref": "S8PKB",
+                  "name": "card6",
+                  "descendants": {
+                    "4oTRJ": {
+                      "content": "FX Trader"
+                    },
+                    "AQcOX": {
+                      "content": "3h"
+                    },
+                    "c987D": {
+                      "content": "Medium"
+                    },
+                    "w9735": {
+                      "content": "Dollar Strengthens"
+                    },
+                    "FmpfH": {
+                      "content": "Dollar strength signals continued volatility in pairs"
+                    },
+                    "PNMu3": {
+                      "content": "C"
+                    },
+                    "luNqV": {
+                      "content": "F"
+                    },
+                    "7U40D": {
+                      "content": "T"
+                    },
+                    "dmWWb/e5Yu4": {
+                      "content": "Execute"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "2pHLP",
+      "x": 902,
+      "y": 100,
+      "name": "0.3 Toggle Agents",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg-primary",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "3iEuq",
+          "name": "tradeHeader",
+          "width": "fill_container",
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border-strong"
+          },
+          "padding": [
+            16,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "TrKXQ",
+              "name": "tradeBack",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "menu",
+              "iconFontFamily": "Material Symbols Outlined",
+              "fill": "$text-primary"
+            },
+            {
+              "type": "text",
+              "id": "HSPxR",
+              "name": "tradeTitle",
+              "fill": "$text-tertiary",
+              "content": "CHAT",
+              "fontFamily": "DM Mono",
+              "fontSize": 11,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "6rvSa",
+              "name": "tradeSpacer",
+              "width": 24,
+              "height": 24
+            }
+          ]
+        },
+        {
+          "id": "LXRbL",
+          "type": "ref",
+          "ref": "lCpy1",
+          "x": 0,
+          "y": 56,
+          "padding": [
+            0,
+            20
+          ],
+          "opacity": 0.3,
+          "descendants": {
+            "DjEO5": {
+              "width": "fill_container",
+              "height": "fit_content",
+              "x": 20,
+              "y": 0
+            },
+            "B4YOo": {
+              "width": "fill_container",
+              "height": "fit_content",
+              "x": 154.66666666666666,
+              "y": 0
+            },
+            "a6H7f": {
+              "width": "fill_container",
+              "height": "fit_content",
+              "x": 289.3333333333333,
+              "y": 0
+            }
+          }
+        },
+        {
+          "type": "frame",
+          "id": "opx4l",
+          "name": "chatMessages",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": [
+            "$bg-primary",
+            {
+              "type": "mesh_gradient",
+              "opacity": 0.92,
+              "enabled": false,
+              "columns": 3,
+              "rows": 4,
+              "colors": [
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#00000000",
+                "#06022200",
+                "#00000000",
+                "#C03DDD7A",
+                "#2233CC52",
+                "#3D0DAA30"
+              ],
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.5,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0.33
+                ],
+                [
+                  0.5,
+                  0.28
+                ],
+                [
+                  1,
+                  0.36
+                ],
+                [
+                  0.02,
+                  0.6
+                ],
+                [
+                  0.58,
+                  0.55
+                ],
+                [
+                  1,
+                  0.71
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.42,
+                  0.89
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
+          ],
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            12,
+            10
+          ],
+          "justifyContent": "space_between",
+          "children": [
+            {
+              "type": "frame",
+              "id": "NIPTW",
+              "name": "aiMsg1",
+              "opacity": 0.3,
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                0,
+                10
+              ],
+              "children": [
+                {
+                  "id": "qvihj",
+                  "type": "ref",
+                  "ref": "O4H0b",
+                  "name": "c4",
+                  "fill": "$bg-card",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border-strong"
+                  },
+                  "x": 10,
+                  "y": 0,
+                  "padding": [
+                    6,
+                    10
+                  ],
+                  "cornerRadius": 46,
+                  "height": "fit_content",
+                  "descendants": {
+                    "rZJcH": {
+                      "content": "Monitor Mike",
+                      "fontFamily": "Space Grotesk",
+                      "fill": "$text-secondary",
+                      "fontSize": 10
+                    }
+                  }
+                },
+                {
+                  "id": "JmAOZ",
+                  "type": "ref",
+                  "ref": "3fJfi",
+                  "name": "ai1",
+                  "fill": "transparent",
+                  "padding": [
+                    8,
+                    0
+                  ],
+                  "x": 10,
+                  "y": 25,
+                  "descendants": {
+                    "RoYNN": {
+                      "content": "Markets are mostly down today. Your portfolio is off -1.96% (-$1,247). NVDA leading losses at -5.51%, MSFT the only green at +0.27%.",
+                      "fontFamily": "Space Grotesk",
+                      "fill": "$text-secondary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": "HCTKM",
+              "type": "ref",
+              "ref": "mRyhU",
+              "x": 10,
+              "y": 331,
+              "width": "fill_container",
+              "layout": "vertical",
+              "descendants": {
+                "sqxWZ": {
+                  "width": "fill_container",
+                  "height": "fit_content",
+                  "x": 0,
+                  "y": 16
+                },
+                "i0xKP": {
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "x": 0,
+                  "y": 48
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "bBKd7",
+      "x": 3169,
+      "y": 92,
+      "name": "0.8 Menu",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg-primary",
+      "cornerRadius": 20,
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "Ddm2w",
+          "x": 22,
+          "y": 26,
+          "name": "bottomSheet",
+          "width": 349,
+          "height": 400,
+          "fill": "$bg-elevated",
+          "cornerRadius": 20,
+          "stroke": {
+            "align": "inside",
+            "thickness": 1,
+            "fill": "#592d17ff"
+          },
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "BEpjK",
+              "name": "sheetHeader",
+              "width": "fill_container",
+              "stroke": {
+                "thickness": {
+                  "bottom": 1
+                },
+                "fill": "$border-subtle"
+              },
+              "padding": 20,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "H4gTv",
+                  "name": "dateText",
+                  "fill": "$text-secondary",
+                  "content": "Alfa",
+                  "fontFamily": "EB Garamond",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "icon_font",
+                  "id": "fltEb",
+                  "name": "sheetClose",
+                  "enabled": false,
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "x",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-primary"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "6zHqF",
+              "name": "agentList",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "a66jZ",
+                  "name": "nav-chat",
+                  "width": "fill_container",
+                  "stroke": {
+                    "thickness": {
+                      "bottom": 1
+                    },
+                    "fill": "$border-subtle"
+                  },
+                  "gap": 14,
+                  "padding": [
+                    16,
+                    20
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "P0ten",
+                      "name": "i1",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "message-circle",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "dtetV",
+                      "name": "t1",
+                      "fill": "$text-primary",
+                      "content": "Chat",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 16,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "T03j9",
+                  "name": "nav-discover",
+                  "width": "fill_container",
+                  "stroke": {
+                    "thickness": {
+                      "bottom": 1
+                    },
+                    "fill": "$border-subtle"
+                  },
+                  "gap": 14,
+                  "padding": [
+                    16,
+                    20
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "ha5mD",
+                      "name": "i2",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "compass",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Cozbj",
+                      "name": "t2",
+                      "fill": "$text-primary",
+                      "content": "Discover",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 16,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Evw6D",
+                  "name": "nav-agents",
+                  "width": "fill_container",
+                  "stroke": {
+                    "thickness": {
+                      "bottom": 1
+                    },
+                    "fill": "$border-subtle"
+                  },
+                  "gap": 14,
+                  "padding": [
+                    16,
+                    20
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "BYUKt",
+                      "name": "i3",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "bot",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "BWBSj",
+                      "name": "t3",
+                      "fill": "$text-primary",
+                      "content": "Agents",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 16,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Kh8Ce",
+                  "name": "nav-context",
+                  "width": "fill_container",
+                  "stroke": {
+                    "thickness": {
+                      "bottom": 1
+                    },
+                    "fill": "$border-subtle"
+                  },
+                  "gap": 14,
+                  "padding": [
+                    16,
+                    20
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "OobnL",
+                      "name": "i4",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "layers",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "LB6tY",
+                      "name": "t4",
+                      "fill": "$text-primary",
+                      "content": "Context",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 16,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "6Koke",
+                  "name": "nav-history",
+                  "width": "fill_container",
+                  "stroke": {
+                    "thickness": {
+                      "bottom": 1
+                    },
+                    "fill": "$border-subtle"
+                  },
+                  "gap": 14,
+                  "padding": [
+                    16,
+                    20
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "AYGLI",
+                      "name": "i5",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "rotate-ccw",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "8RWKh",
+                      "name": "t5",
+                      "fill": "$text-primary",
+                      "content": "History",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 16,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "NSU8y",
+                  "name": "nav-settings",
+                  "width": "fill_container",
+                  "stroke": {
+                    "thickness": {
+                      "bottom": 1
+                    },
+                    "fill": "$border-subtle"
+                  },
+                  "gap": 14,
+                  "padding": [
+                    16,
+                    20
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "9BV4F",
+                      "name": "i6",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "settings",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    },
+                    {
+                      "type": "text",
+                      "id": "V9kB7",
+                      "name": "t6",
+                      "fill": "$text-primary",
+                      "content": "Settings",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 16,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "CTi9P",
+                  "name": "spacer",
+                  "width": "fill_container",
+                  "height": "fill_container"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "iW2fS",
+      "x": 1355,
+      "y": 92,
+      "name": "0.4 Agent Running",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg-primary",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "nTYFW",
+          "name": "runMessages",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            16,
+            20,
+            20,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "rwJAK",
+              "name": "runUser",
+              "width": "fill_container",
+              "justifyContent": "end",
+              "children": [
+                {
+                  "id": "Z5Sii",
+                  "type": "ref",
+                  "ref": "ys1Ag",
+                  "name": "ru1",
+                  "fill": "transparent",
+                  "descendants": {
+                    "SI3K5": {
+                      "content": "Buy the NVDA dip with 10% of my TSLA position",
+                      "fill": "$text-primary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "XFTep",
+              "name": "runAi",
+              "width": "fill_container",
+              "children": [
+                {
+                  "id": "HXw1O",
+                  "type": "ref",
+                  "ref": "3fJfi",
+                  "name": "ra1",
+                  "fill": "transparent",
+                  "descendants": {
+                    "RoYNN": {
+                      "content": "On it. Executing: Sell 3 TSLA @ $408.58, Buy 6.6 NVDA @ $184.89. Finding optimal entry...",
+                      "fill": "$text-secondary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": "LPKDT",
+              "type": "ref",
+              "ref": "7BdMS",
+              "width": "fill_container",
+              "name": "agentRunCard",
+              "fill": "$bg-card",
+              "stroke": {
+                "thickness": 1,
+                "fill": "$border-strong"
+              },
+              "descendants": {
+                "4PQdv": {
+                  "fill": "$text-primary"
+                },
+                "FfaCq": {
+                  "content": "Executing trade",
+                  "fill": "$text-primary"
+                },
+                "2hMag": {
+                  "content": "Now",
+                  "fill": "$text-secondary"
+                },
+                "Owf2H": {
+                  "content": "Analyzing NVDA order book at $184.89. Spread is tight, placing limit order...",
+                  "fill": "$text-secondary"
+                },
+                "NVCYF": {
+                  "fill": "$bg-elevated"
+                },
+                "q4IS2": {
+                  "fill": "$text-primary"
+                },
+                "uaT13": {
+                  "height": "fit_content"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "Rc87P",
+              "name": "doneUser",
+              "width": "fill_container",
+              "justifyContent": "end",
+              "children": [
+                {
+                  "id": "d00rr",
+                  "type": "ref",
+                  "ref": "ys1Ag",
+                  "name": "du1",
+                  "fill": "transparent",
+                  "descendants": {
+                    "SI3K5": {
+                      "content": "Buy the NVDA dip with 10% of my TSLA position",
+                      "fill": "$text-primary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": "A6vlJ",
+              "type": "ref",
+              "ref": "S8PKB",
+              "name": "card1",
+              "x": 20,
+              "y": 348,
+              "descendants": {
+                "4oTRJ": {
+                  "content": "Analyst Ashley"
+                },
+                "AQcOX": {
+                  "content": "2m"
+                },
+                "c987D": {
+                  "content": "High"
+                },
+                "w9735": {
+                  "content": "AI Boom Drives Semis"
+                },
+                "FmpfH": {
+                  "content": "NVDA dropped below MA200, technical breakout incoming"
+                },
+                "PNMu3": {
+                  "content": "F"
+                },
+                "luNqV": {
+                  "content": "T"
+                },
+                "7U40D": {
+                  "content": "W"
+                },
+                "dmWWb/e5Yu4": {
+                  "content": "Alert"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "kcLgQ",
+              "name": "doneAi1",
+              "width": "fill_container",
+              "children": [
+                {
+                  "id": "rSnDg",
+                  "type": "ref",
+                  "ref": "3fJfi",
+                  "name": "da1",
+                  "fill": "transparent",
+                  "descendants": {
+                    "RoYNN": {
+                      "content": "Done. Sold 3 TSLA @ $408.58 and bought 6.6 NVDA @ $184.89. Net cost: $1,220.27. Your NVDA position is now 33.6 shares.",
+                      "fill": "$text-secondary"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "fyRdV",
+          "type": "ref",
+          "ref": "3Tej5",
+          "flipX": false,
+          "flipY": false,
+          "width": "fill_container",
+          "height": "fit_content",
+          "x": 0,
+          "y": 716,
+          "textGrowth": "auto",
+          "descendants": {
+            "QVZhN/uaT13": {
+              "height": "fit_content",
+              "width": "fit_content",
+              "clip": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "mtfCq",
+      "x": 1808,
+      "y": 92,
+      "name": "0.5 Confirm Dialog",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg-primary",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "btZg2",
+          "name": "runMessages",
+          "opacity": 0.3,
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            16,
+            20,
+            20,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "vjhrb",
+              "name": "runUser",
+              "width": "fill_container",
+              "justifyContent": "end",
+              "children": [
+                {
+                  "id": "AtAhb",
+                  "type": "ref",
+                  "ref": "ys1Ag",
+                  "name": "ru1",
+                  "fill": "transparent",
+                  "descendants": {
+                    "SI3K5": {
+                      "content": "Buy the NVDA dip with 10% of my TSLA position",
+                      "fill": "$text-primary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "h4Tfu",
+              "name": "runAi",
+              "width": "fill_container",
+              "children": [
+                {
+                  "id": "72CqK",
+                  "type": "ref",
+                  "ref": "3fJfi",
+                  "name": "ra1",
+                  "fill": "transparent",
+                  "descendants": {
+                    "RoYNN": {
+                      "content": "On it. Executing: Sell 3 TSLA @ $408.58, Buy 6.6 NVDA @ $184.89. Finding optimal entry...",
+                      "fill": "$text-secondary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": "eTi3A",
+              "type": "ref",
+              "ref": "7BdMS",
+              "width": "fill_container",
+              "name": "agentRunCard",
+              "fill": "$bg-card",
+              "stroke": {
+                "thickness": 1,
+                "fill": "$border-strong"
+              },
+              "descendants": {
+                "4PQdv": {
+                  "fill": "$text-primary"
+                },
+                "FfaCq": {
+                  "content": "Executing trade",
+                  "fill": "$text-primary"
+                },
+                "2hMag": {
+                  "content": "Now",
+                  "fill": "$text-secondary"
+                },
+                "Owf2H": {
+                  "content": "Analyzing NVDA order book at $184.89. Spread is tight, placing limit order...",
+                  "fill": "$text-secondary"
+                },
+                "NVCYF": {
+                  "fill": "$bg-elevated"
+                },
+                "q4IS2": {
+                  "fill": "$text-primary"
+                },
+                "uaT13": {
+                  "height": "fit_content"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "nKJDr",
+              "name": "doneUser",
+              "width": "fill_container",
+              "justifyContent": "end",
+              "children": [
+                {
+                  "id": "uSNk6",
+                  "type": "ref",
+                  "ref": "ys1Ag",
+                  "name": "du1",
+                  "fill": "transparent",
+                  "descendants": {
+                    "SI3K5": {
+                      "content": "Buy the NVDA dip with 10% of my TSLA position",
+                      "fill": "$text-primary"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": "tvpJ9",
+              "type": "ref",
+              "ref": "S8PKB",
+              "name": "card1",
+              "x": 20,
+              "y": 348,
+              "descendants": {
+                "4oTRJ": {
+                  "content": "Analyst Ashley"
+                },
+                "AQcOX": {
+                  "content": "2m"
+                },
+                "c987D": {
+                  "content": "High"
+                },
+                "w9735": {
+                  "content": "AI Boom Drives Semis"
+                },
+                "FmpfH": {
+                  "content": "NVDA dropped below MA200, technical breakout incoming"
+                },
+                "PNMu3": {
+                  "content": "F"
+                },
+                "luNqV": {
+                  "content": "T"
+                },
+                "7U40D": {
+                  "content": "W"
+                },
+                "dmWWb/e5Yu4": {
+                  "content": "Alert"
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "9SV5A",
+              "name": "doneAi1",
+              "width": "fill_container",
+              "children": [
+                {
+                  "id": "Z6wLH",
+                  "type": "ref",
+                  "ref": "3fJfi",
+                  "name": "da1",
+                  "fill": "transparent",
+                  "descendants": {
+                    "RoYNN": {
+                      "content": "Done. Sold 3 TSLA @ $408.58 and bought 6.6 NVDA @ $184.89. Net cost: $1,220.27. Your NVDA position is now 33.6 shares.",
+                      "fill": "$text-secondary"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "K0rfS",
+          "name": "bottomSheet",
+          "width": "fill_container",
+          "height": 478,
+          "fill": "#0d0d0de8",
+          "cornerRadius": [
+            28,
+            28,
+            0,
+            0
+          ],
+          "stroke": {
+            "thickness": {
+              "top": 1
+            },
+            "fill": "#FFFFFF18"
+          },
+          "effect": {
+            "type": "background_blur",
+            "radius": 32
+          },
+          "layout": "vertical",
+          "padding": [
+            16,
+            0,
+            0,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "HwtQP",
+              "name": "handle",
+              "width": "fill_container",
+              "padding": [
+                12,
+                0,
+                16,
+                0
+              ],
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 2,
+                  "id": "OTgJy",
+                  "name": "handleBar",
+                  "fill": "$text-tertiary",
+                  "width": 36,
+                  "height": 4
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "hEwix",
+              "name": "agentList",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                0,
+                20
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "hLM8V",
+                  "name": "tradeTicker",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bWVT3",
+                      "name": "tickerText",
+                      "fill": "$text-primary",
+                      "content": "NVDA",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 42,
+                      "fontWeight": "300",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "eewE4",
+                      "name": "tickerName",
+                      "fill": "$text-secondary",
+                      "content": "NVIDIA Corp.",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 14,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "F0KDF",
+                  "name": "tradeDetails",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "6ET09",
+                      "name": "row1",
+                      "width": "fill_container",
+                      "padding": [
+                        16,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "sE3L5",
+                          "name": "r1l",
+                          "fill": "$text-secondary",
+                          "content": "Action",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300"
+                        },
+                        {
+                          "type": "text",
+                          "id": "LKFPH",
+                          "name": "r1r",
+                          "fill": "$text-primary",
+                          "content": "Buy",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "z9ssz",
+                      "name": "row2",
+                      "width": "fill_container",
+                      "padding": [
+                        16,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "rWnnt",
+                          "name": "r2l",
+                          "fill": "$text-secondary",
+                          "content": "Shares",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300"
+                        },
+                        {
+                          "type": "text",
+                          "id": "v4cvp",
+                          "name": "r2r",
+                          "fill": "$text-primary",
+                          "content": "6.6",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "HcUug",
+                      "name": "row3",
+                      "width": "fill_container",
+                      "padding": [
+                        16,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "R40ZF",
+                          "name": "r3l",
+                          "fill": "$text-secondary",
+                          "content": "Price",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300"
+                        },
+                        {
+                          "type": "text",
+                          "id": "jjtUs",
+                          "name": "r3r",
+                          "fill": "$text-primary",
+                          "content": "$184.89",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lPIqW",
+                      "name": "row4",
+                      "width": "fill_container",
+                      "padding": [
+                        16,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "iewDs",
+                          "name": "r4l",
+                          "fill": "$text-secondary",
+                          "content": "Total",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300"
+                        },
+                        {
+                          "type": "text",
+                          "id": "qRH1D",
+                          "name": "r4r",
+                          "fill": "$text-primary",
+                          "content": "$1,220.27",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Hyc8l",
+                      "name": "row5",
+                      "width": "fill_container",
+                      "padding": [
+                        16,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "4ugF7",
+                          "name": "r5l",
+                          "fill": "$text-secondary",
+                          "content": "Agent",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300"
+                        },
+                        {
+                          "type": "text",
+                          "id": "WVKqc",
+                          "name": "r5r",
+                          "fill": "$text-primary",
+                          "content": "ASHLEY",
+                          "fontFamily": "EB Garamond",
+                          "fontSize": 14,
+                          "fontWeight": "300",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "kd2th",
+                  "name": "detActions",
+                  "width": "fill_container",
+                  "gap": 16,
+                  "padding": [
+                    16,
+                    20,
+                    32,
+                    20
+                  ],
+                  "children": [
+                    {
+                      "id": "5wQYp",
+                      "type": "ref",
+                      "ref": "MXJgp",
+                      "width": "fill_container",
+                      "name": "buyBtn",
+                      "fill": "$coral",
+                      "descendants": {
+                        "yCZKc": {
+                          "content": "Add Alert",
+                          "fill": "$pure-black",
+                          "fontFamily": "EB Garamond",
+                          "fontWeight": "300",
+                          "fontSize": 16
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "R4fkf",
+      "x": 2259,
+      "y": 92,
+      "name": "0.6 Trade Confirm",
+      "clip": true,
+      "width": 393,
+      "height": 852,
+      "fill": "$bg-primary",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "MPrIK",
+          "name": "tradeHeader",
+          "width": "fill_container",
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border-strong"
+          },
+          "padding": [
+            16,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "FQVJm",
+              "name": "tradeBack",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "chevron-left",
+              "iconFontFamily": "lucide",
+              "fill": "$text-primary"
+            },
+            {
+              "type": "text",
+              "id": "1u9ll",
+              "name": "tradeTitle",
+              "fill": "$text-tertiary",
+              "content": "STTINGS",
+              "fontFamily": "DM Mono",
+              "fontSize": 11,
+              "fontWeight": "normal",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "yW9yL",
+              "name": "tradeSpacer",
+              "width": 24,
+              "height": 24
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "XYBiB",
+          "name": "setContent",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            24,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "cC1jt",
+              "name": "profileSection",
+              "width": "fill_container",
+              "gap": 16,
+              "padding": [
+                16,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "KS5Uy",
+                  "name": "avatar",
+                  "width": 48,
+                  "height": 48,
+                  "fill": "$bg-elevated",
+                  "cornerRadius": 100,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "9dkez",
+                      "name": "avatarInit",
+                      "fill": "$text-primary",
+                      "content": "A",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 18,
+                      "fontWeight": "300"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "SnFb9",
+                  "name": "profInfo",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Rf3Sx",
+                      "name": "profName",
+                      "fill": "$text-primary",
+                      "content": "Alex Lakas",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 16,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "text",
+                      "id": "RzN7i",
+                      "name": "profEmail",
+                      "fill": "$text-secondary",
+                      "content": "alex@alfa.ai",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 13,
+                      "fontWeight": "300"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "DJzks",
+              "name": "menuList",
+              "width": "fill_container",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "EETX2",
+                  "name": "m1",
+                  "width": "fill_container",
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "2xe6P",
+                      "name": "m1t",
+                      "fill": "$text-primary",
+                      "content": "Agents",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 15,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "e1UFB",
+                      "name": "m1a",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "chevron-right",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "yiEEa",
+                  "name": "m2",
+                  "width": "fill_container",
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "TKW8a",
+                      "name": "m2t",
+                      "fill": "$text-primary",
+                      "content": "Linked accounts",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 15,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "3l2Ol",
+                      "name": "m2a",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "chevron-right",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Ip9AI",
+                  "name": "m3",
+                  "width": "fill_container",
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ilSFC",
+                      "name": "m3t",
+                      "fill": "$text-primary",
+                      "content": "Notifications",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 15,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "QlRJx",
+                      "name": "m3a",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "chevron-right",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "NEUWw",
+                  "name": "m4",
+                  "width": "fill_container",
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "RYB85",
+                      "name": "m4t",
+                      "fill": "$text-primary",
+                      "content": "Security",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 15,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "jKa2U",
+                      "name": "m4a",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "chevron-right",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Dl3Zk",
+                  "name": "m5",
+                  "width": "fill_container",
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "dw3Mu",
+                      "name": "m5t",
+                      "fill": "$text-primary",
+                      "content": "Help",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 15,
+                      "fontWeight": "300"
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "jYYO6",
+                      "name": "m5a",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "chevron-right",
+                      "iconFontFamily": "lucide",
+                      "fill": "$text-primary"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "HBn2k",
+              "name": "logoutText",
+              "fill": "$coral",
+              "content": "Log out",
+              "fontFamily": "EB Garamond",
+              "fontSize": 14,
+              "fontWeight": "300"
+            },
+            {
+              "type": "text",
+              "id": "EJ8QF",
+              "name": "version",
+              "fill": "$text-tertiary",
+              "content": "ALFA v1.0.0",
+              "fontFamily": "DM Mono",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "MXJgp",
+      "x": -1134,
+      "y": 331,
+      "name": "Component/Button/Primary",
+      "reusable": true,
+      "fill": "$coral",
+      "cornerRadius": 4,
+      "padding": [
+        16,
+        32
+      ],
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "yCZKc",
+          "name": "label",
+          "fill": "$pure-black",
+          "content": "Continue",
+          "fontFamily": "EB Garamond",
+          "fontSize": 16,
+          "fontWeight": "300"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "3OuYP",
+      "x": -1134,
+      "y": 424,
+      "name": "Component/Button/Secondary",
+      "reusable": true,
+      "fill": "$bg-card",
+      "cornerRadius": 4,
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border-strong"
+      },
+      "padding": [
+        16,
+        32
+      ],
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "e5Yu4",
+          "name": "label",
+          "fill": "$text-primary",
+          "content": "Skip",
+          "fontFamily": "EB Garamond",
+          "fontSize": 16,
+          "fontWeight": "300"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "7BdMS",
+      "x": -1134,
+      "y": 541,
+      "name": "Component/AgentCard",
+      "reusable": true,
+      "fill": "$bg-card",
+      "cornerRadius": 12,
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border-strong"
+      },
+      "layout": "vertical",
+      "gap": 12,
+      "padding": 16,
+      "children": [
+        {
+          "type": "frame",
+          "id": "toM0v",
+          "name": "agentHeader",
+          "enabled": false,
+          "width": "fill_container",
+          "gap": 10,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "4PQdv",
+              "name": "agentDot",
+              "fill": "\\$text-primary",
+              "width": 8,
+              "height": 8
+            },
+            {
+              "type": "text",
+              "id": "FfaCq",
+              "name": "title",
+              "fill": "$text-primary",
+              "content": "Agent is running",
+              "fontFamily": "EB Garamond",
+              "fontSize": 14,
+              "fontWeight": "300"
+            },
+            {
+              "type": "text",
+              "id": "2hMag",
+              "name": "time",
+              "fill": "$text-tertiary",
+              "content": "Just now",
+              "fontFamily": "DM Mono",
+              "fontSize": 10,
+              "fontWeight": "300"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "Owf2H",
+          "name": "description",
+          "fill": "$text-secondary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Analyzing TSLA, AAPL, and NVDA for your growth portfolio...",
+          "fontFamily": "EB Garamond",
+          "fontSize": 13,
+          "fontWeight": "300"
+        },
+        {
+          "type": "frame",
+          "id": "NVCYF",
+          "name": "agentProgress",
+          "height": 4,
+          "fill": "\\$bg-elevated",
+          "cornerRadius": 2,
+          "children": [
+            {
+              "type": "frame",
+              "id": "q4IS2",
+              "name": "agentFill",
+              "width": 200,
+              "height": "fill_container",
+              "fill": "$coral",
+              "cornerRadius": 2
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "WtMLG",
+          "name": "Frame 2",
+          "height": "fit_content(0)",
+          "gap": 8,
+          "children": [
+            {
+              "id": "CvJ4B",
+              "type": "ref",
+              "ref": "O4H0b",
+              "x": 0,
+              "y": 0,
+              "cornerRadius": 10,
+              "gap": 8,
+              "padding": 0,
+              "height": "fill_container",
+              "stroke": {
+                "thickness": 1,
+                "fill": {
+                  "type": "color",
+                  "color": "$border-strong",
+                  "enabled": false
+                }
+              },
+              "width": "fit_content",
+              "descendants": {
+                "r7l2Z": {
+                  "enabled": true,
+                  "fill": "$text-secondary"
+                },
+                "rZJcH": {
+                  "content": "5",
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "uaT13",
+              "type": "ref",
+              "ref": "O4H0b",
+              "x": 24,
+              "y": 0,
+              "cornerRadius": 10,
+              "gap": 8,
+              "padding": 0,
+              "height": "fill_container",
+              "stroke": {
+                "thickness": 1,
+                "fill": {
+                  "type": "color",
+                  "color": "$border-strong",
+                  "enabled": false
+                }
+              },
+              "width": "fit_content",
+              "descendants": {
+                "r7l2Z": {
+                  "enabled": true,
+                  "fill": "$text-secondary"
+                },
+                "rZJcH": {
+                  "content": "5"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "9InFD",
+      "x": -1134,
+      "y": 655,
+      "name": "Component/StockItem",
+      "reusable": true,
+      "width": 104,
+      "fill": "transparent",
+      "gap": 12,
+      "padding": [
+        12,
+        0
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "NuI7D",
+          "name": "stockLeft",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 2,
+          "children": [
+            {
+              "type": "text",
+              "id": "rNIpI",
+              "name": "ticker",
+              "fill": "$text-primary",
+              "content": "AAPL",
+              "fontFamily": "EB Garamond",
+              "fontSize": 15,
+              "fontWeight": "300"
+            },
+            {
+              "type": "text",
+              "id": "pKVjw",
+              "name": "name",
+              "fill": "$text-secondary",
+              "content": "Apple Inc.",
+              "fontFamily": "EB Garamond",
+              "fontSize": 12,
+              "fontWeight": "300"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "5jBBe",
+          "name": "stockRight",
+          "layout": "vertical",
+          "gap": 2,
+          "alignItems": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "T8TdH",
+              "name": "price",
+              "fill": "$text-primary",
+              "content": "$182.52",
+              "fontFamily": "EB Garamond",
+              "fontSize": 15,
+              "fontWeight": "300"
+            },
+            {
+              "type": "text",
+              "id": "WnDFr",
+              "name": "change",
+              "fill": "$coral",
+              "content": "+2.4%",
+              "fontFamily": "EB Garamond",
+              "fontSize": 12,
+              "fontWeight": "300"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "uQMRE",
+      "x": -1134,
+      "y": 727,
+      "name": "Component/Chip/Active",
+      "reusable": true,
+      "fill": "$coral",
+      "cornerRadius": 6,
+      "padding": [
+        10,
+        18
+      ],
+      "children": [
+        {
+          "type": "text",
+          "id": "TIR92",
+          "name": "label",
+          "fill": "$pure-black",
+          "content": "Stocks",
+          "fontFamily": "DM Mono",
+          "fontSize": 10,
+          "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "O4H0b",
+      "x": -1134,
+      "y": 790,
+      "name": "Component/Chip/Inactive",
+      "reusable": true,
+      "fill": "$bg-card",
+      "cornerRadius": 6,
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border-strong"
+      },
+      "padding": [
+        10,
+        18
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "icon_font",
+          "id": "r7l2Z",
+          "name": "batteryIcon",
+          "enabled": false,
+          "width": 16,
+          "height": 16,
+          "iconFontName": "battery-full",
+          "iconFontFamily": "lucide",
+          "fill": "$text-secondary"
+        },
+        {
+          "type": "text",
+          "id": "rZJcH",
+          "name": "label",
+          "fill": "$text-secondary",
+          "content": "Crypto",
+          "fontFamily": "EB Garamond",
+          "fontSize": 14,
+          "fontWeight": "300"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "40qaZ",
+      "x": -1134,
+      "y": 848,
+      "name": "Component/Radio/Checked",
+      "reusable": true,
+      "width": 22,
+      "height": 22,
+      "fill": "$coral",
+      "cornerRadius": 12,
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "ellipse",
+          "id": "i5xuM",
+          "name": "dot",
+          "fill": "$bg-primary",
+          "width": 10,
+          "height": 10
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "zbnig",
+      "x": -1134,
+      "y": 890,
+      "name": "Component/Radio/Unchecked",
+      "reusable": true,
+      "width": 22,
+      "height": 22,
+      "cornerRadius": 12,
+      "stroke": {
+        "thickness": 1.5,
+        "fill": "$border-strong"
+      }
+    },
+    {
+      "id": "lIeKV",
+      "type": "ref",
+      "ref": "7BdMS",
+      "width": "fill_container(353)",
+      "name": "agentRunCard",
+      "fill": "$bg-card",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border-strong"
+      },
+      "x": -1134,
+      "y": 1097,
+      "cornerRadius": 10,
+      "descendants": {
+        "4PQdv": {
+          "fill": "$text-primary"
+        },
+        "FfaCq": {
+          "content": "Aria is analyzing...",
+          "fill": "$text-primary"
+        },
+        "2hMag": {
+          "content": "Now",
+          "fill": "$text-secondary"
+        },
+        "Owf2H": {
+          "content": "Analyzing NVDA order book at $184.89. Spread is tight, placing limit order...",
+          "fill": "$text-secondary",
+          "fontSize": 16
+        },
+        "NVCYF": {
+          "fill": "$bg-elevated"
+        },
+        "q4IS2": {
+          "fill": "$text-primary"
+        },
+        "WtMLG": {
+          "height": "fit_content",
+          "enabled": false
+        },
+        "CvJ4B": {
+          "height": "fit_content"
+        }
+      }
+    },
+    {
+      "id": "an3pR",
+      "type": "ref",
+      "ref": "7BdMS",
+      "width": "fill_container(353)",
+      "name": "agentRunCard",
+      "fill": "$bg-card",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border-strong"
+      },
+      "x": -1134,
+      "y": 1241,
+      "cornerRadius": 10,
+      "descendants": {
+        "4PQdv": {
+          "fill": "$text-primary"
+        },
+        "FfaCq": {
+          "content": "Aria is analyzing...",
+          "fill": "$text-primary"
+        },
+        "2hMag": {
+          "content": "Now",
+          "fill": "$text-secondary"
+        },
+        "Owf2H": {
+          "content": "Analyzing NVDA order book at $184.89. Spread is tight, placing limit order...",
+          "fill": "$text-secondary",
+          "fontSize": 16
+        },
+        "NVCYF": {
+          "fill": "$bg-elevated",
+          "enabled": false
+        },
+        "q4IS2": {
+          "fill": "$text-primary"
+        },
+        "WtMLG": {
+          "enabled": false
+        }
+      }
+    },
+    {
+      "type": "frame",
+      "id": "RCCrU",
+      "x": -1134,
+      "y": 1073,
+      "name": "Component/ChatInput/Disabled",
+      "opacity": 0.5,
+      "width": "fill_container(0)",
+      "height": "fit_content(0)",
+      "fill": "$bg-card",
+      "cornerRadius": 8,
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border-strong"
+      },
+      "gap": 10,
+      "padding": [
+        12,
+        16
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "muZPK",
+          "name": "placeholder",
+          "enabled": false,
+          "fill": "$text-tertiary",
+          "content": "Message...",
+          "fontFamily": "EB Garamond",
+          "fontSize": 14,
+          "fontWeight": "300"
+        },
+        {
+          "type": "frame",
+          "id": "5C18g",
+          "name": "sendBtn",
+          "enabled": false,
+          "width": 20,
+          "height": 20,
+          "fill": "#00000000",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "c91vz",
+              "name": "sendIcon",
+              "width": 18,
+              "height": 18,
+              "iconFontName": "send",
+              "iconFontFamily": "lucide",
+              "fill": "$coral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "b0Vhq",
+      "x": 2712,
+      "y": 92,
+      "name": "0.7 Lock Screen",
+      "width": 393,
+      "height": 852,
+      "fill": "$pure-black",
+      "cornerRadius": 20,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "HVBAz",
+          "name": "timeDisplay",
+          "width": "fill_container",
+          "height": 225,
+          "layout": "vertical",
+          "gap": 8,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "1eVFy",
+              "name": "dateText",
+              "fill": "$text-secondary",
+              "content": "Tuesday, March 4",
+              "fontFamily": "EB Garamond",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "H36M2",
+              "name": "clockTime",
+              "fill": "$text-primary",
+              "content": "9:41",
+              "fontFamily": "Assistant",
+              "fontSize": 68,
+              "fontWeight": "300"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "A7glT",
+          "name": "notificationsContainer",
+          "clip": true,
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            0,
+            12
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "dSSuS",
+              "name": "notification3",
+              "width": "fill_container",
+              "fill": "$bg-card",
+              "cornerRadius": 12,
+              "stroke": {
+                "thickness": 1,
+                "fill": "$border-strong"
+              },
+              "layout": "vertical",
+              "gap": 10,
+              "padding": [
+                12,
+                14
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "HWjuD",
+                  "name": "n3Header",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "xvqM6",
+                      "name": "n3Dot",
+                      "fill": "$accent-blue",
+                      "width": 8,
+                      "height": 8
+                    },
+                    {
+                      "type": "text",
+                      "id": "c2XRg",
+                      "name": "n3Title",
+                      "fill": "$text-primary",
+                      "content": "Trade Execution",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Nxb40",
+                      "name": "n3Time",
+                      "fill": "$text-tertiary",
+                      "content": "Now",
+                      "fontFamily": "DM Mono",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "O1d4R",
+                  "name": "n3Description",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Executed 50 TSLA shares @ $245.32",
+                  "fontFamily": "EB Garamond",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "U35d8",
+                  "name": "n3Status",
+                  "fill": "$positive",
+                  "content": "Confirmed ✓",
+                  "fontFamily": "DM Mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "I7LVZ",
+              "name": "notification4",
+              "width": "fill_container",
+              "fill": "$bg-card",
+              "cornerRadius": 12,
+              "stroke": {
+                "thickness": 1,
+                "fill": "$border-strong"
+              },
+              "layout": "vertical",
+              "gap": 10,
+              "padding": [
+                12,
+                14
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "dOtw9",
+                  "name": "n4Header",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "jQBmL",
+                      "name": "n4Dot",
+                      "fill": "$accent-red",
+                      "width": 8,
+                      "height": 8
+                    },
+                    {
+                      "type": "text",
+                      "id": "sw6NW",
+                      "name": "n4Title",
+                      "fill": "$text-primary",
+                      "content": "Risk Alert",
+                      "fontFamily": "EB Garamond",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Jr4K2",
+                      "name": "n4Time",
+                      "fill": "$text-tertiary",
+                      "content": "8m",
+                      "fontFamily": "DM Mono",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "hWYhR",
+                  "name": "n4Description",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Portfolio volatility +18% | Stop-loss triggered",
+                  "fontFamily": "EB Garamond",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "LUL6o",
+                  "name": "n4Status",
+                  "fill": "$negative",
+                  "content": "Action required",
+                  "fontFamily": "DM Mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "3Tej5",
+      "x": -1134,
+      "y": 932,
+      "name": "runBottom",
+      "reusable": true,
+      "width": "fill_container(393)",
+      "layout": "vertical",
+      "padding": [
+        20,
+        20,
+        30,
+        20
+      ],
+      "justifyContent": "space_around",
+      "children": [
+        {
+          "id": "QVZhN",
+          "type": "ref",
+          "ref": "7BdMS",
+          "width": "fill_container",
+          "name": "agentRunCard",
+          "fill": "$bg-card",
+          "stroke": {
+            "thickness": 1,
+            "fill": "$border-strong"
+          },
+          "x": 20,
+          "y": 20,
+          "cornerRadius": 10,
+          "height": "fit_content",
+          "descendants": {
+            "toM0v": {
+              "enabled": false
+            },
+            "4PQdv": {
+              "fill": "$text-primary"
+            },
+            "FfaCq": {
+              "content": "Aria is analyzing...",
+              "fill": "$text-primary"
+            },
+            "2hMag": {
+              "content": "Now",
+              "fill": "$text-secondary"
+            },
+            "Owf2H": {
+              "content": "How much Apple stock should I buy?...",
+              "fill": "$text-secondary",
+              "fontSize": 16
+            },
+            "NVCYF": {
+              "fill": "$bg-elevated",
+              "enabled": false
+            },
+            "q4IS2": {
+              "fill": "$text-primary"
+            },
+            "CvJ4B": {
+              "height": "fit_content",
+              "enabled": false
+            },
+            "uaT13/r7l2Z": {
+              "enabled": false
+            },
+            "uaT13/rZJcH": {
+              "content": "5 Agents  ∙ Tune Watchlist",
+              "fontSize": 16
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "lCpy1",
+      "x": -1134,
+      "y": 1379,
+      "name": "holdingsList",
+      "reusable": true,
+      "width": 444,
+      "children": [
+        {
+          "id": "DjEO5",
+          "type": "ref",
+          "ref": "9InFD",
+          "width": "fill_container",
+          "name": "h1",
+          "descendants": {
+            "rNIpI": {
+              "content": "NVDA",
+              "fill": "$text-primary"
+            },
+            "pKVjw": {
+              "content": "NVIDIA Corp.",
+              "fill": "$text-secondary"
+            },
+            "T8TdH": {
+              "content": "$4,992.03",
+              "fill": "$text-primary"
+            },
+            "WnDFr": {
+              "content": "-5.51%",
+              "fill": "$accent-red"
+            }
+          }
+        },
+        {
+          "id": "B4YOo",
+          "type": "ref",
+          "ref": "9InFD",
+          "width": "fill_container",
+          "name": "h2",
+          "descendants": {
+            "rNIpI": {
+              "content": "AAPL",
+              "fill": "$text-primary"
+            },
+            "pKVjw": {
+              "content": "Apple Inc.",
+              "fill": "$text-secondary"
+            },
+            "T8TdH": {
+              "content": "$18,287.65",
+              "fill": "$text-primary"
+            },
+            "WnDFr": {
+              "content": "-0.47%",
+              "fill": "$accent-red"
+            }
+          }
+        },
+        {
+          "id": "a6H7f",
+          "type": "ref",
+          "ref": "9InFD",
+          "width": "fill_container",
+          "name": "h3",
+          "descendants": {
+            "rNIpI": {
+              "content": "TSLA",
+              "fill": "$text-primary"
+            },
+            "pKVjw": {
+              "content": "Tesla Inc.",
+              "fill": "$text-secondary"
+            },
+            "T8TdH": {
+              "content": "$12,257.40",
+              "fill": "$text-primary"
+            },
+            "WnDFr": {
+              "content": "-2.08%",
+              "fill": "$accent-red"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "wmZO2",
+      "x": 2712,
+      "y": 52,
+      "name": "lbl-lock",
+      "fill": "$text-secondary",
+      "content": "Lock Screen",
+      "fontFamily": "DM Mono",
+      "fontSize": 11,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "text",
+      "id": "KKkoc",
+      "x": 2259,
+      "y": 52,
+      "name": "lbl-settings",
+      "fill": "$text-secondary",
+      "content": "Settings",
+      "fontFamily": "DM Mono",
+      "fontSize": 11,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "frame",
+      "id": "3iGpu",
+      "x": -1134,
+      "y": 1516,
+      "name": "welcomeBottom",
+      "reusable": true,
+      "width": "fill_container(393)",
+      "layout": "vertical",
+      "gap": 12,
+      "padding": [
+        0,
+        20,
+        40,
+        20
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "pHsND",
+          "name": "googleBtn",
+          "width": "fill_container",
+          "fill": "$text-primary",
+          "cornerRadius": 10,
+          "gap": 10,
+          "padding": [
+            16,
+            24
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "o7Acv",
+              "name": "gLetter",
+              "fill": "$pure-black",
+              "content": "G",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 18,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "kKDUQ",
+              "name": "gLabel",
+              "fill": "$pure-black",
+              "content": "Continue with Google",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 16,
+              "fontWeight": "500"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "mRyhU",
+      "x": -1109,
+      "y": 1686,
+      "name": "bottomSheet",
+      "reusable": true,
+      "width": 393,
+      "height": 391,
+      "fill": "#0d0d0de8",
+      "cornerRadius": [
+        28,
+        28,
+        0,
+        0
+      ],
+      "stroke": {
+        "thickness": {
+          "top": 1
+        },
+        "fill": "#FFFFFF18"
+      },
+      "effect": {
+        "type": "background_blur",
+        "radius": 32
+      },
+      "layout": "vertical",
+      "padding": [
+        16,
+        0,
+        0,
+        0
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "sqxWZ",
+          "name": "handle",
+          "width": "fill_container",
+          "padding": [
+            12,
+            0,
+            16,
+            0
+          ],
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "rectangle",
+              "cornerRadius": 2,
+              "id": "JtMf7",
+              "name": "handleBar",
+              "fill": "$text-tertiary",
+              "width": 36,
+              "height": 4
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "i0xKP",
+          "name": "agentList",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "65b2K",
+              "name": "portHeader",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vujsm",
+                  "name": "portTitle",
+                  "fill": "$text-primary",
+                  "content": "Agents",
+                  "fontFamily": "EB Garamond",
+                  "fontSize": 28,
+                  "fontWeight": "300",
+                  "letterSpacing": -0.8
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "NjdyO",
+              "name": "a1",
+              "width": "fill_container",
+              "stroke": {
+                "thickness": {
+                  "bottom": 1
+                },
+                "fill": "$border-subtle"
+              },
+              "gap": 14,
+              "padding": [
+                18,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Fc6Qk",
+                  "name": "a1left",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PJvRE",
+                      "name": "a1name",
+                      "fill": "$text-primary",
+                      "content": "ANALYST ASHLEY",
+                      "fontFamily": "Space Grotesk",
+                      "fontSize": 15,
+                      "fontWeight": "500",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "WIzWY",
+                      "name": "a1desc",
+                      "fill": "$text-tertiary",
+                      "content": "Market scanner. Concise signals.",
+                      "fontFamily": "Space Grotesk",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VmOmK",
+                  "name": "a1toggle",
+                  "width": 48,
+                  "height": 28,
+                  "fill": "$text-primary",
+                  "cornerRadius": 14,
+                  "padding": 3,
+                  "justifyContent": "end",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "6NfyG",
+                      "name": "a1knob",
+                      "fill": "$pure-black",
+                      "width": 22,
+                      "height": 22
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Hmt7L",
+              "name": "a2",
+              "width": "fill_container",
+              "stroke": {
+                "thickness": {
+                  "bottom": 1
+                },
+                "fill": "$border-subtle"
+              },
+              "gap": 14,
+              "padding": [
+                18,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "k3yLC",
+                  "name": "a2left",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "NvFm1",
+                      "name": "a2name",
+                      "fill": "$text-primary",
+                      "content": "MONITOR MIKE",
+                      "fontFamily": "Space Grotesk",
+                      "fontSize": 15,
+                      "fontWeight": "500",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "29jc3",
+                      "name": "a2desc",
+                      "fill": "$text-tertiary",
+                      "content": "Deep analyst. Fundamentals & sentiment.",
+                      "fontFamily": "Space Grotesk",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "LjRjO",
+                  "name": "a2toggle",
+                  "width": 48,
+                  "height": 28,
+                  "fill": "$text-primary",
+                  "cornerRadius": 14,
+                  "padding": 3,
+                  "justifyContent": "end",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "NNZCc",
+                      "name": "a2knob",
+                      "fill": "$pure-black",
+                      "width": 22,
+                      "height": 22
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "GYhTd",
+              "name": "a3",
+              "width": "fill_container",
+              "stroke": {
+                "thickness": {
+                  "bottom": 1
+                },
+                "fill": "$border-subtle"
+              },
+              "gap": 14,
+              "padding": [
+                18,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "X3kix",
+                  "name": "a3left",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "SetLz",
+                      "name": "a3name",
+                      "fill": "$text-tertiary",
+                      "content": "TRADER TOM",
+                      "fontFamily": "Space Grotesk",
+                      "fontSize": 15,
+                      "fontWeight": "500",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "Y9GNw",
+                      "name": "a3desc",
+                      "fill": "$text-tertiary",
+                      "content": "Friendly advisor. Explains like a human.",
+                      "fontFamily": "Space Grotesk",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "5wMmi",
+                  "name": "a3toggle",
+                  "width": 48,
+                  "height": 28,
+                  "fill": "$bg-elevated",
+                  "cornerRadius": 14,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "$border-strong"
+                  },
+                  "padding": 3,
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "CLBXB",
+                      "name": "a3knob",
+                      "fill": "$text-tertiary",
+                      "width": 22,
+                      "height": 22
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "cvNMD",
+              "name": "addAgent",
+              "width": "fill_container",
+              "gap": 8,
+              "padding": [
+                18,
+                0
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "0tZZa",
+                  "name": "addIcon",
+                  "width": 18,
+                  "height": 18,
+                  "iconFontName": "plus",
+                  "iconFontFamily": "lucide",
+                  "fill": "$text-primary"
+                },
+                {
+                  "type": "text",
+                  "id": "StI2A",
+                  "name": "addText",
+                  "fill": "$text-tertiary",
+                  "content": "Add agent",
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "S8PKB",
+      "x": -1112,
+      "y": 2157,
+      "name": "Component/DiscoverCard",
+      "reusable": true,
+      "width": 349,
+      "fill": "$bg-card",
+      "cornerRadius": 12,
+      "stroke": {
+        "thickness": 1,
+        "fill": "$border-strong"
+      },
+      "layout": "vertical",
+      "gap": 10,
+      "padding": [
+        12,
+        14
+      ],
+      "children": [
+        {
+          "type": "frame",
+          "id": "rQyxF",
+          "name": "cardHeader",
+          "width": "fill_container",
+          "gap": 10,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "4oTRJ",
+              "name": "source",
+              "fill": "$text-primary",
+              "content": "Agent Name",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "AQcOX",
+              "name": "time",
+              "fill": "$text-tertiary",
+              "content": "5m",
+              "fontFamily": "DM Mono",
+              "fontSize": 10,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "jWLTa",
+              "name": "spacer",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "text",
+              "id": "c987D",
+              "name": "riskBadge",
+              "fill": "$positive",
+              "content": "Medium",
+              "fontFamily": "DM Mono",
+              "fontSize": 10,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "w9735",
+          "name": "title",
+          "fill": "$text-primary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Market insight title",
+          "fontFamily": "Space Grotesk",
+          "fontSize": 13,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "FmpfH",
+          "name": "cardDescription",
+          "fill": "$text-secondary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Market analysis from AI agents",
+          "fontFamily": "Space Grotesk",
+          "fontSize": 11,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "JXvAL",
+          "name": "avatarFacepile",
+          "width": "fill_container",
+          "height": 24,
+          "gap": -8,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "gWi1R",
+              "name": "avatar1",
+              "width": 24,
+              "height": 24,
+              "fill": "$coral",
+              "cornerRadius": 12,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "PNMu3",
+                  "name": "text1",
+                  "fill": "$pure-black",
+                  "content": "F",
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WemTk",
+              "name": "avatar2",
+              "width": 24,
+              "height": 24,
+              "fill": "$positive",
+              "cornerRadius": 12,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "luNqV",
+                  "name": "text2",
+                  "fill": "$pure-black",
+                  "content": "B",
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "EFIYu",
+              "name": "avatar3",
+              "width": 24,
+              "height": 24,
+              "fill": "$negative",
+              "cornerRadius": 12,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "7U40D",
+                  "name": "text3",
+                  "fill": "$pure-black",
+                  "content": "C",
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 10,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "VzYby",
+          "name": "footer",
+          "width": "fill_container",
+          "gap": 8,
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "dmWWb",
+              "type": "ref",
+              "ref": "3OuYP",
+              "name": "actionBtn",
+              "fill": {
+                "type": "color",
+                "color": "$coral",
+                "enabled": false
+              },
+              "height": "fit_content",
+              "padding": [
+                4,
+                8
+              ],
+              "stroke": {
+                "thickness": 1,
+                "fill": "$coral"
+              },
+              "descendants": {
+                "e5Yu4": {
+                  "content": "Action",
+                  "fill": "$coral",
+                  "fontSize": 12
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "5o5sI",
+      "x": -14,
+      "y": 998,
+      "fill": "#ffffff",
+      "textGrowth": "fixed-width-height",
+      "width": "fit_content(263)",
+      "height": "fit_content(75)",
+      "content": "Agents just start interacting and looking through relevant news and coverage, and suggestion actionable advice but tamely",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "text",
+      "id": "v6WfS",
+      "x": 457,
+      "y": 998,
+      "fill": "#ffffff",
+      "textGrowth": "fixed-width-height",
+      "width": "fit_content(263)",
+      "height": "fit_content(75)",
+      "content": "User can select different watchlist items and customize their view and coverage",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "text",
+      "id": "yMt1L",
+      "x": 902,
+      "y": 998,
+      "fill": "#ffffff",
+      "textGrowth": "fixed-width-height",
+      "width": "fit_content(263)",
+      "height": "fit_content(75)",
+      "content": "User can select different agents or add new ones",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "text",
+      "id": "dButZ",
+      "x": 1356,
+      "y": 998,
+      "fill": "#ffffff",
+      "textGrowth": "fixed-width-height",
+      "width": "fit_content(263)",
+      "height": "fit_content(75)",
+      "content": "Agents do stuff through out the day and suggest advice and actionabe content and things to do",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "text",
+      "id": "9Mb2D",
+      "x": 1808,
+      "y": 996,
+      "fill": "#ffffff",
+      "textGrowth": "fixed-width-height",
+      "width": "fit_content(263)",
+      "height": "fit_content(75)",
+      "content": "Click insight to slide revelant sheet of info in using best practice ios motion and sheet standards",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "text",
+      "id": "77qQl",
+      "x": 3169,
+      "y": 998,
+      "fill": "#ffffff",
+      "textGrowth": "fixed-width-height",
+      "width": "fit_content(263)",
+      "height": "fit_content(75)",
+      "content": "Click the hamburger to slide open this menu and blur the backgrounds",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "text",
+      "id": "ALVBe",
+      "x": 3622,
+      "y": 993,
+      "fill": "#ffffff",
+      "textGrowth": "fixed-width-height",
+      "width": "fit_content(263)",
+      "height": "fit_content(75)",
+      "content": "Real sourced and agentic info",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "text",
+      "id": "vuNsv",
+      "x": 2711.9167985106633,
+      "y": 998.2929968175791,
+      "rotation": 0.12762102652172927,
+      "fill": "#ffffff",
+      "textGrowth": "fixed-width-height",
+      "width": "fit_content(263)",
+      "height": "fit_content(75)",
+      "content": "use gets pushed notifdcations from the agents",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "fontWeight": "normal"
+    },
+    {
+      "type": "text",
+      "id": "9dFHY",
+      "x": 2259,
+      "y": 996.5858075848944,
+      "rotation": 0.12762102652172927,
+      "fill": "#ffffff",
+      "textGrowth": "fixed-width-height",
+      "width": "fit_content(263)",
+      "height": "fit_content(75)",
+      "content": "Access settings from side panel",
+      "fontFamily": "Inter",
+      "fontSize": 16,
+      "fontWeight": "normal"
+    }
+  ],
+  "variables": {
+    "accent-blue": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#0A84FF"
+        },
+        {
+          "value": "#0A84FF"
+        },
+        {
+          "value": "#d4622a"
+        }
+      ]
+    },
+    "accent-green": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF"
+        },
+        {
+          "value": "#FFFFFF"
+        },
+        {
+          "value": "#FFFFFF"
+        },
+        {
+          "value": "#d4622a"
+        }
+      ]
+    },
+    "accent-red": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FF3B30"
+        },
+        {
+          "value": "#FF3B30"
+        },
+        {
+          "value": "#FF3B30"
+        },
+        {
+          "value": "#d4622a"
+        }
+      ]
+    },
+    "bg-card": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#111111"
+        },
+        {
+          "value": "#1c1810"
+        },
+        {
+          "value": "#1c1810"
+        }
+      ]
+    },
+    "bg-elevated": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#1A1A1A"
+        },
+        {
+          "value": "#1c1810"
+        },
+        {
+          "value": "#1c1810"
+        }
+      ]
+    },
+    "bg-input": {
+      "type": "color",
+      "value": "#0A0A0A"
+    },
+    "bg-primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#000000"
+        },
+        {
+          "value": "#0f0d0a"
+        },
+        {
+          "value": "#0f0d0a"
+        }
+      ]
+    },
+    "border-strong": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#2C2C2E"
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.12)"
+        }
+      ]
+    },
+    "border-subtle": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#1C1C1E"
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.08)"
+        }
+      ]
+    },
+    "negative": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F44336"
+        },
+        {
+          "value": "#F44336"
+        }
+      ]
+    },
+    "positive": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#4CAF50"
+        },
+        {
+          "value": "#4CAF50"
+        },
+        {
+          "value": "#d4622a"
+        }
+      ]
+    },
+    "pure-black": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#000000"
+        },
+        {
+          "value": "#0f0d0a"
+        }
+      ]
+    },
+    "text-primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF"
+        },
+        {
+          "value": "#ede0c8"
+        }
+      ]
+    },
+    "text-secondary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#8E8E93"
+        },
+        {
+          "value": "#b0a08a"
+        }
+      ]
+    },
+    "text-tertiary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#48484A"
+        },
+        {
+          "value": "#7a6a54"
+        }
+      ]
+    },
+    "white": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "bg-secondary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#161310"
+        },
+        {
+          "value": "#161310"
+        }
+      ]
+    },
+    "coral": {
+      "type": "color",
+      "value": "#d4622a"
+    },
+    "coral-dim": {
+      "type": "color",
+      "value": "rgba(212, 98, 42, 0.15)"
+    }
+  }
+}
