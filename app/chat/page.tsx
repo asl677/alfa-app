@@ -719,10 +719,11 @@ export default function ChatPage() {
             >
               {m.role === 'assistant' && (
                 <motion.div
+                  key={`pill-${m.id}-${messageIsLoading}`}
                   style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}
-                  initial={!messageIsLoading ? { x: -12, opacity: 0 } : undefined}
-                  animate={!messageIsLoading ? { x: 0, opacity: 1 } : undefined}
-                  transition={!messageIsLoading ? { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } : undefined}
+                  initial={{ x: -12, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
                   {messageIsLoading && (
                     <motion.svg
