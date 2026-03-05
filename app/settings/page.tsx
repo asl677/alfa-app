@@ -11,7 +11,7 @@ export default function SettingsPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden' }}>
       <PageHeader title="Settings" />
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px', maxWidth: '1020px', margin: '0 auto', width: '100%', paddingTop: '50px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
         <motion.div variants={containerStagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           <motion.div variants={itemStagger} style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)', marginTop: 20 }}>
             Theme

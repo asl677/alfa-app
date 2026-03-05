@@ -35,7 +35,7 @@ export default function ArtifactsPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden' }}>
       <PageHeader title="Artifacts" />
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '20px', maxWidth: '1020px', margin: '0 auto', width: '100%', paddingTop: '50px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
         <AnimatePresence mode="wait">
           {artifacts.length === 0 ? (
             <motion.div
