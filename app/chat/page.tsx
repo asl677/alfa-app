@@ -151,12 +151,18 @@ export default function ChatPage() {
   const [showPrompts, setShowPrompts] = useState(true)
   const lastScrollY = useRef(0)
 
-  // Initialize page loading
+  // Initialize page loading (only on very first app load)
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const hasVisited = localStorage.getItem('alfaHasVisited')
+    if (!hasVisited) {
+      localStorage.setItem('alfaHasVisited', 'true')
+      const timer = setTimeout(() => {
+        setPageLoading(false)
+      }, 3500)
+      return () => clearTimeout(timer)
+    } else {
       setPageLoading(false)
-    }, 3500)
-    return () => clearTimeout(timer)
+    }
   }, [])
 
   // Load chat history from localStorage on mount
@@ -621,7 +627,7 @@ export default function ChatPage() {
   ]
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       {pageLoading ? (
         <motion.div
           key="loading"
