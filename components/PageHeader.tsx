@@ -22,8 +22,9 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
       alignItems: 'center',
       justifyContent: 'center',
       padding: '16px 20px',
-      background: 'transparent',
+      background: 'linear-gradient(to bottom, var(--bg) 0%, rgba(15, 13, 10, 0.8) 70%, transparent 100%)',
       flexShrink: 0,
+      backdropFilter: 'blur(0px)',
     }}>
       <button
         onClick={openMenu}

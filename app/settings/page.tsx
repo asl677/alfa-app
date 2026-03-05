@@ -8,7 +8,7 @@ export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden' }}>
       <PageHeader title="Settings" />
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>

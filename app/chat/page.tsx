@@ -616,7 +616,7 @@ export default function ChatPage() {
 
   if (pageLoading) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100dvh', background: 'var(--bg)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100dvh' }}>
         <motion.svg
           animate={{ rotate: 360 }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
@@ -641,7 +641,6 @@ export default function ChatPage() {
       flexDirection: 'column',
       height: '100dvh',
       minHeight: '100dvh',
-      background: 'var(--bg)',
       overflow: 'hidden',
       paddingTop: 'max(0px, env(safe-area-inset-top))',
       paddingBottom: 'max(0px, env(safe-area-inset-bottom))',
@@ -783,20 +782,20 @@ export default function ChatPage() {
                       }}
                       style={{
                         fontFamily: "'EB Garamond', serif",
-                        fontSize: 16,
+                        fontSize: 13,
                         fontWeight: 300,
                         color: '#ff7043',
-                        lineHeight: 1.7,
+                        lineHeight: 1.5,
                         textAlign: isUser ? 'right' : 'left',
                         background: 'transparent',
-                        border: '2px solid #ff7043',
-                        borderRadius: 8,
-                        padding: '12px 16px',
+                        border: '1px solid #ff7043',
+                        borderRadius: 6,
+                        padding: '8px 12px',
                         cursor: 'pointer',
                         transition: 'all 0.2s',
                       }}
                       onMouseOver={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 112, 67, 0.1)'
+                        e.currentTarget.style.background = 'rgba(255, 112, 67, 0.08)'
                       }}
                       onMouseOut={(e) => {
                         e.currentTarget.style.background = 'transparent'

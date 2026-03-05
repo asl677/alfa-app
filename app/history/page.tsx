@@ -55,7 +55,7 @@ export default function HistoryPage() {
 
   if (isLoading) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh' }}>
         <PageHeader title="History" />
         <div style={{ flex: 1, padding: '20px', textAlign: 'center', color: 'var(--cream2)' }}>Loading...</div>
       </div>

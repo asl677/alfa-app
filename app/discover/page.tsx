@@ -101,7 +101,7 @@ export default function DiscoverPage() {
   }, [])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden' }}>
       <PageHeader title="Discover" />
 
       <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', maxWidth: '1020px', margin: '0 auto', width: '100%', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
@@ -110,111 +110,109 @@ export default function DiscoverPage() {
             display: none;
           }
         `}</style>
-        <AnimatePresence mode="wait">
-          {/* chipRow2 — gap 10, padding [20,20] */}
-          <motion.div variants={fadeUp} initial="hidden" animate="visible" exit="exit" transition={{ delay: 0 }} style={{ display: 'flex', gap: 10, padding: '20px 20px 0', flexShrink: 0, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <div style={{ display: 'flex', gap: 10 }}>
-              {CHIPS.map((chip) => (
-                <button key={chip} onClick={() => {
-                  setActive(chip)
-                  setIsRefreshing(true)
-                  setTimeout(() => setIsRefreshing(false), 1200)
-                }} style={{
-                  padding: '8px 18px', borderRadius: 8, cursor: 'pointer',
-                  fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
-                  background: active === chip ? 'var(--coral)' : 'var(--surface)',
-                  color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
-                  border: active === chip ? 'none' : '1px solid var(--rule)',
-                  transition: 'all 0.15s',
-                }}>
-                  {chip}
-                </button>
-              ))}
-          </div>
-        </motion.div>
+        {/* chipRow2 — gap 10, padding [20,20] */}
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" exit="exit" transition={{ delay: 0 }} style={{ display: 'flex', gap: 10, padding: '20px 20px 0', flexShrink: 0, justifyContent: 'flex-start', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 10 }}>
+            {CHIPS.map((chip) => (
+              <button key={chip} onClick={() => {
+                setActive(chip)
+                setIsRefreshing(true)
+                setTimeout(() => setIsRefreshing(false), 1200)
+              }} style={{
+                padding: '8px 18px', borderRadius: 8, cursor: 'pointer',
+                fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
+                background: active === chip ? 'var(--coral)' : 'var(--surface)',
+                color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
+                border: active === chip ? 'none' : '1px solid var(--rule)',
+                transition: 'all 0.15s',
+              }}>
+                {chip}
+              </button>
+            ))}
+        </div>
+      </motion.div>
 
-        {/* notificationsContainer — vertical, no gap (items have borders) */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0, padding: '0 20px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          <AnimatePresence>
-            {isRefreshing && (
-              <motion.div
-                key="refresh-spinner"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12, flexShrink: 0 }}
+      {/* notificationsContainer — vertical, no gap (items have borders) */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0, padding: '0 20px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <AnimatePresence>
+          {isRefreshing && (
+            <motion.div
+              key="refresh-spinner"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12, flexShrink: 0 }}
+            >
+              <motion.svg
+                animate={{ rotate: 360 }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--coral)"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+                style={{ transformOrigin: '50% 50%' }}
               >
-                <motion.svg
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--coral)"
-                  strokeWidth="1.5"
-                  strokeDasharray="4 4"
-                  style={{ transformOrigin: '50% 50%' }}
-                >
-                  <circle cx="12" cy="12" r="10" />
-                </motion.svg>
-                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)' }}>Refreshing...</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <motion.div variants={containerStagger} initial="hidden" animate="visible">
-            {displayedSources.map((source) => (
-              <motion.div key={`${active}-${source.title}`} variants={itemStagger}
-                onClick={() => {
+                <circle cx="12" cy="12" r="10" />
+              </motion.svg>
+              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)' }}>Refreshing...</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <motion.div variants={containerStagger} initial="hidden" animate="visible">
+          {displayedSources.map((source) => (
+            <motion.div key={`${active}-${source.title}`} variants={itemStagger}
+              onClick={() => {
+                setSelectedSource(source)
+                setDetailOpen(true)
+              }}
+              style={{
+                paddingTop: 14,
+                paddingBottom: 14,
+                borderBottom: '1px solid var(--rule-subtle)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 8,
+                cursor: 'pointer',
+                width: '100%',
+              }}
+            >
+              {/* cardHeader */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>{source.agent}</span>
+                <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--dust)' }}>{source.time}</span>
+                <div style={{ flex: 1 }} />
+                <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, fontWeight: 600, color: RISK_COLOR[source.risk] }}>{source.risk}</span>
+              </div>
+              {/* title */}
+              <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--cream)' }}>{source.title}</div>
+              {/* desc */}
+              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', lineHeight: 1.5 }}>{source.desc}</div>
+              {/* footer: source favicon */}
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: 4, marginBottom: 8 }}>
+                <img
+                  src={`https://www.google.com/s2/favicons?sz=32&domain=${source.domain}`}
+                  alt={source.name}
+                  style={{ width: 20, height: 20, borderRadius: 2 }}
+                />
+              </div>
+              {/* action button below source */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
                   setSelectedSource(source)
                   setDetailOpen(true)
                 }}
-                style={{
-                  paddingTop: 14,
-                  paddingBottom: 14,
-                  borderBottom: '1px solid var(--rule-subtle)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 8,
-                  cursor: 'pointer',
-                  width: '100%',
-                }}
-              >
-                {/* cardHeader */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>{source.agent}</span>
-                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--dust)' }}>{source.time}</span>
-                  <div style={{ flex: 1 }} />
-                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, fontWeight: 600, color: RISK_COLOR[source.risk] }}>{source.risk}</span>
-                </div>
-                {/* title */}
-                <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--cream)' }}>{source.title}</div>
-                {/* desc */}
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', lineHeight: 1.5 }}>{source.desc}</div>
-                {/* footer: source favicon */}
-                <div style={{ display: 'flex', alignItems: 'center', marginTop: 4, marginBottom: 8 }}>
-                  <img
-                    src={`https://www.google.com/s2/favicons?sz=32&domain=${source.domain}`}
-                    alt={source.name}
-                    style={{ width: 20, height: 20, borderRadius: 2 }}
-                  />
-                </div>
-                {/* action button below source */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setSelectedSource(source)
-                    setDetailOpen(true)
-                  }}
-                  style={{ padding: 0, background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textAlign: 'left' }}>
-                  {source.action}
-                </button>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-        </AnimatePresence>
+                style={{ padding: 0, background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', textAlign: 'left' }}>
+                {source.action}
+              </button>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
       </div>
 
       <SourceDetail isOpen={detailOpen} onClose={() => setDetailOpen(false)} source={selectedSource} />
