@@ -7,7 +7,7 @@ export default function ContextPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh' }}>
       <PageHeader title="Context" />
-      <div style={{ flex: 1, padding: '20px', display: 'flex', flexDirection: 'column', gap: 16, maxWidth: '1020px', margin: '0 auto', width: '100%', overflowY: 'auto', paddingTop: '70px' }}>
+      <div style={{ flex: 1, padding: '20px', display: 'flex', flexDirection: 'column', gap: 16, maxWidth: '1020px', margin: '0 auto', width: '100%', overflowY: 'auto', paddingTop: '50px' }}>
         <motion.p custom={0} variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, color: 'var(--cream2)' }}>Your financial context and preferences used by agents.</motion.p>
       </div>
     </div>
