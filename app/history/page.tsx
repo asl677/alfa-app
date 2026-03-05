@@ -73,7 +73,7 @@ export default function HistoryPage() {
               No chat history yet. Start a conversation in Chat to see history here.
             </motion.div>
           ) : (
-            <motion.div key="history" variants={containerStagger} initial="hidden" animate="visible" exit={{ opacity: 0 }} style={{ paddingTop: 20, paddingBottom: 20 }}>
+            <motion.div key="history" variants={containerStagger} initial="hidden" animate="visible" exit={{ opacity: 0 }} style={{ paddingTop: 20, paddingBottom: 20 }} data-animate>
               <ListItem
                 title="Current Chat"
                 description={conversationPreview}

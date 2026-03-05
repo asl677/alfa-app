@@ -174,7 +174,7 @@ export default function SourceDetail({
                     padding: '12px 16px',
                     background: 'transparent',
                     border: '1px solid var(--rule)',
-                    borderRadius: 8,
+                    borderRadius: 9999,
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontSize: 13,
                     color: 'var(--cream2)',

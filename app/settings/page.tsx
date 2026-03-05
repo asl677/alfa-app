@@ -14,12 +14,12 @@ export default function SettingsPage() {
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
         <motion.div variants={containerStagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-          <motion.div variants={itemStagger} style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)', marginTop: 20 }}>
+          <motion.div variants={itemStagger} data-animate style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)', marginTop: 20 }}>
             Theme
           </motion.div>
 
           {(['dark', 'light', 'classic'] as const).map((t) => (
-            <motion.button key={t} variants={itemStagger} onClick={() => setTheme(t)} style={{
+            <motion.button key={t} variants={itemStagger} data-animate onClick={() => setTheme(t)} style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               width: '100%', padding: '16px 0',
               background: 'none', border: 'none', cursor: 'pointer',
@@ -36,23 +36,27 @@ export default function SettingsPage() {
             </motion.button>
           ))}
 
-          <motion.div variants={itemStagger} style={{ marginTop: 32, fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)' }}>
+          <motion.div variants={itemStagger} data-animate style={{ marginTop: 32, fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)' }}>
             Account
           </motion.div>
-          <ListItem
-            title="Plan"
-            metadata={{
-              label: 'Current',
-              badge: 'Boosted Pro',
-            }}
-          />
-          <ListItem
-            title="Version"
-            metadata={{
-              label: 'Release',
-              badge: '2.0.0',
-            }}
-          />
+          <motion.div variants={itemStagger} data-animate>
+            <ListItem
+              title="Plan"
+              metadata={{
+                label: 'Current',
+                badge: 'Boosted Pro',
+              }}
+            />
+          </motion.div>
+          <motion.div variants={itemStagger} data-animate>
+            <ListItem
+              title="Version"
+              metadata={{
+                label: 'Release',
+                badge: '2.0.0',
+              }}
+            />
+          </motion.div>
         </motion.div>
       </div>
     </div>

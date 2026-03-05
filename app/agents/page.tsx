@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 import ListItem from '@/components/ListItem'
-import { containerStagger } from '@/lib/animations'
+import { containerStagger, itemStagger } from '@/lib/animations'
 import { useAgents } from '@/app/context/agents'
 
 export default function AgentsPage() {
@@ -34,19 +34,20 @@ export default function AgentsPage() {
 
         <motion.div variants={containerStagger} initial="hidden" animate="visible">
           {agents.map((a) => (
-            <ListItem
-              key={a.id}
-              title={a.fullName}
-              description={a.role}
-              metadata={{
-                label: 'Status',
-                badge: a.lastAction,
-              }}
-              toggle={{
-                enabled: a.active,
-                onChange: () => handleToggle(a.id),
-              }}
-            />
+            <motion.div key={a.id} variants={itemStagger} data-animate>
+              <ListItem
+                title={a.fullName}
+                description={a.role}
+                metadata={{
+                  label: 'Status',
+                  badge: a.lastAction,
+                }}
+                toggle={{
+                  enabled: a.active,
+                  onChange: () => handleToggle(a.id),
+                }}
+              />
+            </motion.div>
           ))}
         </motion.div>
       </div>

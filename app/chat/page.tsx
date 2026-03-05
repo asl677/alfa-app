@@ -783,7 +783,7 @@ export default function ChatPage() {
                         textAlign: isUser ? 'right' : 'left',
                         background: 'transparent',
                         border: '1px solid #ff7043',
-                        borderRadius: 6,
+                        borderRadius: 9999,
                         padding: '8px 12px',
                         cursor: 'pointer',
                         transition: 'all 0.2s',
@@ -812,17 +812,17 @@ export default function ChatPage() {
                   {m.role === 'assistant' && (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12, justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
                       {m.agent?.includes('Ashley') && (
-                        <button style={{ background: 'transparent', border: '1px solid var(--coral)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 4, transition: 'all 0.2s' }}>
+                        <button style={{ background: 'transparent', border: '1px solid var(--coral)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 9999, transition: 'all 0.2s' }}>
                           Add to watchlist
                         </button>
                       )}
                       {m.agent?.includes('Mike') && (
-                        <button style={{ background: 'transparent', border: '1px solid var(--coral)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 4, transition: 'all 0.2s' }}>
+                        <button style={{ background: 'transparent', border: '1px solid var(--coral)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 9999, transition: 'all 0.2s' }}>
                           Rebalance now
                         </button>
                       )}
                       {m.agent?.includes('Tom') && (
-                        <button style={{ background: 'transparent', border: '1px solid var(--coral)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 4, transition: 'all 0.2s' }}>
+                        <button style={{ background: 'transparent', border: '1px solid var(--coral)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer', padding: '6px 10px', borderRadius: 9999, transition: 'all 0.2s' }}>
                           Chart setup
                         </button>
                       )}

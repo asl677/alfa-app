@@ -1,6 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useRouter, usePathname } from 'next/navigation'
+import { usePageTransition } from './PageTransitionContext'
 
 // Icons matching HamburgerMenu
 const IconMessageCircle = () => (
@@ -52,6 +53,14 @@ const NAV = [
 export default function DesktopNav() {
   const router = useRouter()
   const pathname = usePathname()
+  const { fadeOut, fadeIn } = usePageTransition()
+
+  const navigate = async (href: string) => {
+    if (pathname === href) return
+    await fadeOut()
+    router.push(href)
+    fadeIn()
+  }
 
   return (
     <motion.div
@@ -85,7 +94,7 @@ export default function DesktopNav() {
           marginBottom: 12,
           cursor: 'pointer',
         }}
-        onClick={() => router.push('/chat')}
+        onClick={() => navigate('/chat')}
       >
         <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--coral)' }}>A</span>
       </div>
@@ -96,7 +105,7 @@ export default function DesktopNav() {
         return (
           <button
             key={href}
-            onClick={() => router.push(href)}
+            onClick={() => navigate(href)}
             style={{
               width: 32,
               height: 32,

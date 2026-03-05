@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 import ArtifactCard from '@/components/ArtifactCard'
 import ListItem from '@/components/ListItem'
-import { fadeUp, containerStagger } from '@/lib/animations'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 
 interface Artifact {
   id: string
@@ -57,16 +57,17 @@ export default function ArtifactsPage() {
           ) : (
             <motion.div variants={containerStagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
               {artifacts.map((artifact, idx) => (
-                <ListItem
-                  key={artifact.id}
-                  title={artifact.title}
-                  metadata={{
-                    label: `${idx + 1}.`,
-                    time: new Date(artifact.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                    badge: artifact.type,
-                  }}
-                  onClick={() => handleExpand(artifact)}
-                />
+                <motion.div key={artifact.id} variants={itemStagger} data-animate>
+                  <ListItem
+                    title={artifact.title}
+                    metadata={{
+                      label: `${idx + 1}.`,
+                      time: new Date(artifact.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                      badge: artifact.type,
+                    }}
+                    onClick={() => handleExpand(artifact)}
+                  />
+                </motion.div>
               ))}
             </motion.div>
           )}

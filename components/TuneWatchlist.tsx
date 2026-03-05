@@ -120,7 +120,7 @@ export default function TuneWatchlist({ isOpen, onClose, onToggleHolder }: { isO
             style={{
               width: 48,
               height: 28,
-              borderRadius: 14,
+              borderRadius: 9999,
               background: item.tracked ? 'var(--cream)' : 'var(--bg2)',
               border: item.tracked ? 'none' : '1px solid var(--rule)',
               padding: 3,

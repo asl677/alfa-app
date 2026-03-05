@@ -78,7 +78,7 @@ export default function AgentsSheet({ isOpen, onClose }: { isOpen: boolean; onCl
             style={{
               width: 48,
               height: 28,
-              borderRadius: 14,
+              borderRadius: 9999,
               background: agent.active ? 'var(--cream)' : 'var(--bg2)',
               border: agent.active ? 'none' : '1px solid var(--rule)',
               padding: 3,

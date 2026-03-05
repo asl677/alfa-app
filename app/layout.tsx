@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Providers from '@/components/Providers'
 import NavWrapper from '@/components/NavWrapper'
-import PageTransition from '@/components/PageTransition'
+import { PageTransitionProvider } from '@/components/PageTransitionContext'
+import PageTransitionWrapper from '@/components/PageTransitionWrapper'
 
 export const metadata: Metadata = {
   title: 'Alfa by Boosted.ai',
@@ -69,18 +70,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }
         `}</style>
         <Providers>
-          <div style={{ display: 'flex', height: '100%', width: '100%' }}>
-            <NavWrapper />
-            <main style={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100%',
-              overflow: 'hidden',
-            }}>
-              <PageTransition>{children}</PageTransition>
-            </main>
-          </div>
+          <PageTransitionProvider>
+            <div style={{ display: 'flex', height: '100%', width: '100%' }}>
+              <NavWrapper />
+              <main style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                overflow: 'hidden',
+              }}>
+                <PageTransitionWrapper>{children}</PageTransitionWrapper>
+              </main>
+            </div>
+          </PageTransitionProvider>
         </Providers>
       </body>
     </html>

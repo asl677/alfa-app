@@ -23,9 +23,10 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
       alignItems: 'center',
       justifyContent: 'center',
       padding: '16px 20px',
-      background: 'linear-gradient(to bottom, var(--bg) 0%, rgba(15, 13, 10, 0.8) 70%, transparent 100%)',
+      background: 'var(--bg)',
       flexShrink: 0,
       backdropFilter: 'blur(0px)',
+      transition: 'all 0.3s ease',
     }}>
       <button
         onClick={openMenu}
@@ -56,10 +57,10 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
       <AnimatePresence mode="wait">
         <motion.div
           key={title}
-          initial={{ y: 2, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -2, opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
           style={{
             fontFamily: "'EB Garamond', serif",
             fontSize: 24,

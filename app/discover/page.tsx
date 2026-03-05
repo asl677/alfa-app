@@ -53,6 +53,12 @@ const SOURCES_METADATA = [
   { name: 'Seeking Alpha', domain: 'seekingalpha.com' },
 ]
 
+const AGENT_COLORS: Record<string, string> = {
+  'Analyst Ashley': '#E8896B',
+  'Tom Tracker': '#4A9EFF',
+  'Monitor Mike': '#6BCB77',
+}
+
 function generateSources() {
   return Array.from({ length: 6 }, (_, i) => {
     const rand = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)]
@@ -162,13 +168,16 @@ export default function DiscoverPage() {
             </motion.div>
           )}
         </AnimatePresence>
-        <motion.div variants={containerStagger} initial="hidden" animate="visible">
+        <motion.div variants={containerStagger} initial="hidden" animate="visible" data-animate>
           {displayedSources.map((source, idx) => (
-            <motion.div key={`${active}-${idx}-${source.title}`} variants={itemStagger}
+            <motion.div
+              key={`${active}-${idx}-${source.title}`}
+              variants={itemStagger}
               onClick={() => {
                 setSelectedSource(source)
                 setDetailOpen(true)
               }}
+              data-animate
               style={{
                 paddingTop: 14,
                 paddingBottom: 14,
@@ -191,8 +200,35 @@ export default function DiscoverPage() {
               <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--cream)' }}>{source.title}</div>
               {/* desc */}
               <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', lineHeight: 1.5 }}>{source.desc}</div>
-              {/* footer: source favicon */}
-              <div style={{ display: 'flex', alignItems: 'center', marginTop: 4, marginBottom: 8 }}>
+              {/* footer: agent avatars + source favicon */}
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: 4, marginBottom: 8, gap: 12 }}>
+                {/* Agent avatars stack - show primary agent + 1-2 more piled together */}
+                <div style={{ display: 'flex', alignItems: 'center', position: 'relative', width: 48, height: 24 }}>
+                  {[source.agent, AGENTS[(AGENTS.indexOf(source.agent) + 1) % AGENTS.length], AGENTS[(AGENTS.indexOf(source.agent) + 2) % AGENTS.length]].map((agent, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        position: 'absolute',
+                        left: i * 12,
+                        width: 24,
+                        height: 24,
+                        borderRadius: '50%',
+                        background: AGENT_COLORS[agent],
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 9,
+                        fontWeight: 600,
+                        color: 'white',
+                        border: '2px solid var(--bg)',
+                        zIndex: 3 - i,
+                      }}
+                    >
+                      {agent.split(' ').map(w => w[0]).join('')}
+                    </div>
+                  ))}
+                </div>
+                {/* Source favicon */}
                 <img
                   src={`https://www.google.com/s2/favicons?sz=32&domain=${source.domain}`}
                   alt={source.name}

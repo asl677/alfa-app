@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence, cubicBezier } from 'framer-motion'
 import { useRouter, usePathname } from 'next/navigation'
 import { useMenu } from './MenuContext'
+import { usePageTransition } from './PageTransitionContext'
 
 // Icons matching exact lucide names from alfa.pen
 const IconMessageCircle = () => (
@@ -62,14 +63,19 @@ export default function HamburgerMenu() {
   const pathname = usePathname()
   const [isClosing, setIsClosing] = useState(false)
   const [pendingHref, setPendingHref] = useState<string | null>(null)
+  const { fadeOut, fadeIn } = usePageTransition()
 
-  const navigate = (href: string) => {
+  const navigate = async (href: string) => {
+    if (pathname === href) return
     setPendingHref(href)
     setIsClosing(true)
+    // Page fade + menu exit in parallel
+    await fadeOut()
+    // Then close menu and navigate
+    closeMenu()
     router.push(href)
-    // Menu closes immediately, reverse stagger animates in parallel
+    fadeIn()
     setTimeout(() => {
-      closeMenu()
       setIsClosing(false)
       setPendingHref(null)
     }, 100)
@@ -81,13 +87,12 @@ export default function HamburgerMenu() {
       opacity: 1,
       transition: {
         staggerChildren: 0.06,
-        delayChildren: 0.1,
+        delayChildren: 0.2,
       },
     },
     exit: {
-      opacity: 0,
       transition: {
-        staggerChildren: 0.04,
+        staggerChildren: 0.15,
         staggerDirection: -1,
         delayChildren: 0,
       },
@@ -98,11 +103,11 @@ export default function HamburgerMenu() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.25, ease: cubicBezier(0.25, 0.46, 0.45, 0.94) },
+      transition: { duration: 0.3, ease: cubicBezier(0.25, 0.46, 0.45, 0.94) },
     },
     exit: {
       opacity: 0,
-      transition: { duration: 0.2, ease: cubicBezier(0.25, 0.46, 0.45, 0.94) },
+      transition: { duration: 0.4 },
     },
   }
 
@@ -152,7 +157,7 @@ export default function HamburgerMenu() {
               justifyContent: 'space-between',
               alignItems: 'center',
               padding: 20,
-              borderBottom: '1px solid var(--rule-subtle)',
+              //borderBottom: '1px solid var(--rule-subtle)',
             }}>
               <span style={{
                 fontFamily: "'EB Garamond', serif",
@@ -191,7 +196,6 @@ export default function HamburgerMenu() {
                       padding: '16px 20px',
                       background: 'none',
                       border: 'none',
-                      borderBottom: '1px solid var(--rule-subtle)',
                       cursor: 'pointer',
                       color: active ? 'var(--coral)' : 'var(--cream)',
                       width: '100%',

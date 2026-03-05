@@ -114,7 +114,7 @@ export default function ListItem({
           style={{
             width: 48,
             height: 28,
-            borderRadius: 16,
+            borderRadius: 9999,
             flexShrink: 0,
             background: toggle.enabled ? 'var(--cream)' : 'var(--bg2)',
             border: toggle.enabled ? 'none' : '1px solid var(--rule)',

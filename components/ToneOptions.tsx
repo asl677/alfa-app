@@ -66,7 +66,7 @@ export default function ToneOptions({ isOpen, onClose, selectedTone, onSelectTon
             style={{
               width: 48,
               height: 28,
-              borderRadius: 14,
+              borderRadius: 9999,
               background: selectedTone === tone.id ? 'var(--cream)' : 'var(--bg2)',
               border: selectedTone === tone.id ? 'none' : '1px solid var(--rule)',
               padding: 3,

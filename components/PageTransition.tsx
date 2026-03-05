@@ -1,22 +1,41 @@
 'use client'
-import { motion, AnimatePresence } from 'framer-motion'
-import { usePathname } from 'next/navigation'
-import React from 'react'
+import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
+import gsap from 'gsap'
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
+  const isFirstRender = useRef(true)
+
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    if (isFirstRender.current) {
+      // First render - fade in
+      gsap.fromTo(
+        containerRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.8, ease: 'power2.inOut' }
+      )
+      isFirstRender.current = false
+      return
+    }
+
+    // Subsequent renders - fade in (new page)
+    gsap.fromTo(
+      containerRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.8, ease: 'power2.inOut' }
+    )
+  }, [children])
 
   return (
-    <AnimatePresence>
-      <motion.div
-        key={pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-        style={{ flex: 1, display: 'flex', flexDirection: 'column', width: '100%' }}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <div
+      ref={containerRef}
+      style={{ flex: 1, display: 'flex', flexDirection: 'column', width: '100%' }}
+    >
+      {children}
+    </div>
   )
 }
