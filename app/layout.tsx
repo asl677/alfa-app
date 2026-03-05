@@ -42,16 +42,39 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark">
-      <body style={{ margin: 0, padding: 0 }}>
+    <html lang="en" data-theme="dark" style={{ height: '100%', width: '100%', margin: 0, padding: 0 }}>
+      <body style={{
+        margin: 0,
+        padding: 0,
+        height: '100dvh',
+        width: '100vw',
+        overflow: 'hidden',
+        position: 'fixed',
+      }}>
+        <style>{`
+          html, body {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100vh;
+            height: 100dvh;
+            width: 100%;
+            overflow: hidden;
+            -webkit-user-select-touchCallout: none;
+            -webkit-user-select: none;
+            user-select: none;
+          }
+        `}</style>
         <Providers>
-          <div style={{ display: 'flex', height: '100dvh', width: '100%' }}>
+          <div style={{ display: 'flex', height: '100%', width: '100%' }}>
             <NavWrapper />
             <main style={{
               flex: 1,
               display: 'flex',
               flexDirection: 'column',
-              minHeight: '100dvh',
+              height: '100%',
               overflow: 'hidden',
             }}>
               {children}

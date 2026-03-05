@@ -144,9 +144,8 @@ export default function ChatPage() {
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const [pageLoading, setPageLoading] = useState(true)
   const [promptLibraryOpen, setPromptLibraryOpen] = useState(false)
-  const [hideUI, setHideUI] = useState(false)
-  const lastScrollRef = useRef(0)
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const [showPrompts, setShowPrompts] = useState(true)
+  const lastScrollY = useRef(0)
 
   // Initialize page loading
   useEffect(() => {
@@ -219,33 +218,20 @@ export default function ChatPage() {
       const isAtBottom = scrollHeight - scrollTop - clientHeight < 100
       setIsScrolledToBottom(isAtBottom)
 
-      // Detect scroll direction with threshold
-      if (scrollTop > lastScrollRef.current + 5) {
-        // Scrolling down significantly
-        setHideUI(true)
-        lastScrollRef.current = scrollTop
-      } else if (scrollTop < lastScrollRef.current - 5) {
-        // Scrolling up significantly
-        setHideUI(false)
-        lastScrollRef.current = scrollTop
+      // Track scroll direction for show/hide prompts
+      const scrollDelta = scrollTop - lastScrollY.current
+      if (scrollDelta > 0) {
+        // Scrolling down - hide prompts
+        setShowPrompts(false)
+      } else if (scrollDelta < -2) {
+        // Scrolling up - show prompts (require at least 2px upward movement)
+        setShowPrompts(true)
       }
-
-      // Clear any existing timeout
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current)
-      }
-
-      // Show UI when scroll stops (after 3 seconds of no scrolling)
-      scrollTimeoutRef.current = setTimeout(() => {
-        setHideUI(false)
-      }, 3000)
+      lastScrollY.current = scrollTop
     }
 
     container.addEventListener('scroll', handleScroll)
-    return () => {
-      container.removeEventListener('scroll', handleScroll)
-      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
-    }
+    return () => container.removeEventListener('scroll', handleScroll)
   }, [])
 
   useEffect(() => {
@@ -666,7 +652,7 @@ export default function ChatPage() {
 
       <motion.div
         initial={false}
-        animate={{ height: tickerVisible && !hideUI ? 'auto' : 0, opacity: tickerVisible && !hideUI ? 1 : 0 }}
+        animate={{ height: tickerVisible ? 'auto' : 0, opacity: tickerVisible ? 1 : 0 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         style={{ overflow: 'hidden', flexShrink: 0 }}
       >
@@ -828,11 +814,15 @@ export default function ChatPage() {
 
       <motion.div
         initial={false}
-        animate={{ opacity: hideUI ? 0 : 1, height: hideUI ? 0 : 'auto' }}
+        animate={{
+          height: showPrompts ? 'auto' : 0,
+          opacity: showPrompts ? 1 : 0,
+          marginBottom: showPrompts ? 8 : 0,
+        }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '8px 20px 0' }}
+        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', paddingLeft: '20px', paddingRight: '20px', paddingTop: '8px' }}
       >
-        <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
+        <div style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
           {dynamicPrompts.slice(0, 4).map((prompt, idx) => (
             <motion.button
               key={idx}
@@ -1022,8 +1012,7 @@ export default function ChatPage() {
               style={{
                 padding: '6px 12px',
                 background: 'transparent',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 8,
+                border: 'none',
                 fontFamily: "'EB Garamond', serif",
                 fontSize: 14,
                 fontWeight: 300,
@@ -1047,12 +1036,7 @@ export default function ChatPage() {
         </div>
       </motion.div>
 
-      <motion.div
-        initial={false}
-        animate={{ opacity: hideUI ? 0 : 1, height: hideUI ? 0 : 'auto' }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '20px 20px 30px' }}
-      >
+      <div style={{ padding: '20px 20px 30px', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 16, padding: '16px', minHeight: 100, maxWidth: '1020px', width: '100%', transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}>
           <motion.div
             key={promptIndex}
@@ -1130,7 +1114,7 @@ export default function ChatPage() {
             </motion.button>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       <AgentsSheet isOpen={agentsOpen} onClose={() => setAgentsOpen(false)} />
       <TuneWatchlist isOpen={tuneOpen} onClose={() => setTuneOpen(false)} />
