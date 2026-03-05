@@ -29,9 +29,10 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
           />
           <motion.div
             key="sheet"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ duration: 0.3 }}
             drag="y"
             dragConstraints={{ top: 0 }}
             onDragEnd={(_, info) => { if (info.offset.y > 120) onClose() }}
