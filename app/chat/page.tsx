@@ -146,8 +146,6 @@ export default function ChatPage() {
   const [promptLibraryOpen, setPromptLibraryOpen] = useState(false)
   const [showPrompts, setShowPrompts] = useState(true)
   const lastScrollY = useRef(0)
-  const lastPointerY = useRef(0)
-  const scrollHideTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Initialize page loading
   useEffect(() => {
@@ -220,58 +218,6 @@ export default function ChatPage() {
     }
   }, [messages.length])
 
-  // Alternative: Pointer-based scroll detection (more reliable on mobile)
-  useEffect(() => {
-    const container = messagesContainerRef.current
-    if (!container) return
-
-    const handlePointerDown = (e: PointerEvent) => {
-      lastPointerY.current = e.clientY
-    }
-
-    const handlePointerMove = (e: PointerEvent) => {
-      const currentY = e.clientY
-      const delta = lastPointerY.current - currentY // Positive = scrolling down
-
-      // Clear existing timeout
-      if (scrollHideTimeoutRef.current) {
-        clearTimeout(scrollHideTimeoutRef.current)
-      }
-
-      if (delta > 2) {
-        // Scrolling down
-        setShowPrompts(false)
-        console.log('POINTER DOWN:', delta)
-      } else if (delta < -5) {
-        // Scrolling up
-        setShowPrompts(true)
-        console.log('POINTER UP:', delta)
-      }
-
-      lastPointerY.current = currentY
-
-      // Reset to show prompts after scroll stops (500ms inactivity)
-      scrollHideTimeoutRef.current = setTimeout(() => {
-        const { scrollTop, scrollHeight, clientHeight } = container
-        if (scrollHeight - scrollTop - clientHeight > 100) {
-          // Not at bottom, keep hidden
-        } else {
-          setShowPrompts(true)
-        }
-      }, 500)
-    }
-
-    container.addEventListener('pointerdown', handlePointerDown, { passive: true })
-    container.addEventListener('pointermove', handlePointerMove, { passive: true })
-
-    return () => {
-      container.removeEventListener('pointerdown', handlePointerDown)
-      container.removeEventListener('pointermove', handlePointerMove)
-      if (scrollHideTimeoutRef.current) {
-        clearTimeout(scrollHideTimeoutRef.current)
-      }
-    }
-  }, [messages.length])
 
   useEffect(() => {
     const container = messagesContainerRef.current
@@ -282,30 +228,13 @@ export default function ChatPage() {
       const isAtBottom = scrollHeight - scrollTop - clientHeight < 100
       setIsScrolledToBottom(isAtBottom)
 
-      // Track scroll direction for show/hide prompts
-      const scrollDelta = scrollTop - lastScrollY.current
-
-      // Always show prompts at the very top
-      if (scrollTop < 20) {
-        setShowPrompts(true)
-      } else if (scrollDelta > 0) {
-        // Scrolling down - hide prompts
-        setShowPrompts(false)
-      } else if (scrollDelta < -2) {
-        // Scrolling up - show prompts (require at least 2px upward movement)
-        setShowPrompts(true)
-      }
-      lastScrollY.current = scrollTop
-      console.log('SCROLL EVENT:', scrollTop, scrollDelta, 'showPrompts:', scrollTop < 20 ? true : scrollDelta > 0 ? false : scrollDelta < -2 ? true : 'no change')
+      // Direct scroll tracking - show at top, hide when scrolled down
+      setShowPrompts(scrollTop < 50)
     }
 
     container.addEventListener('scroll', handleScroll, { passive: true })
-    console.log('SCROLL LISTENER ATTACHED')
-    return () => {
-      container.removeEventListener('scroll', handleScroll)
-      console.log('SCROLL LISTENER REMOVED')
-    }
-  }, [messagesContainerRef])
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     if (messages.length > 0 && messages[messages.length - 1].role === 'assistant') {
@@ -1084,13 +1013,14 @@ export default function ChatPage() {
               }}
               style={{
                 padding: '6px 12px',
-                background: 'transparent',
-                border: 'none',
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
                 fontFamily: "'EB Garamond', serif",
                 fontSize: 14,
                 fontWeight: 300,
                 color: 'var(--cream2)',
                 cursor: 'pointer',
+                borderRadius: 6,
                 whiteSpace: 'nowrap',
                 flexShrink: 0,
                 transition: 'all 0.2s',
