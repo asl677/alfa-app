@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion'
 import { useRouter, usePathname } from 'next/navigation'
 
 // Icons matching HamburgerMenu
@@ -53,7 +54,10 @@ export default function DesktopNav() {
   const pathname = usePathname()
 
   return (
-    <div
+    <motion.div
+      initial={{ x: -80 }}
+      animate={{ x: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -116,6 +120,6 @@ export default function DesktopNav() {
 
       {/* Spacer to push bottom nav down */}
       <div style={{ flex: 1 }} />
-    </div>
+    </motion.div>
   )
 }
