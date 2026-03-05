@@ -209,14 +209,6 @@ export default function ChatPage() {
     setIsScrolledToBottom(true)
   }, [messages])
 
-  // Debug: verify messages container is scrollable
-  useEffect(() => {
-    if (messagesContainerRef.current) {
-      const { scrollHeight, clientHeight } = messagesContainerRef.current
-      const isScrollable = scrollHeight > clientHeight
-      console.log('MESSAGES CONTAINER CHECK:', { scrollHeight, clientHeight, isScrollable })
-    }
-  }, [messages.length])
 
 
   useEffect(() => {
@@ -822,9 +814,9 @@ export default function ChatPage() {
           marginBottom: showPrompts ? 8 : 0,
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '8px 20px 0', background: 'transparent' }}
+        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '8px 20px 0', background: 'linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%)' }}
       >
-        <div style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%', background: 'transparent' }}>
+        <div style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
           {dynamicPrompts.slice(0, 4).map((prompt, idx) => (
             <motion.button
               key={idx}
