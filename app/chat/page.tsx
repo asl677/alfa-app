@@ -947,8 +947,8 @@ export default function ChatPage() {
               </motion.span>
             </div>
 
-            <div className="chat-prompts-desktop" style={{ gap: 6, alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden', justifyContent: 'flex-end' }}>
-              <div style={{ display: 'flex', gap: 6, overflow: 'auto', flex: 1, scrollBehavior: 'smooth', paddingRight: 8, justifyContent: 'flex-end' }}>
+            <div className="chat-prompts-desktop" style={{ gap: 6, alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden', justifyContent: 'flex-start' }}>
+              <div style={{ display: 'flex', gap: 6, overflow: 'auto', flex: 1, scrollBehavior: 'smooth', paddingLeft: 8, justifyContent: 'flex-start' }}>
                 {dynamicPrompts.slice(0, 6).map((prompt, idx) => (
                   <button
                     key={`prompt-desktop-${idx}`}
