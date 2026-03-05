@@ -629,7 +629,7 @@ export default function ChatPage() {
           key="content"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 1 }}
           style={{ display: 'flex', height: '100dvh', width: '100%' }}
         >
           <div style={{
