@@ -66,19 +66,6 @@ export default function ArtifactsPage() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 12,
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.02)'
-                    e.currentTarget.style.paddingLeft = '12px'
-                    e.currentTarget.style.paddingRight = '12px'
-                    e.currentTarget.style.borderRadius = '8px'
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.background = 'transparent'
-                    e.currentTarget.style.paddingLeft = '0'
-                    e.currentTarget.style.paddingRight = '0'
-                    e.currentTarget.style.borderRadius = '0'
                   }}
                 >
                   <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--dust)', minWidth: 32 }}>{idx + 1}.</div>
