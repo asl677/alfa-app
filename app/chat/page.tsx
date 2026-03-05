@@ -701,7 +701,7 @@ export default function ChatPage() {
         </motion.div>
       )}
 
-      <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 20px 120px', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative', boxSizing: 'border-box' }}>
+      <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 20px', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative', boxSizing: 'border-box', maskImage: 'linear-gradient(180deg, black 0%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(180deg, black 0%, black 85%, transparent 100%)' }}>
 
         {messages.map((m, messageIdx) => {
           const messageIsLoading = m.role === 'assistant' && m.text === '...'
@@ -811,22 +811,10 @@ export default function ChatPage() {
         animate={{
           height: showPrompts ? 'auto' : 0,
           opacity: showPrompts ? 1 : 0,
+          marginBottom: showPrompts ? 8 : 0,
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{
-          position: 'absolute',
-          bottom: 100,
-          left: 0,
-          right: 0,
-          overflow: 'hidden',
-          display: 'flex',
-          justifyContent: 'center',
-          width: '100%',
-          padding: '0 20px 12px',
-          background: 'linear-gradient(180deg, transparent 0%, var(--bg) 60%)',
-          pointerEvents: 'auto',
-          zIndex: 10,
-        }}
+        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '8px 20px 0' }}
       >
         <div style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
           {dynamicPrompts.slice(0, 4).map((prompt, idx) => (
