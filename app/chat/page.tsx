@@ -209,6 +209,15 @@ export default function ChatPage() {
     setIsScrolledToBottom(true)
   }, [messages])
 
+  // Debug: verify messages container is scrollable
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      const { scrollHeight, clientHeight } = messagesContainerRef.current
+      const isScrollable = scrollHeight > clientHeight
+      console.log('MESSAGES CONTAINER CHECK:', { scrollHeight, clientHeight, isScrollable })
+    }
+  }, [messages.length])
+
   useEffect(() => {
     const container = messagesContainerRef.current
     if (!container) return
@@ -235,9 +244,13 @@ export default function ChatPage() {
       console.log('SCROLL EVENT:', scrollTop, scrollDelta, 'showPrompts:', scrollTop < 20 ? true : scrollDelta > 0 ? false : scrollDelta < -2 ? true : 'no change')
     }
 
-    container.addEventListener('scroll', handleScroll)
-    return () => container.removeEventListener('scroll', handleScroll)
-  }, [])
+    container.addEventListener('scroll', handleScroll, { passive: true })
+    console.log('SCROLL LISTENER ATTACHED')
+    return () => {
+      container.removeEventListener('scroll', handleScroll)
+      console.log('SCROLL LISTENER REMOVED')
+    }
+  }, [messagesContainerRef])
 
   useEffect(() => {
     if (messages.length > 0 && messages[messages.length - 1].role === 'assistant') {
