@@ -32,8 +32,6 @@ export default function ListItem({
   toggle,
   onClick,
 }: ListItemProps) {
-  const hasRightAction = action || toggle
-
   return (
     <motion.div
       variants={itemStagger}
@@ -43,46 +41,44 @@ export default function ListItem({
         paddingBottom: 14,
         borderBottom: '1px solid var(--rule-subtle)',
         display: 'flex',
-        flexDirection: hasRightAction ? 'row' : 'column',
-        gap: 8,
-        alignItems: hasRightAction ? 'center' : 'flex-start',
-        justifyContent: hasRightAction ? 'space-between' : 'flex-start',
+        gap: 12,
+        alignItems: 'flex-start',
         cursor: onClick ? 'pointer' : 'default',
         width: '100%',
       }}
     >
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-      {/* metadata header */}
-      {metadata && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>
-            {metadata.label}
-          </span>
-          {metadata.time && (
-            <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--dust)' }}>
-              {metadata.time}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8, minWidth: 0 }}>
+        {/* metadata header */}
+        {metadata && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>
+              {metadata.label}
             </span>
-          )}
-          <div style={{ flex: 1 }} />
-          {metadata.badge && (
-            <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, fontWeight: 600, color: metadata.badgeColor || 'var(--cream2)' }}>
-              {metadata.badge}
-            </span>
-          )}
-        </div>
-      )}
+            {metadata.time && (
+              <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--dust)' }}>
+                {metadata.time}
+              </span>
+            )}
+            <div style={{ flex: 1 }} />
+            {metadata.badge && (
+              <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, fontWeight: 600, color: metadata.badgeColor || 'var(--cream2)' }}>
+                {metadata.badge}
+              </span>
+            )}
+          </div>
+        )}
 
-      {/* title */}
-      <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--cream)' }}>
-        {title}
-      </div>
-
-      {/* description */}
-      {description && (
-        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', lineHeight: 1.5 }}>
-          {description}
+        {/* title */}
+        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--cream)' }}>
+          {title}
         </div>
-      )}
+
+        {/* description */}
+        {description && (
+          <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', lineHeight: 1.5 }}>
+            {description}
+          </div>
+        )}
 
         {/* footer */}
         {footer && (
@@ -91,7 +87,7 @@ export default function ListItem({
           </div>
         )}
 
-        {/* action button (when no toggle, shown below content) */}
+        {/* action button */}
         {action && !toggle && (
           <button
             onClick={action.onClick}
@@ -110,26 +106,6 @@ export default function ListItem({
           </button>
         )}
       </div>
-
-      {/* action button (when on right side) */}
-      {action && toggle && (
-        <button
-          onClick={action.onClick}
-          style={{
-            padding: 0,
-            background: 'none',
-            border: 'none',
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: 11,
-            color: 'var(--coral)',
-            cursor: 'pointer',
-            textAlign: 'right',
-            flexShrink: 0,
-          }}
-        >
-          {action.label}
-        </button>
-      )}
 
       {/* toggle switch */}
       {toggle && (
