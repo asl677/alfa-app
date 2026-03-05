@@ -717,11 +717,9 @@ export default function ChatPage() {
           const isUser = m.role === 'user'
           return (
             <motion.div key={m.id}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ delay: messageIdx * 0.15, duration: 0.5 }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: messageIdx * 0.05, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
               style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
             >
               {m.role === 'assistant' && (
