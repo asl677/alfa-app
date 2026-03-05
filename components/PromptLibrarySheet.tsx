@@ -31,21 +31,13 @@ export default function PromptLibrarySheet({ isOpen, onClose, prompts, onSelectP
               border: 'none',
               cursor: 'pointer',
               textAlign: 'left',
-              transition: 'all 0.2s',
+              transition: 'background 0.2s',
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
-              e.currentTarget.style.paddingLeft = '12px'
-              e.currentTarget.style.marginLeft = '-12px'
-              e.currentTarget.style.paddingRight = '12px'
-              e.currentTarget.style.marginRight = '-12px'
             }}
             onMouseOut={(e) => {
               e.currentTarget.style.background = 'transparent'
-              e.currentTarget.style.paddingLeft = '0'
-              e.currentTarget.style.marginLeft = '0'
-              e.currentTarget.style.paddingRight = '0'
-              e.currentTarget.style.marginRight = '0'
             }}
           >
             <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 15, fontWeight: 300, color: 'var(--cream)', lineHeight: 1.6 }}>
