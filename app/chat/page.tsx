@@ -442,14 +442,14 @@ export default function ChatPage() {
     setTimeout(queryNextAgent, 3000)
   }
 
-  const handleSend = () => {
-    if (!input.trim() || isLoading) return
+  const sendMessage = (messageText: string) => {
+    if (!messageText.trim() || isLoading) return
     if (activeAgents.length === 0) {
       alert('Please enable at least one agent in the Agents page')
       return
     }
 
-    const userMessage = input.trim()
+    const userMessage = messageText.trim()
     setInput('')
     setIsLoading(true)
 
@@ -547,6 +547,10 @@ export default function ChatPage() {
 
     // Delay before first agent starts responding
     setTimeout(queryNextAgent, 3000)
+  }
+
+  const handleSend = () => {
+    sendMessage(input)
   }
 
   const iconNewChat = (
@@ -904,10 +908,7 @@ export default function ChatPage() {
             {dynamicPrompts.slice(0, 3).map((prompt, idx) => (
               <motion.button
                 key={`prompt-mobile-${idx}`}
-                onClick={() => {
-                  setInput(prompt)
-                  handleSend()
-                }}
+                onClick={() => sendMessage(prompt)}
                 style={{
                   padding: '5px 10px',
                   background: 'rgba(255,255,255,0.03)',
@@ -956,10 +957,7 @@ export default function ChatPage() {
                 {dynamicPrompts.slice(0, 3).map((prompt, idx) => (
                   <motion.button
                     key={`prompt-desktop-${idx}`}
-                    onClick={() => {
-                      setInput(prompt)
-                      handleSend()
-                    }}
+                    onClick={() => sendMessage(prompt)}
                     style={{
                       padding: '5px 10px',
                       background: 'rgba(255,255,255,0.03)',
