@@ -1,4 +1,5 @@
 'use client'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useMenu } from './MenuContext'
 
 // Hamburger = Material Symbols "menu" equivalent
@@ -52,16 +53,25 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
         }
       `}</style>
 
-      <span style={{
-        fontFamily: "'EB Garamond', serif",
-        fontSize: 24,
-        fontWeight: 300,
-        letterSpacing: -0.5,
-        color: 'var(--cream)',
-        textAlign: 'center',
-      }}>
-        {title}
-      </span>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={title}
+          initial={{ y: 8, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -8, opacity: 0 }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          style={{
+            fontFamily: "'EB Garamond', serif",
+            fontSize: 24,
+            fontWeight: 300,
+            letterSpacing: -0.5,
+            color: 'var(--cream)',
+            textAlign: 'center',
+          }}
+        >
+          {title}
+        </motion.div>
+      </AnimatePresence>
 
       {/* Right button or spacer matching design - flexible width for multiple buttons */}
       {rightButton ? (
