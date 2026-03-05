@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { fadeUp } from '@/lib/animations'
 
 const HOLDINGS = [
@@ -28,22 +28,24 @@ export default function PortfolioPage() {
         <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 16 }}>
           Holdings
         </div>
-        {HOLDINGS.map((h, i) => (
-          <motion.div key={h.symbol} custom={2 + i} variants={fadeUp} initial="hidden" animate="visible"
-            style={{ padding: '16px 0', borderBottom: '1px solid var(--rule-subtle)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <div>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--cream)' }}>{h.symbol}</div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', marginTop: 2 }}>{h.name}</div>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: 'var(--dust)', marginTop: 4 }}>{h.shares} shares · {h.price}</div>
+        <AnimatePresence mode="wait">
+          {HOLDINGS.map((h, i) => (
+            <motion.div key={h.symbol} custom={2 + i} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+              style={{ padding: '16px 0', borderBottom: '1px solid var(--rule-subtle)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)' }}>{h.symbol}</div>
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', marginTop: 2 }}>{h.name}</div>
+                  <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: 'var(--dust)', marginTop: 4 }}>{h.shares} shares · {h.price}</div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--cream)' }}>{h.value}</div>
+                  <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: h.neg ? 'var(--accent-red)' : 'var(--positive)', marginTop: 4 }}>{h.change}</div>
+                </div>
               </div>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--cream)' }}>{h.value}</div>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: h.neg ? 'var(--accent-red)' : 'var(--positive)', marginTop: 4 }}>{h.change}</div>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </motion.div>
     </div>
   )

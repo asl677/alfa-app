@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 import { fadeUp } from '@/lib/animations'
 import { useAgents } from '@/app/context/agents'
@@ -31,26 +31,28 @@ export default function AgentsPage() {
           <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--coral)', fontWeight: 600 }}>{activeAgents.length}</span>
         </div>
 
-        {agents.map((a, i) => (
-          <motion.div key={a.id} custom={i + 1} variants={fadeUp} initial="hidden" animate="visible"
-            style={{ display: 'flex', gap: 14, padding: '18px 0', borderBottom: '1px solid var(--rule-subtle)', alignItems: 'center' }}>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 500, color: a.active ? 'var(--cream)' : 'var(--dust)', letterSpacing: 1, marginBottom: 3 }}>{a.fullName.toUpperCase()}</div>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, color: 'var(--dust)', marginBottom: 6 }}>{a.role}</div>
-              <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--cream2)', letterSpacing: 1 }}>{a.lastAction}</div>
-            </div>
-            <button onClick={() => handleToggle(a.id)} style={{
-              width: 48, height: 28, borderRadius: 14, flexShrink: 0,
-              background: a.active ? 'var(--cream)' : 'var(--bg2)',
-              border: a.active ? 'none' : '1px solid var(--rule)',
-              padding: 3, cursor: 'pointer',
-              display: 'flex', justifyContent: a.active ? 'flex-end' : 'flex-start', alignItems: 'center',
-              transition: 'all 0.2s ease',
-            }}>
-              <div style={{ width: 22, height: 22, borderRadius: '50%', background: a.active ? 'var(--pure-black)' : 'var(--dust)' }} />
-            </button>
-          </motion.div>
-        ))}
+        <AnimatePresence mode="wait">
+          {agents.map((a, i) => (
+            <motion.div key={a.id} custom={i} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+              style={{ display: 'flex', gap: 14, padding: '18px 0', borderBottom: '1px solid var(--rule-subtle)', alignItems: 'center' }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: a.active ? 'var(--cream)' : 'var(--dust)', marginBottom: 3 }}>{a.fullName}</div>
+                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, color: 'var(--dust)', marginBottom: 6 }}>{a.role}</div>
+                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--cream2)', letterSpacing: 1 }}>{a.lastAction}</div>
+              </div>
+              <button onClick={() => handleToggle(a.id)} style={{
+                width: 48, height: 28, borderRadius: 16, flexShrink: 0,
+                background: a.active ? 'var(--cream)' : 'var(--bg2)',
+                border: a.active ? 'none' : '1px solid var(--rule)',
+                padding: 3, cursor: 'pointer',
+                display: 'flex', justifyContent: a.active ? 'flex-end' : 'flex-start', alignItems: 'center',
+                transition: 'all 0.2s ease',
+              }}>
+                <div style={{ width: 22, height: 22, borderRadius: '50%', background: a.active ? 'var(--pure-black)' : 'var(--dust)' }} />
+              </button>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
 
       {/* Toast notification */}

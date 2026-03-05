@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { fadeUp } from '@/lib/animations'
 
 const CHIPS = ['All', 'Trending', 'Insights']
@@ -33,7 +33,7 @@ export default function MarketPage() {
         style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
         {CHIPS.map((chip) => (
           <button key={chip} onClick={() => setActive(chip)} style={{
-            padding: '8px 16px', borderRadius: 6, cursor: 'pointer',
+            padding: '8px 16px', borderRadius: 8, cursor: 'pointer',
             fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, fontWeight: 400,
             background: active === chip ? 'var(--coral)' : 'var(--surface)',
             color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
@@ -56,19 +56,21 @@ export default function MarketPage() {
       </motion.div>
 
       {/* Stock list */}
-      {MARKET.map((s, i) => (
-        <motion.div key={s.symbol} custom={3 + i} variants={fadeUp} initial="hidden" animate="visible"
-          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 0', borderBottom: '1px solid var(--rule-subtle)' }}>
-          <div>
-            <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--cream)' }}>{s.symbol}</div>
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', marginTop: 2 }}>{s.name}</div>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--cream)' }}>{s.price}</div>
-            <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: s.neg ? 'var(--accent-red)' : 'var(--positive)', marginTop: 2 }}>{s.change}</div>
-          </div>
-        </motion.div>
-      ))}
+      <AnimatePresence mode="wait">
+        {MARKET.map((s, i) => (
+          <motion.div key={s.symbol} custom={3 + i} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 0', borderBottom: '1px solid var(--rule-subtle)' }}>
+            <div>
+              <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)' }}>{s.symbol}</div>
+              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', marginTop: 2 }}>{s.name}</div>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--cream)' }}>{s.price}</div>
+              <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: s.neg ? 'var(--accent-red)' : 'var(--positive)', marginTop: 2 }}>{s.change}</div>
+            </div>
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   )
 }

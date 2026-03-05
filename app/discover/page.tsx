@@ -119,7 +119,7 @@ export default function DiscoverPage() {
                 setIsRefreshing(true)
                 setTimeout(() => setIsRefreshing(false), 1200)
               }} style={{
-                padding: '8px 18px', borderRadius: 6, cursor: 'pointer',
+                padding: '8px 18px', borderRadius: 8, cursor: 'pointer',
                 fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
                 background: active === chip ? 'var(--coral)' : 'var(--surface)',
                 color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
@@ -132,21 +132,21 @@ export default function DiscoverPage() {
           </div>
         </div>
 
-        {/* notificationsContainer — vertical, gap 12, padding [0,12] */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, padding: '12px 20px 0', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-        <AnimatePresence>
+        {/* notificationsContainer — vertical, no gap (items have borders) */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0, padding: '0 20px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <AnimatePresence>
             {isRefreshing && (
               <motion.div
                 key="refresh-spinner"
-                initial={{ opacity: 0-20 }}
+                initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0-20 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: 'easeInOut' }}
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12, flexShrink: 0 }}
               >
                 <motion.svg
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
                   width="20"
                   height="20"
                   viewBox="0 0 24 24"
@@ -161,55 +161,56 @@ export default function DiscoverPage() {
                 <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)' }}>Refreshing...</span>
               </motion.div>
             )}
-          {displayedSources.map((source, i) => (
-            <div
-              key={`${active}-${i}-${source.title}`}
-              onClick={() => {
-                setSelectedSource(source)
-                setDetailOpen(true)
-              }}
-              style={{
-                background: 'var(--surface)',
-                border: '1px solid var(--rule)',
-                borderRadius: 12,
-                padding: '12px 14px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 10,
-                cursor: 'pointer',
-              }}
-            >
-            {/* cardHeader */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>{source.agent}</span>
-              <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--dust)' }}>{source.time}</span>
-              <div style={{ flex: 1 }} />
-              <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, fontWeight: 600, color: RISK_COLOR[source.risk] }}>{source.risk}</span>
-            </div>
-            {/* title */}
-            <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 400, color: 'var(--cream)' }}>{source.title}</div>
-            {/* desc */}
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)' }}>{source.desc}</div>
-            {/* footer: source favicon + action */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <img
-                src={`https://www.google.com/s2/favicons?sz=32&domain=${source.domain}`}
-                alt={source.name}
-                style={{ width: 24, height: 24, borderRadius: 4 }}
-              />
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
+          </AnimatePresence>
+          <AnimatePresence mode="wait">
+            {displayedSources.map((source, i) => (
+              <motion.div key={`${active}-${source.title}`} custom={i} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+                onClick={() => {
                   setSelectedSource(source)
                   setDetailOpen(true)
                 }}
-                style={{ padding: '4px 8px', background: 'transparent', border: '1px solid var(--coral)', borderRadius: 4, fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--coral)', cursor: 'pointer' }}>
-                {source.action}
-              </button>
-            </div>
-            </div>
-          ))}
-        </AnimatePresence>
+                style={{
+                  paddingTop: 14,
+                  paddingBottom: 14,
+                  borderBottom: '1px solid var(--rule-subtle)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 8,
+                  cursor: 'pointer',
+                  width: '100%',
+                }}
+              >
+                {/* cardHeader */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, fontWeight: 600, color: 'var(--cream)' }}>{source.agent}</span>
+                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--dust)' }}>{source.time}</span>
+                  <div style={{ flex: 1 }} />
+                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, fontWeight: 600, color: RISK_COLOR[source.risk] }}>{source.risk}</span>
+                </div>
+                {/* title */}
+                <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)' }}>{source.title}</div>
+                {/* desc */}
+                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', lineHeight: 1.5 }}>{source.desc}</div>
+                {/* footer: source favicon + action */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
+                  <img
+                    src={`https://www.google.com/s2/favicons?sz=32&domain=${source.domain}`}
+                    alt={source.name}
+                    style={{ width: 20, height: 20, borderRadius: 2 }}
+                  />
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setSelectedSource(source)
+                      setDetailOpen(true)
+                    }}
+                    style={{ padding: 0, background: 'none', border: 'none', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--coral)', cursor: 'pointer' }}>
+                    {source.action}
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
 

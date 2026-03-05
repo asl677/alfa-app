@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 import { fadeUp } from '@/lib/animations'
 
@@ -59,39 +59,41 @@ export default function HistoryPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)' }}>
       <PageHeader title="History" />
       <div style={{ flex: 1, padding: '0 20px', display: 'flex', flexDirection: 'column', gap: 0, maxWidth: '1020px', margin: '0 auto', width: '100%', overflowY: 'auto' }}>
-        {CHAT_HISTORY.map((chat, idx) => (
-          <motion.div key={chat.id} custom={idx} variants={fadeUp} initial="hidden" animate="visible"
-            style={{ borderBottom: '1px solid var(--rule-subtle)', paddingTop: 20, paddingBottom: 20, cursor: 'pointer', transition: 'all 0.2s' }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--surface)'; e.currentTarget.style.borderRadius = '4px'; e.currentTarget.style.paddingLeft = '12px'; e.currentTarget.style.paddingRight = '12px'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderRadius = '0'; e.currentTarget.style.paddingLeft = '0'; e.currentTarget.style.paddingRight = '0'; }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
-              <div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 500, color: 'var(--cream)', marginBottom: 4 }}>
-                  {chat.title}
+        <AnimatePresence mode="wait">
+          {CHAT_HISTORY.map((chat, idx) => (
+            <motion.div key={chat.id} custom={idx} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+              style={{ borderBottom: '1px solid var(--rule-subtle)', paddingTop: 20, paddingBottom: 20, cursor: 'pointer', transition: 'all 0.2s' }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--surface)'; e.currentTarget.style.borderRadius = '4px'; e.currentTarget.style.paddingLeft = '12px'; e.currentTarget.style.paddingRight = '12px'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderRadius = '0'; e.currentTarget.style.paddingLeft = '0'; e.currentTarget.style.paddingRight = '0'; }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+                <div>
+                  <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)', marginBottom: 4 }}>
+                    {chat.title}
+                  </div>
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, color: 'var(--cream2)', lineHeight: 1.5 }}>
+                    {chat.preview}
+                  </div>
                 </div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, color: 'var(--cream2)', lineHeight: 1.5 }}>
-                  {chat.preview}
+                <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: 16 }}>
+                  <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--dust)', letterSpacing: 0.5 }}>
+                    {chat.date}
+                  </div>
                 </div>
               </div>
-              <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: 16 }}>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--dust)', letterSpacing: 0.5 }}>
-                  {chat.date}
-                </div>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              {chat.agents.map((agent, i) => (
-                <span key={i} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--dust)', background: 'var(--bg2)', padding: '2px 6px', borderRadius: 3 }}>
-                  {agent.split(' ')[0]}
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {chat.agents.map((agent, i) => (
+                  <span key={i} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--dust)', background: 'var(--bg2)', padding: '2px 6px', borderRadius: 3 }}>
+                    {agent.split(' ')[0]}
+                  </span>
+                ))}
+                <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--cream2)', marginLeft: 'auto' }}>
+                  {chat.messageCount} messages
                 </span>
-              ))}
-              <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--cream2)', marginLeft: 'auto' }}>
-                {chat.messageCount} messages
-              </span>
-            </div>
-          </motion.div>
-        ))}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   )

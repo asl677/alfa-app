@@ -1,13 +1,34 @@
 import { type Variants } from 'framer-motion'
 
+const EASE = [0.25, 0.46, 0.45, 0.94] as const
 const ease = [0.16, 1, 0.3, 1] as const
+
+// Individual item: subtle fade + 5px slide
+export const fadeInItem: Variants = {
+  hidden: { opacity: 0, y: 5 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: EASE },
+  },
+  exit: {
+    opacity: 0,
+    y: 5,
+    transition: { duration: 0.2, ease: EASE },
+  },
+}
 
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.4, delay: i * 0.08, ease: EASE },
+  }),
+  exit: (i: number) => ({
+    opacity: 0,
+    y: 16,
+    transition: { duration: 0.3, delay: i * 0.06, ease: EASE },
   }),
 }
 
@@ -15,7 +36,7 @@ export const fadeUp: Variants = {
 export const staggerSpring = (i: number) => ({
   duration: 0.4,
   delay: i * 0.08,
-  ease: [0.25, 0.46, 0.45, 0.94] as const,
+  ease: EASE,
 })
 
 export const page: Variants = {

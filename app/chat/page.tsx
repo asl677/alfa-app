@@ -30,9 +30,9 @@ const PROMPT_SUGGESTIONS = [
   "Show sector exposure heatmap →",
 ]
 
-const IconSend = () => (
+const IconArrowUp = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+    <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
   </svg>
 )
 
@@ -264,6 +264,7 @@ export default function ChatPage() {
         agent: agentName,
       }
 
+      console.log('ADDING SPINNER:', agentName, spinnerId)
       setMessages(prev => [...prev, spinnerMsg])
 
       // Build conversation history: user message + previous agent responses
@@ -303,7 +304,7 @@ export default function ChatPage() {
 
           currentAgentIdx++
           // Longer delay between agent responses for natural debate pacing
-          setTimeout(queryNextAgent, 2500)
+          setTimeout(queryNextAgent, 4000)
         })
         .catch(err => {
           console.error(`Agent ${agentName} error:`, err)
@@ -320,12 +321,12 @@ export default function ChatPage() {
             )
           )
           currentAgentIdx++
-          setTimeout(queryNextAgent, 2500)
+          setTimeout(queryNextAgent, 4000)
         })
     }
 
     // Delay before first agent starts responding
-    setTimeout(queryNextAgent, 2000)
+    setTimeout(queryNextAgent, 3000)
   }
 
   const tickerToggleButton = (
@@ -439,7 +440,8 @@ export default function ChatPage() {
         )}
 
         {messages.map((m) => {
-          const isLoading = m.role === 'assistant' && m.text === '...'
+          const messageIsLoading = m.role === 'assistant' && m.text === '...'
+          if (messageIsLoading) console.log('SPINNER FOUND:', m.agent, m.text)
           const isUser = m.role === 'user'
           return (
             <motion.div key={m.id}
@@ -450,7 +452,7 @@ export default function ChatPage() {
             >
               {m.role === 'assistant' && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                  {isLoading && (
+                  {messageIsLoading && (
                     <motion.svg
                       animate={{ rotate: 360 }}
                       transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
@@ -480,7 +482,7 @@ export default function ChatPage() {
                   </div>
                 </div>
               )}
-              {!isLoading && (
+              {!messageIsLoading && (
                 <>
                   <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7, textAlign: isUser ? 'right' : 'left' }}>
                     {m.text}
@@ -604,7 +606,7 @@ export default function ChatPage() {
                           )
 
                           currentAgentIdx++
-                          setTimeout(queryNextAgent, 2500)
+                          setTimeout(queryNextAgent, 4000)
                         })
                         .catch(err => {
                           console.error(`Agent ${agentName} error:`, err)
@@ -620,41 +622,88 @@ export default function ChatPage() {
                             )
                           )
                           currentAgentIdx++
-                          setTimeout(queryNextAgent, 2500)
+                          setTimeout(queryNextAgent, 4000)
                         })
                     }
 
-                    setTimeout(queryNextAgent, 2000)
+                    setTimeout(queryNextAgent, 3000)
                   } else {
-                    // Fetch agent response for regular prompts
-                    fetch('/api/chat', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ messages: [...messages, userMsg] }),
-                    })
-                      .then(res => res.text())
-                      .then(text => {
-                        const agentMsg: Message = {
-                          id: (Date.now() + 1).toString(),
-                          role: 'assistant',
-                          text: text || 'Market conditions remain uncertain. Monitor your positions closely.',
-                          agent: getAgentName(agentIndex),
-                        }
-                        setMessages(prev => [...prev, agentMsg])
-                        setAgentIndex(prev => prev + 1)
+                    // Fetch agent responses for regular prompts
+                    const agentsToQuery = activeAgents
+                    let agentResponses: Message[] = []
+                    let currentAgentIdx = 0
+
+                    const queryNextAgent = () => {
+                      if (currentAgentIdx >= agentsToQuery.length) {
                         setIsLoading(false)
+                        return
+                      }
+
+                      const agentName = agentsToQuery[currentAgentIdx].fullName
+                      const spinnerId = `spinner-${currentAgentIdx}-${Date.now()}`
+                      const spinnerMsg: Message = {
+                        id: spinnerId,
+                        role: 'assistant',
+                        text: '...',
+                        agent: agentName,
+                      }
+
+                      console.log('ADDING SPINNER (regular prompt):', agentName)
+                      setMessages(prev => [...prev, spinnerMsg])
+
+                      const conversationHistory = [userMsg, ...agentResponses]
+                      const systemPrompt = currentAgentIdx > 0
+                        ? `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. Challenge previous agents if you disagree, throw in some personality, keep it real.`
+                        : `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. Share your real take. Keep it brief and actionable.`
+
+                      fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ messages: conversationHistory, systemPrompt }),
                       })
-                      .catch(err => {
-                        console.error('Error:', err)
-                        setIsLoading(false)
-                      })
+                        .then(res => res.text())
+                        .then(text => {
+                          const agentResponse: Message = {
+                            id: spinnerId,
+                            role: 'assistant',
+                            text: text.trim() || 'Yeah, that makes sense. Here\'s what I\'m seeing though...',
+                            agent: agentName,
+                          }
+                          agentResponses.push(agentResponse)
+
+                          setMessages(prev =>
+                            prev.map(m =>
+                              m.id === spinnerId ? agentResponse : m
+                            )
+                          )
+
+                          currentAgentIdx++
+                          setTimeout(queryNextAgent, 4000)
+                        })
+                        .catch(err => {
+                          console.error(`Agent ${agentName} error:`, err)
+                          const errorResponse: Message = {
+                            id: spinnerId,
+                            role: 'assistant',
+                            text: 'I need to reconsider that position based on the debate.',
+                            agent: agentName,
+                          }
+                          setMessages(prev =>
+                            prev.map(m => m.id === spinnerId ? errorResponse : m)
+                          )
+                          currentAgentIdx++
+                          setTimeout(queryNextAgent, 4000)
+                        })
+                    }
+
+                    setTimeout(queryNextAgent, 3000)
                   }
               }}
               style={{
                 padding: '6px 12px',
                 background: 'transparent',
                 border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 6,
+                borderRadius: 8,
                 fontFamily: "'EB Garamond', serif",
                 fontSize: 14,
                 fontWeight: 300,
@@ -679,7 +728,7 @@ export default function ChatPage() {
       </div>
 
       <div style={{ padding: '20px 20px 30px', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 12, padding: '16px', minHeight: 100, maxWidth: '1020px', width: '100%', transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 16, padding: '16px', minHeight: 100, maxWidth: '1020px', width: '100%', transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}>
           <motion.div
             key={promptIndex}
             initial={{ opacity: 0 }}
@@ -735,9 +784,25 @@ export default function ChatPage() {
               whileTap={{ scale: input.trim() ? 0.92 : 1 }}
               style={{ background: 'none', border: 'none', padding: '0 4px', cursor: input.trim() ? 'pointer' : 'default', color: input.trim() ? 'var(--coral)' : 'var(--dust)', display: 'flex', flexShrink: 0 }}
             >
-              <motion.div animate={isLoading ? { rotate: 360 } : {}} transition={isLoading ? { duration: 2, repeat: Infinity, ease: 'linear' } : {}}>
-                <IconSend />
-              </motion.div>
+              {isLoading ? (
+                <motion.svg
+                  key={messages.filter(m => m.role === 'assistant').pop()?.agent || 'spinner'}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={messages.filter(m => m.role === 'assistant').pop()?.agent ? (agents.find(a => a.fullName === messages.filter(m => m.role === 'assistant').pop()?.agent)?.dotColor || '#ff7043') : '#ff7043'}
+                  strokeWidth="1.5"
+                  strokeDasharray="4 4"
+                  style={{ transformOrigin: '50% 50%' }}
+                >
+                  <circle cx="12" cy="12" r="10" />
+                </motion.svg>
+              ) : (
+                <IconArrowUp />
+              )}
             </motion.button>
           </div>
         </div>

@@ -166,7 +166,7 @@ export default function ArtifactsPage() {
 
                 {/* Chart rendering */}
                 {selectedArtifact.type === 'portfolio' && (
-                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, padding: 20, minHeight: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 16, padding: 20, minHeight: 300, display: 'flex', flexDirection: 'column', gap: 16 }}>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
                       {selectedArtifact.data.allocation?.map((item: any, idx: number) => (
                         <div key={idx} style={{ padding: 12, background: 'rgba(255,255,255,0.03)', borderRadius: 8, borderLeft: `4px solid ${item.color}` }}>
@@ -186,7 +186,7 @@ export default function ArtifactsPage() {
                 )}
 
                 {selectedArtifact.type === 'comparison' && (
-                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, overflow: 'hidden' }}>
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 16, overflow: 'hidden' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'DM Mono', monospace", fontSize: 12 }}>
                       <thead>
                         <tr style={{ borderBottom: '1px solid var(--rule)' }}>
@@ -249,7 +249,7 @@ export default function ArtifactsPage() {
                 )}
 
                 {selectedArtifact.type === 'heatmap' && (
-                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, padding: 20 }}>
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 16, padding: 20 }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                       {selectedArtifact.data.sectors?.map((sector: any, idx: number) => (
                         <div key={idx}>
@@ -271,7 +271,7 @@ export default function ArtifactsPage() {
                 )}
 
                 {selectedArtifact.type === 'earnings' && (
-                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, overflow: 'hidden' }}>
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 16, overflow: 'hidden' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'DM Mono', monospace", fontSize: 12 }}>
                       <thead>
                         <tr style={{ borderBottom: '1px solid var(--rule)' }}>
@@ -296,7 +296,7 @@ export default function ArtifactsPage() {
                 )}
 
                 {selectedArtifact.type === 'dividends' && (
-                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 12, overflow: 'hidden' }}>
+                  <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--rule)', borderRadius: 16, overflow: 'hidden' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'DM Mono', monospace", fontSize: 12 }}>
                       <thead>
                         <tr style={{ borderBottom: '1px solid var(--rule)' }}>
