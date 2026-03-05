@@ -146,6 +146,8 @@ export default function ChatPage() {
   const [promptLibraryOpen, setPromptLibraryOpen] = useState(false)
   const [showPrompts, setShowPrompts] = useState(true)
   const lastScrollY = useRef(0)
+  const lastPointerY = useRef(0)
+  const scrollHideTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Initialize page loading
   useEffect(() => {
@@ -215,6 +217,59 @@ export default function ChatPage() {
       const { scrollHeight, clientHeight } = messagesContainerRef.current
       const isScrollable = scrollHeight > clientHeight
       console.log('MESSAGES CONTAINER CHECK:', { scrollHeight, clientHeight, isScrollable })
+    }
+  }, [messages.length])
+
+  // Alternative: Pointer-based scroll detection (more reliable on mobile)
+  useEffect(() => {
+    const container = messagesContainerRef.current
+    if (!container) return
+
+    const handlePointerDown = (e: PointerEvent) => {
+      lastPointerY.current = e.clientY
+    }
+
+    const handlePointerMove = (e: PointerEvent) => {
+      const currentY = e.clientY
+      const delta = lastPointerY.current - currentY // Positive = scrolling down
+
+      // Clear existing timeout
+      if (scrollHideTimeoutRef.current) {
+        clearTimeout(scrollHideTimeoutRef.current)
+      }
+
+      if (delta > 2) {
+        // Scrolling down
+        setShowPrompts(false)
+        console.log('POINTER DOWN:', delta)
+      } else if (delta < -5) {
+        // Scrolling up
+        setShowPrompts(true)
+        console.log('POINTER UP:', delta)
+      }
+
+      lastPointerY.current = currentY
+
+      // Reset to show prompts after scroll stops (500ms inactivity)
+      scrollHideTimeoutRef.current = setTimeout(() => {
+        const { scrollTop, scrollHeight, clientHeight } = container
+        if (scrollHeight - scrollTop - clientHeight > 100) {
+          // Not at bottom, keep hidden
+        } else {
+          setShowPrompts(true)
+        }
+      }, 500)
+    }
+
+    container.addEventListener('pointerdown', handlePointerDown, { passive: true })
+    container.addEventListener('pointermove', handlePointerMove, { passive: true })
+
+    return () => {
+      container.removeEventListener('pointerdown', handlePointerDown)
+      container.removeEventListener('pointermove', handlePointerMove)
+      if (scrollHideTimeoutRef.current) {
+        clearTimeout(scrollHideTimeoutRef.current)
+      }
     }
   }, [messages.length])
 
