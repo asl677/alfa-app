@@ -232,6 +232,7 @@ export default function ChatPage() {
         setShowPrompts(true)
       }
       lastScrollY.current = scrollTop
+      console.log('SCROLL EVENT:', scrollTop, scrollDelta, 'showPrompts:', scrollTop < 20 ? true : scrollDelta > 0 ? false : scrollDelta < -2 ? true : 'no change')
     }
 
     container.addEventListener('scroll', handleScroll)
@@ -824,9 +825,9 @@ export default function ChatPage() {
           marginBottom: showPrompts ? 8 : 0,
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', paddingLeft: '20px', paddingRight: '20px', paddingTop: '8px' }}
+        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '8px 20px 0', background: 'transparent' }}
       >
-        <div style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
+        <div style={{ display: 'flex', gap: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%', background: 'transparent' }}>
           {dynamicPrompts.slice(0, 4).map((prompt, idx) => (
             <motion.button
               key={idx}
