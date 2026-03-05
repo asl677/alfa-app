@@ -120,6 +120,8 @@ interface Message {
   role: 'user' | 'assistant'
   text: string
   agent?: string
+  artifactId?: string
+  artifactTitle?: string
 }
 
 export default function ChatPage() {
@@ -359,6 +361,16 @@ export default function ChatPage() {
       const artifacts = existing ? JSON.parse(existing) : []
       artifacts.unshift(artifact)
       localStorage.setItem('artifacts', JSON.stringify(artifacts))
+
+      // Add artifact link message
+      setMessages(prev => [...prev, {
+        id: `artifact-msg-${Date.now()}`,
+        role: 'assistant',
+        text: `Generated: ${artifact.title}`,
+        agent: 'Alfa',
+        artifactId: artifact.id,
+        artifactTitle: artifact.title,
+      }])
     }
 
     // Trigger agent responses
@@ -762,22 +774,53 @@ export default function ChatPage() {
               )}
               {!messageIsLoading && (
                 <>
-                  <div style={{
-                    fontFamily: "'EB Garamond', serif",
-                    fontSize: 16,
-                    fontWeight: 300,
-                    color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)',
-                    lineHeight: 1.7,
-                    textAlign: isUser ? 'right' : 'left',
-                    background: isFirstMessage && !isUser ? 'linear-gradient(90deg, var(--cream2) 0%, rgba(255, 127, 67, 0.6) 50%, var(--cream2) 100%)' : 'transparent',
-                    backgroundSize: isFirstMessage && !isUser ? '200% center' : 'auto',
-                    backgroundClip: isFirstMessage && !isUser ? 'text' : 'unset',
-                    WebkitBackgroundClip: isFirstMessage && !isUser ? 'text' : 'unset',
-                    WebkitTextFillColor: isFirstMessage && !isUser ? 'transparent' : 'unset',
-                    animation: isFirstMessage && !isUser ? 'gradientShimmer 2s infinite' : 'none',
-                  }}>
-                    {m.text}
-                  </div>
+                  {m.artifactId ? (
+                    <button
+                      onClick={() => {
+                        // Navigate to artifacts page - can be implemented with router
+                        window.location.href = '/artifacts'
+                      }}
+                      style={{
+                        fontFamily: "'EB Garamond', serif",
+                        fontSize: 16,
+                        fontWeight: 300,
+                        color: '#ff7043',
+                        lineHeight: 1.7,
+                        textAlign: isUser ? 'right' : 'left',
+                        background: 'transparent',
+                        border: '2px solid #ff7043',
+                        borderRadius: 8,
+                        padding: '12px 16px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.background = 'rgba(255, 112, 67, 0.1)'
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      {m.text}
+                    </button>
+                  ) : (
+                    <div style={{
+                      fontFamily: "'EB Garamond', serif",
+                      fontSize: 16,
+                      fontWeight: 300,
+                      color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)',
+                      lineHeight: 1.7,
+                      textAlign: isUser ? 'right' : 'left',
+                      background: isFirstMessage && !isUser ? 'linear-gradient(90deg, var(--cream2) 0%, rgba(255, 127, 67, 0.6) 50%, var(--cream2) 100%)' : 'transparent',
+                      backgroundSize: isFirstMessage && !isUser ? '200% center' : 'auto',
+                      backgroundClip: isFirstMessage && !isUser ? 'text' : 'unset',
+                      WebkitBackgroundClip: isFirstMessage && !isUser ? 'text' : 'unset',
+                      WebkitTextFillColor: isFirstMessage && !isUser ? 'transparent' : 'unset',
+                      animation: isFirstMessage && !isUser ? 'gradientShimmer 2s infinite' : 'none',
+                    }}>
+                      {m.text}
+                    </div>
+                  )}
                   {m.role === 'assistant' && (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12, justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
                       {m.agent?.includes('Ashley') && (
@@ -854,6 +897,16 @@ export default function ChatPage() {
                     const artifacts = existing ? JSON.parse(existing) : []
                     artifacts.unshift(artifact)
                     localStorage.setItem('artifacts', JSON.stringify(artifacts))
+
+                    // Add artifact link message
+                    setMessages(prev => [...prev, {
+                      id: `artifact-msg-${Date.now()}`,
+                      role: 'assistant',
+                      text: `Generated: ${artifact.title}`,
+                      agent: 'Alfa',
+                      artifactId: artifact.id,
+                      artifactTitle: artifact.title,
+                    }])
 
                     // Trigger agent debate on the artifact
                     const agentsToQuery = activeAgents
