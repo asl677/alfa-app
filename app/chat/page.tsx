@@ -893,7 +893,14 @@ export default function ChatPage() {
           </motion.div>
           <style>{`input::placeholder { color: var(--cream2); opacity: 0.7; }`}</style>
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+          <style>{`
+            @media (max-width: 640px) {
+              .chat-controls-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+              .chat-prompts-container { width: 100%; justify-content: flex-start; }
+              .chat-prompts-scroll { justify-content: flex-start; }
+            }
+          `}</style>
+          <div className="chat-controls-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
               <motion.span variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setAgentsOpen(true)}>
                 {activeAgents.length} Agents
@@ -908,8 +915,8 @@ export default function ChatPage() {
               </motion.span>
             </div>
 
-            <div style={{ display: 'flex', gap: 6, alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden', justifyContent: 'flex-end' }}>
-              <div style={{ display: 'flex', gap: 6, overflow: 'auto', flex: 1, scrollBehavior: 'smooth', paddingRight: 8, justifyContent: 'flex-end' }}>
+            <div className="chat-prompts-container" style={{ display: 'flex', gap: 6, alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden', justifyContent: 'flex-end' }}>
+              <div className="chat-prompts-scroll" style={{ display: 'flex', gap: 6, overflow: 'auto', flex: 1, scrollBehavior: 'smooth', paddingRight: 8, justifyContent: 'flex-end' }}>
                 {dynamicPrompts.slice(0, 3).map((prompt, idx) => (
                   <motion.button
                     key={`prompt-${idx}`}
