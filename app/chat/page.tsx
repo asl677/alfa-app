@@ -705,10 +705,11 @@ export default function ChatPage() {
 
       <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 20px', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative', boxSizing: 'border-box' }}>
 
-        {messages.map((m) => {
+        {messages.map((m, messageIdx) => {
           const messageIsLoading = m.role === 'assistant' && m.text === '...'
           if (messageIsLoading) console.log('SPINNER FOUND:', m.agent, m.text)
           const isUser = m.role === 'user'
+          const isFirstMessage = messageIdx === 0
           return (
             <motion.div key={m.id}
               initial={{ opacity: 0 }}
@@ -750,7 +751,20 @@ export default function ChatPage() {
               )}
               {!messageIsLoading && (
                 <>
-                  <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)', lineHeight: 1.7, textAlign: isUser ? 'right' : 'left' }}>
+                  <div style={{
+                    fontFamily: "'EB Garamond', serif",
+                    fontSize: 16,
+                    fontWeight: 300,
+                    color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)',
+                    lineHeight: 1.7,
+                    textAlign: isUser ? 'right' : 'left',
+                    background: isFirstMessage && !isUser ? 'linear-gradient(90deg, var(--cream2) 0%, rgba(255, 127, 67, 0.6) 50%, var(--cream2) 100%)' : 'transparent',
+                    backgroundSize: isFirstMessage && !isUser ? '200% center' : 'auto',
+                    backgroundClip: isFirstMessage && !isUser ? 'text' : 'unset',
+                    WebkitBackgroundClip: isFirstMessage && !isUser ? 'text' : 'unset',
+                    WebkitTextFillColor: isFirstMessage && !isUser ? 'transparent' : 'unset',
+                    animation: isFirstMessage && !isUser ? 'gradientShimmer 2s infinite' : 'none',
+                  }}>
                     {m.text}
                   </div>
                   {m.role === 'assistant' && (
@@ -1088,6 +1102,10 @@ export default function ChatPage() {
       <style>{`
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes gradientShimmer {
+          0% { background-position: 200% center; }
+          100% { background-position: -200% center; }
+        }
       `}</style>
     </div>
   )
