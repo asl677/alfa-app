@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 import ArtifactCard from '@/components/ArtifactCard'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 
 interface Artifact {
   id: string
@@ -35,29 +36,29 @@ export default function ArtifactsPage() {
       <PageHeader title="Artifacts" />
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
-        {artifacts.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: 20 }}
-          >
-            <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 28, fontWeight: 300, color: 'var(--cream)', textAlign: 'center' }}>
-              No artifacts yet
-            </div>
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, color: 'var(--cream2)', textAlign: 'center', maxWidth: 300 }}>
-              Generate your first chart from chat using artifact prompts like "Compare NVDA vs AMD" or "Chart my portfolio allocation"
-            </div>
-          </motion.div>
-        ) : (
-          <AnimatePresence>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        <AnimatePresence mode="wait">
+          {artifacts.length === 0 ? (
+            <motion.div
+              key="empty"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: 20 }}
+            >
+              <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 28, fontWeight: 300, color: 'var(--cream)', textAlign: 'center' }}>
+                No artifacts yet
+              </div>
+              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, color: 'var(--cream2)', textAlign: 'center', maxWidth: 300 }}>
+                Generate your first chart from chat using artifact prompts like "Compare NVDA vs AMD" or "Chart my portfolio allocation"
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div variants={containerStagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
               {artifacts.map((artifact, idx) => (
                 <motion.div
                   key={artifact.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  variants={itemStagger}
                   onClick={() => handleExpand(artifact)}
                   style={{
                     padding: '16px 0',
@@ -80,9 +81,9 @@ export default function ArtifactsPage() {
                   <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--dust)' }}>→</div>
                 </motion.div>
               ))}
-            </div>
-          </AnimatePresence>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Detail modal */}

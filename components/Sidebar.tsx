@@ -1,13 +1,17 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { motion } from 'framer-motion'
+import { fadeUp } from '@/lib/animations'
 
 const NAV = [
   { href: '/', label: 'HOME', icon: '⬡' },
   { href: '/chat', label: 'CHAT', icon: '◌' },
   { href: '/portfolio', label: 'PORTFOLIO', icon: '◫' },
+  { href: '/artifacts', label: 'ARTIFACTS', icon: '▢' },
   { href: '/agents', label: 'AGENTS', icon: '◎' },
   { href: '/market', label: 'MARKET', icon: '◈' },
+  { href: '/discover', label: 'DISCOVER', icon: '◆' },
 ]
 
 export default function Sidebar() {
@@ -63,30 +67,37 @@ export default function Sidebar() {
 
       {/* Nav */}
       <nav style={{ flex: 1, padding: '16px 0' }}>
-        {NAV.map(({ href, label }) => {
+        {NAV.map(({ href, label }, idx) => {
           const active = pathname === href || (href !== '/' && pathname.startsWith(href))
           return (
-            <Link
+            <motion.div
               key={href}
-              href={href}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                padding: '14px 24px',
-                fontFamily: "'DM Mono', monospace",
-                fontSize: 10,
-                letterSpacing: '2px',
-                textTransform: 'uppercase',
-                color: active ? 'var(--coral)' : 'var(--dust)',
-                textDecoration: 'none',
-                borderLeft: active ? '2px solid var(--coral)' : '2px solid transparent',
-                transition: 'color 0.15s, border-color 0.15s',
-                backgroundColor: active ? 'var(--coral-dim)' : 'transparent',
-              }}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: idx * 0.2 }}
             >
-              {label}
-            </Link>
+              <Link
+                href={href}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '14px 24px',
+                  fontFamily: "'DM Mono', monospace",
+                  fontSize: 10,
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  color: active ? 'var(--coral)' : 'var(--dust)',
+                  textDecoration: 'none',
+                  borderLeft: active ? '2px solid var(--coral)' : '2px solid transparent',
+                  transition: 'color 0.15s, border-color 0.15s',
+                  backgroundColor: active ? 'var(--coral-dim)' : 'transparent',
+                }}
+              >
+                {label}
+              </Link>
+            </motion.div>
           )
         })}
       </nav>

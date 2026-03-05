@@ -32,6 +32,27 @@ export const fadeUp: Variants = {
   },
 }
 
+// Container for staggered children (0.2s delay between each)
+export const containerStagger: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0,
+    },
+  },
+}
+
+export const itemStagger: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: EASE },
+  },
+}
+
 // Standard stagger pattern: smooth duration-based with cubic easing
 export const staggerSpring = (i: number) => ({
   duration: 0.4,

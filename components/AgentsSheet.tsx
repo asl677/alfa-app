@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import BottomSheet from './BottomSheet'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 
 interface Agent {
   id: string
@@ -38,19 +39,18 @@ export default function AgentsSheet({ isOpen, onClose }: { isOpen: boolean; onCl
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose} title="Agents">
       {/* Agent list */}
-      {agents.map((agent, idx) => (
-        <motion.div
-          key={agent.id}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 14,
-            padding: '18px 0',
-            borderBottom: '1px solid var(--rule-subtle)',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+      <motion.div variants={containerStagger} initial="hidden" animate="visible">
+        {agents.map((agent) => (
+          <motion.div
+            key={agent.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              padding: '18px 0',
+              borderBottom: '1px solid var(--rule-subtle)',
+            }}
+            variants={itemStagger}
         >
           <div style={{ flex: 1 }}>
             <div style={{
@@ -96,8 +96,9 @@ export default function AgentsSheet({ isOpen, onClose }: { isOpen: boolean; onCl
               background: agent.active ? 'var(--pure-black)' : 'var(--dust)',
             }} />
           </button>
-        </motion.div>
-      ))}
+          </motion.div>
+        ))}
+      </motion.div>
 
       {/* Add agent */}
       <motion.button

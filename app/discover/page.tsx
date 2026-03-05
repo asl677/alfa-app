@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 import SourceDetail from '@/components/SourceDetail'
-import { fadeUp } from '@/lib/animations'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 
 const CHIPS = ['Trending', 'Insights']
 
@@ -110,27 +110,28 @@ export default function DiscoverPage() {
             display: none;
           }
         `}</style>
-        {/* chipRow2 — gap 10, padding [20,20] */}
-        <div style={{ display: 'flex', gap: 10, padding: '20px 20px 0', flexShrink: 0, justifyContent: 'flex-start', alignItems: 'center' }}>
-          <div style={{ display: 'flex', gap: 10 }}>
-            {CHIPS.map((chip) => (
-              <button key={chip} onClick={() => {
-                setActive(chip)
-                setIsRefreshing(true)
-                setTimeout(() => setIsRefreshing(false), 1200)
-              }} style={{
-                padding: '8px 18px', borderRadius: 8, cursor: 'pointer',
-                fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
-                background: active === chip ? 'var(--coral)' : 'var(--surface)',
-                color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
-                border: active === chip ? 'none' : '1px solid var(--rule)',
-                transition: 'all 0.15s',
-              }}>
-                {chip}
-              </button>
-            ))}
+        <AnimatePresence mode="wait">
+          {/* chipRow2 — gap 10, padding [20,20] */}
+          <motion.div variants={fadeUp} initial="hidden" animate="visible" exit="exit" transition={{ delay: 0 }} style={{ display: 'flex', gap: 10, padding: '20px 20px 0', flexShrink: 0, justifyContent: 'flex-start', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: 10 }}>
+              {CHIPS.map((chip) => (
+                <button key={chip} onClick={() => {
+                  setActive(chip)
+                  setIsRefreshing(true)
+                  setTimeout(() => setIsRefreshing(false), 1200)
+                }} style={{
+                  padding: '8px 18px', borderRadius: 8, cursor: 'pointer',
+                  fontFamily: "'Space Grotesk', sans-serif", fontSize: 13,
+                  background: active === chip ? 'var(--coral)' : 'var(--surface)',
+                  color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
+                  border: active === chip ? 'none' : '1px solid var(--rule)',
+                  transition: 'all 0.15s',
+                }}>
+                  {chip}
+                </button>
+              ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* notificationsContainer — vertical, no gap (items have borders) */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0, padding: '0 20px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
@@ -162,9 +163,9 @@ export default function DiscoverPage() {
               </motion.div>
             )}
           </AnimatePresence>
-          <AnimatePresence mode="wait">
-            {displayedSources.map((source, i) => (
-              <motion.div key={`${active}-${source.title}`} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+          <motion.div variants={containerStagger} initial="hidden" animate="visible">
+            {displayedSources.map((source) => (
+              <motion.div key={`${active}-${source.title}`} variants={itemStagger}
                 onClick={() => {
                   setSelectedSource(source)
                   setDetailOpen(true)
@@ -188,7 +189,7 @@ export default function DiscoverPage() {
                   <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, fontWeight: 600, color: RISK_COLOR[source.risk] }}>{source.risk}</span>
                 </div>
                 {/* title */}
-                <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)' }}>{source.title}</div>
+                <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--cream)' }}>{source.title}</div>
                 {/* desc */}
                 <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 12, color: 'var(--cream2)', lineHeight: 1.5 }}>{source.desc}</div>
                 {/* footer: source favicon */}
@@ -211,8 +212,9 @@ export default function DiscoverPage() {
                 </button>
               </motion.div>
             ))}
-          </AnimatePresence>
+          </motion.div>
         </div>
+        </AnimatePresence>
       </div>
 
       <SourceDetail isOpen={detailOpen} onClose={() => setDetailOpen(false)} source={selectedSource} />

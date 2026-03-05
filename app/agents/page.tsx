@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
-import { fadeUp } from '@/lib/animations'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 import { useAgents } from '@/app/context/agents'
 
 export default function AgentsPage() {
@@ -26,14 +26,14 @@ export default function AgentsPage() {
       <PageHeader title="Agents" />
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
-        <div key={`active-${activeAgents.length}`} style={{ paddingBottom: 12, marginBottom: 12, borderBottom: '1px solid var(--rule-subtle)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <motion.div key={`active-${activeAgents.length}`} variants={fadeUp} initial="hidden" animate="visible" transition={{ delay: 0 }} style={{ paddingBottom: 12, marginBottom: 12, borderBottom: '1px solid var(--rule-subtle)', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, color: 'var(--cream2)' }}>Active agents:</span>
           <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--coral)', fontWeight: 600 }}>{activeAgents.length}</span>
-        </div>
+        </motion.div>
 
-        <AnimatePresence mode="wait">
-          {agents.map((a, i) => (
-            <motion.div key={a.id} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+        <motion.div variants={containerStagger} initial="hidden" animate="visible">
+          {agents.map((a) => (
+            <motion.div key={a.id} variants={itemStagger}
               style={{ display: 'flex', gap: 14, padding: '18px 0', borderBottom: '1px solid var(--rule-subtle)', alignItems: 'center' }}>
               <div style={{ flex: 1 }}>
                 <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: a.active ? 'var(--cream)' : 'var(--dust)', marginBottom: 3 }}>{a.fullName}</div>
@@ -52,7 +52,7 @@ export default function AgentsPage() {
               </button>
             </motion.div>
           ))}
-        </AnimatePresence>
+        </motion.div>
       </div>
 
       {/* Toast notification */}

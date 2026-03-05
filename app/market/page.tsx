@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { fadeUp } from '@/lib/animations'
+import { motion } from 'framer-motion'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 
 const CHIPS = ['All', 'Trending', 'Insights']
 
@@ -19,46 +19,46 @@ export default function MarketPage() {
 
   return (
     <div style={{ padding: '20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
-      <motion.div variants={fadeUp} initial="hidden" animate="visible" style={{ marginBottom: 20 }}>
-        <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 8 }}>
-          DISCOVER
-        </div>
-        <h1 style={{ fontFamily: "'EB Garamond', serif", fontSize: 'clamp(28px,4vw,48px)', fontWeight: 300, color: 'var(--cream)', lineHeight: 1.1 }}>
-          Market
-        </h1>
-      </motion.div>
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" exit="exit" transition={{ delay: 0 }} style={{ marginBottom: 20 }}>
+          <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 8 }}>
+            DISCOVER
+          </div>
+          <h1 style={{ fontFamily: "'EB Garamond', serif", fontSize: 'clamp(28px,4vw,48px)', fontWeight: 300, color: 'var(--cream)', lineHeight: 1.1 }}>
+            Market
+          </h1>
+        </motion.div>
 
-      {/* Chips */}
-      <motion.div variants={fadeUp} initial="hidden" animate="visible"
-        style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
-        {CHIPS.map((chip) => (
-          <button key={chip} onClick={() => setActive(chip)} style={{
-            padding: '8px 16px', borderRadius: 8, cursor: 'pointer',
-            fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, fontWeight: 400,
-            background: active === chip ? 'var(--coral)' : 'var(--surface)',
-            color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
-            border: active === chip ? 'none' : '1px solid var(--rule)',
-            transition: 'all 0.15s ease',
-          }}>
-            {chip}
-          </button>
-        ))}
-      </motion.div>
+        {/* Chips */}
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" exit="exit" transition={{ delay: 0.05 }}
+          style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
+          {CHIPS.map((chip) => (
+            <button key={chip} onClick={() => setActive(chip)} style={{
+              padding: '8px 16px', borderRadius: 8, cursor: 'pointer',
+              fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, fontWeight: 400,
+              background: active === chip ? 'var(--coral)' : 'var(--surface)',
+              color: active === chip ? 'var(--pure-black)' : 'var(--cream2)',
+              border: active === chip ? 'none' : '1px solid var(--rule)',
+              transition: 'all 0.15s ease',
+            }}>
+              {chip}
+            </button>
+          ))}
+        </motion.div>
 
-      {/* Search */}
-      <motion.div variants={fadeUp} initial="hidden" animate="visible" style={{ marginBottom: 24 }}>
-        <input placeholder="Search stocks, ETFs, crypto..." style={{
-          width: '100%', padding: '12px 16px', borderRadius: 50,
-          background: 'var(--bg-input)', border: '1px solid var(--surface)',
-          fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, color: 'var(--cream)',
-          outline: 'none',
-        }} />
-      </motion.div>
+        {/* Search */}
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" exit="exit" transition={{ delay: 0.1 }} style={{ marginBottom: 24 }}>
+          <input placeholder="Search stocks, ETFs, crypto..." style={{
+            width: '100%', padding: '12px 16px', borderRadius: 50,
+            background: 'var(--bg-input)', border: '1px solid var(--surface)',
+            fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, color: 'var(--cream)',
+            outline: 'none',
+          }} />
+        </motion.div>
 
-      {/* Stock list */}
-      <AnimatePresence mode="wait">
-        {MARKET.map((s, i) => (
-          <motion.div key={s.symbol} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+        {/* Stock list */}
+        <motion.div variants={containerStagger} initial="hidden" animate="visible">
+          {MARKET.map((s) => (
+            <motion.div key={s.symbol} variants={itemStagger}
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 0', borderBottom: '1px solid var(--rule-subtle)' }}>
             <div>
               <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)' }}>{s.symbol}</div>
@@ -68,9 +68,9 @@ export default function MarketPage() {
               <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--cream)' }}>{s.price}</div>
               <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: s.neg ? 'var(--accent-red)' : 'var(--positive)', marginTop: 2 }}>{s.change}</div>
             </div>
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
   )
 }

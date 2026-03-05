@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
+import OverflowMenu from '@/components/OverflowMenu'
 import AgentsSheet from '@/components/AgentsSheet'
 import TuneWatchlist from '@/components/TuneWatchlist'
 import ToneOptions from '@/components/ToneOptions'
@@ -9,6 +10,7 @@ import HoldingAnalysis from '@/components/HoldingAnalysis'
 import PromptLibrarySheet from '@/components/PromptLibrarySheet'
 import { useAgents } from '@/app/context/agents'
 import { detectChartPrompt, generateChartData } from '@/lib/chartGenerator'
+import { fadeUp } from '@/lib/animations'
 
 const HOLDINGS = [
   { symbol: 'NVDA', name: 'NVIDIA Corp.',  price: '$4,992.03',  change: '-5.51%', neg: true },
@@ -530,96 +532,67 @@ export default function ChatPage() {
     setTimeout(queryNextAgent, 3000)
   }
 
-  const clearChatButton = (
-    <button
-      onClick={() => {
+  const iconNewChat = (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <line x1="5" y1="12" x2="19" y2="12"/>
+    </svg>
+  )
+
+  const iconClear = (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 6h18"/>
+      <path d="M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6"/>
+      <line x1="10" y1="11" x2="10" y2="17"/>
+      <line x1="14" y1="11" x2="14" y2="17"/>
+      <path d="M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14"/>
+      <path d="M10 3h4a1 1 0 0 1 1 1v1H9V4a1 1 0 0 1 1-1z"/>
+    </svg>
+  )
+
+  const iconTicker = (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+      <polyline points="17 6 23 6 23 12"></polyline>
+    </svg>
+  )
+
+  const menuItems = [
+    {
+      id: 'new-chat',
+      label: 'New chat',
+      icon: iconNewChat,
+      onClick: () => {
         setMessages([])
         localStorage.removeItem('alfaChatHistory')
-      }}
-      style={{
-        background: 'transparent',
-        border: 'none',
-        cursor: 'pointer',
-        color: 'var(--cream2)',
-        padding: '0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'all 0.2s',
-        marginRight: 12,
-      }}
-      onMouseOver={(e) => {
-        e.currentTarget.style.color = 'var(--coral)'
-      }}
-      onMouseOut={(e) => {
-        e.currentTarget.style.color = 'var(--cream2)'
-      }}
-      title="Clear chat"
-    >
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 6h18"/>
-        <path d="M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6"/>
-        <line x1="10" y1="11" x2="10" y2="17"/>
-        <line x1="14" y1="11" x2="14" y2="17"/>
-        <path d="M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14"/>
-        <path d="M10 3h4a1 1 0 0 1 1 1v1H9V4a1 1 0 0 1 1-1z"/>
-      </svg>
-    </button>
-  )
-
-  const promptLibraryButton = (
-    <button
-      onClick={() => setPromptLibraryOpen(true)}
-      style={{
-        background: 'transparent',
-        border: 'none',
-        cursor: 'pointer',
-        color: 'var(--cream2)',
-        padding: '0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'all 0.2s',
-        marginRight: 12,
-      }}
-      onMouseOver={(e) => {
-        e.currentTarget.style.color = 'var(--coral)'
-      }}
-      onMouseOut={(e) => {
-        e.currentTarget.style.color = 'var(--cream2)'
-      }}
-      title="Prompt Library"
-    >
-      <IconBook />
-    </button>
-  )
-
-  const tickerToggleButton = (
-    <button
-      onClick={() => setTickerVisible(!tickerVisible)}
-      style={{
-        background: 'transparent',
-        border: 'none',
-        cursor: 'pointer',
-        color: 'var(--cream2)',
-        padding: '0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'all 0.2s',
-      }}
-      onMouseOver={(e) => {
-        e.currentTarget.style.color = 'var(--cream)'
-      }}
-      onMouseOut={(e) => {
-        e.currentTarget.style.color = 'var(--cream2)'
-      }}
-    >
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline>
-      </svg>
-    </button>
-  )
+      },
+      title: 'New chat',
+    },
+    {
+      id: 'clear-chat',
+      label: 'Clear chat',
+      icon: iconClear,
+      onClick: () => {
+        setMessages([])
+        localStorage.removeItem('alfaChatHistory')
+      },
+      title: 'Clear chat',
+    },
+    {
+      id: 'prompt-library',
+      label: 'Prompt library',
+      icon: <IconBook />,
+      onClick: () => setPromptLibraryOpen(true),
+      title: 'Prompt Library',
+    },
+    {
+      id: 'ticker-toggle',
+      label: tickerVisible ? 'Hide ticker' : 'Show ticker',
+      icon: iconTicker,
+      onClick: () => setTickerVisible(!tickerVisible),
+      title: 'Toggle ticker',
+    },
+  ]
 
   if (pageLoading) {
     return (
@@ -644,7 +617,7 @@ export default function ChatPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
-      <PageHeader title="Chat" rightButton={<div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>{clearChatButton}{promptLibraryButton}{tickerToggleButton}</div>} />
+      <PageHeader title="Chat" rightButton={<OverflowMenu items={menuItems} />} />
 
       <motion.div
         initial={false}
@@ -688,9 +661,9 @@ export default function ChatPage() {
 
       {messages.length === 0 && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
           style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: '12px 20px', borderBottom: '1px solid var(--rule-subtle)', width: '100%', maxWidth: '1020px', margin: '0 auto', boxSizing: 'border-box' }}
         >
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)', marginBottom: 8 }}>
@@ -712,9 +685,11 @@ export default function ChatPage() {
           const isFirstMessage = messageIdx === 0
           return (
             <motion.div key={m.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{ delay: messageIdx * 0.05 }}
               style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
             >
               {m.role === 'assistant' && (
@@ -811,6 +786,10 @@ export default function ChatPage() {
           {dynamicPrompts.slice(0, 4).map((prompt, idx) => (
             <motion.button
               key={idx}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: idx * 0.05 }}
               onClick={() => {
                 // Auto-send the prompt without showing in input (no flicker)
                 setIsLoading(true)
@@ -1055,17 +1034,17 @@ export default function ChatPage() {
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <span style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setAgentsOpen(true)}>
+              <motion.span variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setAgentsOpen(true)}>
                 {activeAgents.length} Agents
-              </span>
-              <span style={{ color: 'var(--cream2)', fontSize: 10 }}>·</span>
-              <span style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setTuneOpen(true)}>
+              </motion.span>
+              <motion.span variants={fadeUp} initial="hidden" animate="visible" style={{ color: 'var(--cream2)', fontSize: 10 }}>·</motion.span>
+              <motion.span variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setTuneOpen(true)}>
                 Tune Watchlist
-              </span>
-              <span style={{ color: 'var(--cream2)', fontSize: 10 }}>·</span>
-              <span style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setToneOpen(true)}>
+              </motion.span>
+              <motion.span variants={fadeUp} initial="hidden" animate="visible" style={{ color: 'var(--cream2)', fontSize: 10 }}>·</motion.span>
+              <motion.span variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setToneOpen(true)}>
                 Tone
-              </span>
+              </motion.span>
             </div>
 
             <motion.button

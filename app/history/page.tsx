@@ -1,7 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
+import { fadeUp } from '@/lib/animations'
 
 interface Message {
   id: string
@@ -65,16 +66,19 @@ export default function HistoryPage() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)' }}>
       <PageHeader title="History" />
       <div style={{ flex: 1, padding: '0 20px', display: 'flex', flexDirection: 'column', gap: 0, maxWidth: '1020px', margin: '0 auto', width: '100%', overflowY: 'auto' }}>
-        {messages.length === 0 ? (
-          <div style={{ padding: '20px 0', color: 'var(--cream2)', fontFamily: "'Space Grotesk', sans-serif" }}>
-            No chat history yet. Start a conversation in Chat to see history here.
-          </div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            style={{ borderBottom: '1px solid var(--rule-subtle)', paddingTop: 20, paddingBottom: 20, cursor: 'pointer' }}>
+        <AnimatePresence mode="wait">
+          {messages.length === 0 ? (
+            <motion.div key="empty" variants={fadeUp} initial="hidden" animate="visible" exit="exit" style={{ padding: '20px 0', color: 'var(--cream2)', fontFamily: "'Space Grotesk', sans-serif" }}>
+              No chat history yet. Start a conversation in Chat to see history here.
+            </motion.div>
+          ) : (
+            <motion.div
+              key="history"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              style={{ borderBottom: '1px solid var(--rule-subtle)', paddingTop: 20, paddingBottom: 20, cursor: 'pointer' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
               <div>
                 <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)', marginBottom: 4 }}>
@@ -101,7 +105,8 @@ export default function HistoryPage() {
               </span>
             </div>
           </motion.div>
-        )}
+          )}
+        </AnimatePresence>
       </div>
     </div>
   )

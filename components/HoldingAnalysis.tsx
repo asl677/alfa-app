@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import BottomSheet from './BottomSheet'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 
 const AGENTS = [
   { name: 'Monitor Mike', color: 'var(--coral)' },
@@ -42,9 +43,9 @@ export default function HoldingAnalysis({
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose} title={holding.symbol}>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
         style={{ marginBottom: 24, paddingBottom: 24, borderBottom: '1px solid var(--rule-subtle)' }}
       >
         <p style={{
@@ -70,13 +71,11 @@ export default function HoldingAnalysis({
       </motion.div>
 
       {loading ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-          {AGENTS.map((agent, idx) => (
+        <motion.div variants={containerStagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {AGENTS.map((agent) => (
             <motion.div
               key={agent.name}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: idx * 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
+              variants={itemStagger}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -103,15 +102,13 @@ export default function HoldingAnalysis({
               />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-          {AGENTS.map((agent, idx) => (
+        <motion.div variants={containerStagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+          {AGENTS.map((agent) => (
             <motion.div
               key={agent.name}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: idx * 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
+              variants={itemStagger}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -139,7 +136,7 @@ export default function HoldingAnalysis({
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
     </BottomSheet>
   )

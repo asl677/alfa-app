@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { useAgents } from '@/app/context/agents'
 import BottomSheet from './BottomSheet'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 
 const STOCK_POOLS = {
   ashley: [
@@ -74,19 +75,18 @@ export default function TuneWatchlist({ isOpen, onClose }: { isOpen: boolean; on
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose} title="Tune Watchlist">
-      {items.map((item, idx) => (
-        <motion.div
-          key={item.symbol}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 14,
-            padding: '18px 0',
-            borderBottom: '1px solid var(--rule-subtle)',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+      <motion.div variants={containerStagger} initial="hidden" animate="visible">
+        {items.map((item) => (
+          <motion.div
+            key={item.symbol}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              padding: '18px 0',
+              borderBottom: '1px solid var(--rule-subtle)',
+            }}
+            variants={itemStagger}
         >
           <div style={{ flex: 1 }}>
             <div style={{
@@ -131,8 +131,9 @@ export default function TuneWatchlist({ isOpen, onClose }: { isOpen: boolean; on
               background: item.tracked ? 'var(--pure-black)' : 'var(--dust)',
             }} />
           </button>
-        </motion.div>
-      ))}
+          </motion.div>
+        ))}
+      </motion.div>
 
       <motion.button
         style={{

@@ -1,6 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import BottomSheet from './BottomSheet'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 
 interface ToneOption {
   id: string
@@ -24,19 +25,18 @@ const TONE_OPTIONS: ToneOption[] = [
 export default function ToneOptions({ isOpen, onClose, selectedTone, onSelectTone }: { isOpen: boolean; onClose: () => void; selectedTone: string; onSelectTone: (tone: string) => void }) {
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose} title="Tone">
-      {TONE_OPTIONS.map((tone) => (
-        <motion.div
-          key={tone.id}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 14,
-            padding: '18px 0',
-            borderBottom: '1px solid var(--rule-subtle)',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+      <motion.div variants={containerStagger} initial="hidden" animate="visible">
+        {TONE_OPTIONS.map((tone) => (
+          <motion.div
+            key={tone.id}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              padding: '18px 0',
+              borderBottom: '1px solid var(--rule-subtle)',
+            }}
+            variants={itemStagger}
         >
           <div style={{ flex: 1 }}>
             <div style={{
@@ -84,8 +84,9 @@ export default function ToneOptions({ isOpen, onClose, selectedTone, onSelectTon
               background: selectedTone === tone.id ? 'var(--pure-black)' : 'var(--dust)',
             }} />
           </button>
-        </motion.div>
-      ))}
+          </motion.div>
+        ))}
+      </motion.div>
     </BottomSheet>
   )
 }
