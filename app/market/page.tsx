@@ -19,7 +19,7 @@ export default function MarketPage() {
 
   return (
     <div style={{ padding: '20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
-      <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" style={{ marginBottom: 20 }}>
+      <motion.div variants={fadeUp} initial="hidden" animate="visible" style={{ marginBottom: 20 }}>
         <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 8 }}>
           DISCOVER
         </div>
@@ -29,7 +29,7 @@ export default function MarketPage() {
       </motion.div>
 
       {/* Chips */}
-      <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible"
+      <motion.div variants={fadeUp} initial="hidden" animate="visible"
         style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
         {CHIPS.map((chip) => (
           <button key={chip} onClick={() => setActive(chip)} style={{
@@ -46,7 +46,7 @@ export default function MarketPage() {
       </motion.div>
 
       {/* Search */}
-      <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible" style={{ marginBottom: 24 }}>
+      <motion.div variants={fadeUp} initial="hidden" animate="visible" style={{ marginBottom: 24 }}>
         <input placeholder="Search stocks, ETFs, crypto..." style={{
           width: '100%', padding: '12px 16px', borderRadius: 50,
           background: 'var(--bg-input)', border: '1px solid var(--surface)',
@@ -58,7 +58,7 @@ export default function MarketPage() {
       {/* Stock list */}
       <AnimatePresence mode="wait">
         {MARKET.map((s, i) => (
-          <motion.div key={s.symbol} custom={3 + i} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+          <motion.div key={s.symbol} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 0', borderBottom: '1px solid var(--rule-subtle)' }}>
             <div>
               <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)' }}>{s.symbol}</div>

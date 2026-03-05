@@ -12,7 +12,7 @@ const HOLDINGS = [
 export default function PortfolioPage() {
   return (
     <div style={{ padding: '20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
-      <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible">
+      <motion.div variants={fadeUp} initial="hidden" animate="visible">
         <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 8 }}>
           Portfolio
         </div>
@@ -24,13 +24,13 @@ export default function PortfolioPage() {
         </div>
       </motion.div>
 
-      <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible" style={{ marginTop: 32 }}>
+      <motion.div variants={fadeUp} initial="hidden" animate="visible" style={{ marginTop: 32 }}>
         <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 16 }}>
           Holdings
         </div>
         <AnimatePresence mode="wait">
           {HOLDINGS.map((h, i) => (
-            <motion.div key={h.symbol} custom={2 + i} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+            <motion.div key={h.symbol} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
               style={{ padding: '16px 0', borderBottom: '1px solid var(--rule-subtle)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>

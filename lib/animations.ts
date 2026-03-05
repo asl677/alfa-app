@@ -19,17 +19,15 @@ export const fadeInItem: Variants = {
 }
 
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (i: number) => ({
+  hidden: { opacity: 0 },
+  visible: {
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, delay: i * 0.08, ease: EASE },
-  }),
-  exit: (i: number) => ({
+    transition: { duration: 0.3, ease: EASE },
+  },
+  exit: {
     opacity: 0,
-    y: 16,
-    transition: { duration: 0.3, delay: i * 0.06, ease: EASE },
-  }),
+    transition: { duration: 0.3, ease: EASE },
+  },
 }
 
 // Standard stagger pattern: smooth duration-based with cubic easing

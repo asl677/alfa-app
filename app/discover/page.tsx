@@ -141,7 +141,7 @@ export default function DiscoverPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.6, ease: 'easeInOut' }}
+                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12, flexShrink: 0 }}
               >
                 <motion.svg
@@ -164,7 +164,7 @@ export default function DiscoverPage() {
           </AnimatePresence>
           <AnimatePresence mode="wait">
             {displayedSources.map((source, i) => (
-              <motion.div key={`${active}-${source.title}`} custom={i} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+              <motion.div key={`${active}-${source.title}`} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
                 onClick={() => {
                   setSelectedSource(source)
                   setDetailOpen(true)

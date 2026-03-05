@@ -33,7 +33,7 @@ export default function AgentsPage() {
 
         <AnimatePresence mode="wait">
           {agents.map((a, i) => (
-            <motion.div key={a.id} custom={i} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
+            <motion.div key={a.id} variants={fadeUp} initial="hidden" animate="visible" exit="exit"
               style={{ display: 'flex', gap: 14, padding: '18px 0', borderBottom: '1px solid var(--rule-subtle)', alignItems: 'center' }}>
               <div style={{ flex: 1 }}>
                 <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: a.active ? 'var(--cream)' : 'var(--dust)', marginBottom: 3 }}>{a.fullName}</div>
