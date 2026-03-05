@@ -416,6 +416,43 @@ export default function ChatPage() {
     setTimeout(queryNextAgent, 3000)
   }
 
+  const clearChatButton = (
+    <button
+      onClick={() => {
+        setMessages([])
+        localStorage.removeItem('alfaChatHistory')
+      }}
+      style={{
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        color: 'var(--cream2)',
+        padding: '0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'all 0.2s',
+        marginRight: 12,
+      }}
+      onMouseOver={(e) => {
+        e.currentTarget.style.color = 'var(--coral)'
+      }}
+      onMouseOut={(e) => {
+        e.currentTarget.style.color = 'var(--cream2)'
+      }}
+      title="Clear chat"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 6h18"/>
+        <path d="M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6"/>
+        <line x1="10" y1="11" x2="10" y2="17"/>
+        <line x1="14" y1="11" x2="14" y2="17"/>
+        <path d="M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14"/>
+        <path d="M10 3h4a1 1 0 0 1 1 1v1H9V4a1 1 0 0 1 1-1z"/>
+      </svg>
+    </button>
+  )
+
   const tickerToggleButton = (
     <button
       onClick={() => setTickerVisible(!tickerVisible)}
@@ -466,7 +503,7 @@ export default function ChatPage() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
-      <PageHeader title="Chat" rightButton={tickerToggleButton} />
+      <PageHeader title="Chat" rightButton={<div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>{clearChatButton}{tickerToggleButton}</div>} />
 
       <motion.div
         initial={false}
