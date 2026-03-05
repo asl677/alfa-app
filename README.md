@@ -38,6 +38,7 @@ Components are production-ready and designed for financial/data-heavy applicatio
 
 ## Integrations
 
+- [Pencil Design File](file:///Users/alexlakas/Desktop/alfa.pen) - Alfa UI design in Pencil MCP
 - [Figma MCP Server](https://github.com/asl677/figma-mcp-server) - Design-to-code integration
 
 ## Quick Start
