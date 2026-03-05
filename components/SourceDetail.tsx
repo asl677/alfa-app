@@ -1,6 +1,7 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
+import { containerStagger, itemStagger } from '@/lib/animations'
 
 export default function SourceDetail({
   isOpen,
@@ -57,13 +58,13 @@ export default function SourceDetail({
 
             <motion.div
               style={{ padding: '0 20px 40px', maxHeight: 'min(50vh, 80vh)', overflowY: 'auto' }}
-              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+              variants={containerStagger}
               initial="hidden"
               animate="visible"
             >
               <motion.div
                 style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}
-                variants={{ initial: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 8 } }}
+                variants={itemStagger}
               >
                 <img
                   src={`https://www.google.com/s2/favicons?sz=64&domain=${source.domain}`}
@@ -100,14 +101,14 @@ export default function SourceDetail({
                   lineHeight: 1.6,
                   marginBottom: 24,
                 }}
-                variants={{ initial: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 8 } }}
+                variants={itemStagger}
               >
                 {source.description}
               </motion.div>
 
               <motion.div
                 style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
-                variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+                variants={containerStagger}
                 initial="hidden"
                 animate="visible"
               >
@@ -125,7 +126,7 @@ export default function SourceDetail({
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                   }}
-                  variants={{ initial: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 8 } }}
+                  variants={itemStagger}
                   onMouseOver={(e) => (e.currentTarget.style.opacity = '0.8')}
                   onMouseOut={(e) => (e.currentTarget.style.opacity = '1')}
                 >
@@ -144,7 +145,7 @@ export default function SourceDetail({
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                   }}
-                  variants={{ initial: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 8 } }}
+                  variants={itemStagger}
                   onMouseOver={(e) => {
                     e.currentTarget.style.background = 'var(--surface)'
                     e.currentTarget.style.color = 'var(--cream)'
@@ -168,7 +169,7 @@ export default function SourceDetail({
                     color: 'var(--dust)',
                     cursor: 'pointer',
                   }}
-                  variants={{ initial: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 8 } }}
+                  variants={itemStagger}
                 >
                   Close
                 </motion.button>

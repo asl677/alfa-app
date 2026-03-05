@@ -1,5 +1,6 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion'
+import { fadeUp } from '@/lib/animations'
 
 interface BottomSheetProps {
   isOpen: boolean
@@ -54,9 +55,9 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
 
             <motion.div
               style={{ padding: '0 20px 40px', maxHeight: 'min(50vh, 80vh)', overflowY: 'auto' }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
             >
               <motion.h2
                 style={{
@@ -67,9 +68,9 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
                   letterSpacing: -0.8,
                   marginBottom: 8,
                 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.15, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
               >
                 {title}
               </motion.h2>
