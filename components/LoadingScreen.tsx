@@ -48,9 +48,10 @@ export default function LoadingScreen() {
         style={{
           display: 'flex',
           fontFamily: "'EB Garamond', serif",
-          fontSize: '52px',
-          fontWeight: 300,
-          color: 'var(--cream2)',
+          fontSize: '64px',
+          fontWeight: 400,
+          color: 'var(--cream)',
+          letterSpacing: '8px',
         }}
         variants={containerVariants}
         initial="hidden"
