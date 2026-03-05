@@ -508,23 +508,24 @@ export default function ChatPage() {
         </div>
       </motion.div>
 
+      {messages.length === 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', padding: '12px 20px', borderBottom: '1px solid var(--rule-subtle)', width: '100%', maxWidth: '1020px', margin: '0 auto', boxSizing: 'border-box' }}
+        >
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)', marginBottom: 8 }}>
+            <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#ff7043', flexShrink: 0 }} />
+            Alfa Intro
+          </div>
+          <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: 'var(--cream2)', lineHeight: 1.7, width: '100%' }}>
+            Hey! I'm Alfa, your AI investment analyst. Ask me about your portfolio, market trends, earnings, sector rotation, or use prompts like "Compare NVDA vs AMD" to generate charts. Your active agents are analyzing the market 24/7 — let's get to work.
+          </div>
+        </motion.div>
+      )}
+
       <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 20px', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative', boxSizing: 'border-box' }}>
-        {messages.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
-          >
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)', marginBottom: 8 }}>
-              <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#ff7043', flexShrink: 0 }} />
-              Alfa Intro
-            </div>
-            <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, fontWeight: 300, color: 'var(--cream2)', lineHeight: 1.7, width: '100%' }}>
-              Hey! I'm Alfa, your AI investment analyst. Ask me about your portfolio, market trends, earnings, sector rotation, or use prompts like "Compare NVDA vs AMD" to generate charts. Your active agents are analyzing the market 24/7 — let's get to work.
-            </div>
-          </motion.div>
-        )}
 
         {messages.map((m) => {
           const messageIsLoading = m.role === 'assistant' && m.text === '...'
