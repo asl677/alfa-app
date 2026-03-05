@@ -40,7 +40,7 @@ export default function LoadingScreen() {
               duration: 3,
               repeat: Infinity,
               ease: 'easeInOut',
-              delay: idx * 0.3,
+              delay: idx * 0.4,
             }}
           >
             {letter}

@@ -14,11 +14,11 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const hasVisited = localStorage.getItem('alfaHasVisited')
     if (!hasVisited) {
-      // First visit: show loader for 3.5 seconds
+      // First visit: show loader for 4.5 seconds (full animation + fade out)
       localStorage.setItem('alfaHasVisited', 'true')
       const timer = setTimeout(() => {
         setPageLoading(false)
-      }, 3500)
+      }, 4500)
       return () => clearTimeout(timer)
     } else {
       // Return visitor: dismiss loader immediately
