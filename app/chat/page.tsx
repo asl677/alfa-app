@@ -757,7 +757,7 @@ export default function ChatPage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: getAgentDotColor(m.agent || 'Alfa') }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: "'Space Grotesk', sans-serif", fontSize: 10, color: 'var(--cream2)', opacity: 0.6, textTransform: 'uppercase', letterSpacing: 0.5 }}
                       >
                         <div
                           style={{
