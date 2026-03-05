@@ -74,7 +74,7 @@ export default function HoldingAnalysis({
         <motion.div variants={containerStagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {AGENTS.map((agent) => (
             <motion.div
-              key={agent.name}
+              key={`${agent.name}-loading`}
               variants={itemStagger}
               style={{
                 display: 'flex',
@@ -107,7 +107,7 @@ export default function HoldingAnalysis({
         <motion.div variants={containerStagger} initial="hidden" animate="visible" style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {AGENTS.map((agent) => (
             <motion.div
-              key={agent.name}
+              key={`${agent.name}-content`}
               variants={itemStagger}
               style={{
                 display: 'flex',
