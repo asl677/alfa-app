@@ -57,4 +57,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Resources
 
-- [Alfa 2026 Proposal](https://claude.ai/public/artifacts/16a6c6ca-39a7-4b42-b7d4-40a82a15b8ef)
+- [Alfa 2026 Proposal](https://claude.ai/public/artifacts/43876b57-51de-48ce-a7c3-73f1b63c4c23)
