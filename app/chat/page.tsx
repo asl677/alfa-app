@@ -891,16 +891,55 @@ export default function ChatPage() {
               }}
             />
           </motion.div>
-          <style>{`input::placeholder { color: var(--cream2); opacity: 0.7; }`}</style>
-
           <style>{`
+            input::placeholder { color: var(--cream2); opacity: 0.7; }
             @media (max-width: 640px) {
-              .chat-controls-row { flex-direction: column; align-items: flex-start; gap: 12px; }
-              .chat-prompts-container { width: 100%; justify-content: flex-start; }
-              .chat-prompts-scroll { justify-content: flex-start; }
+              .chat-prompts-mobile { display: flex; }
+              .chat-prompts-desktop { display: none; }
+            }
+            @media (min-width: 641px) {
+              .chat-prompts-mobile { display: none; }
+              .chat-prompts-desktop { display: flex; }
             }
           `}</style>
-          <div className="chat-controls-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+
+          <div className="chat-prompts-mobile" style={{ display: 'none', gap: 6, overflow: 'auto', width: '100%', scrollBehavior: 'smooth', paddingBottom: 8, justifyContent: 'flex-start' }}>
+            {dynamicPrompts.slice(0, 3).map((prompt, idx) => (
+              <motion.button
+                key={`prompt-mobile-${idx}`}
+                onClick={() => {
+                  setInput(prompt)
+                  handleSend()
+                }}
+                style={{
+                  padding: '5px 10px',
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  fontFamily: "'EB Garamond', serif",
+                  fontSize: 11,
+                  fontWeight: 300,
+                  color: 'var(--cream2)',
+                  cursor: 'pointer',
+                  borderRadius: 4,
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
+                  transition: 'all 0.2s',
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.color = 'var(--coral)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.color = 'var(--cream2)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
+                }}
+              >
+                {prompt}
+              </motion.button>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
               <motion.span variants={fadeUp} initial="hidden" animate="visible" style={{ fontFamily: "'EB Garamond', serif", fontSize: 13, color: 'var(--cream2)', cursor: 'pointer' }} onClick={() => setAgentsOpen(true)}>
                 {activeAgents.length} Agents
@@ -915,11 +954,11 @@ export default function ChatPage() {
               </motion.span>
             </div>
 
-            <div className="chat-prompts-container" style={{ display: 'flex', gap: 6, alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden', justifyContent: 'flex-end' }}>
-              <div className="chat-prompts-scroll" style={{ display: 'flex', gap: 6, overflow: 'auto', flex: 1, scrollBehavior: 'smooth', paddingRight: 8, justifyContent: 'flex-end' }}>
+            <div className="chat-prompts-desktop" style={{ display: 'flex', gap: 6, alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden', justifyContent: 'flex-end' }}>
+              <div style={{ display: 'flex', gap: 6, overflow: 'auto', flex: 1, scrollBehavior: 'smooth', paddingRight: 8, justifyContent: 'flex-end' }}>
                 {dynamicPrompts.slice(0, 3).map((prompt, idx) => (
                   <motion.button
-                    key={`prompt-${idx}`}
+                    key={`prompt-desktop-${idx}`}
                     onClick={() => {
                       setInput(prompt)
                       handleSend()
