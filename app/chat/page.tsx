@@ -906,7 +906,7 @@ export default function ChatPage() {
           `}</style>
 
           <div className="chat-prompts-mobile" style={{ gap: 6, overflow: 'auto', width: '100%', scrollBehavior: 'smooth', paddingBottom: 8, justifyContent: 'flex-start' }}>
-            {dynamicPrompts.slice(0, 3).map((prompt, idx) => (
+            {dynamicPrompts.slice(0, 6).map((prompt, idx) => (
               <button
                 key={`prompt-mobile-${idx}`}
                 onClick={() => sendMessage(prompt)}
@@ -919,7 +919,7 @@ export default function ChatPage() {
                   fontWeight: 300,
                   color: 'var(--cream2)',
                   cursor: 'pointer',
-                  borderRadius: 4,
+                  borderRadius: 20,
                   whiteSpace: 'nowrap',
                   flexShrink: 0,
                   transition: 'all 0.2s',
@@ -955,7 +955,7 @@ export default function ChatPage() {
 
             <div className="chat-prompts-desktop" style={{ gap: 6, alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden', justifyContent: 'flex-end' }}>
               <div style={{ display: 'flex', gap: 6, overflow: 'auto', flex: 1, scrollBehavior: 'smooth', paddingRight: 8, justifyContent: 'flex-end' }}>
-                {dynamicPrompts.slice(0, 3).map((prompt, idx) => (
+                {dynamicPrompts.slice(0, 6).map((prompt, idx) => (
                   <button
                     key={`prompt-desktop-${idx}`}
                     onClick={() => sendMessage(prompt)}
@@ -968,7 +968,7 @@ export default function ChatPage() {
                       fontWeight: 300,
                       color: 'var(--cream2)',
                       cursor: 'pointer',
-                      borderRadius: 4,
+                      borderRadius: 20,
                       whiteSpace: 'nowrap',
                       flexShrink: 0,
                       transition: 'all 0.2s',
