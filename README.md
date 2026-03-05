@@ -20,10 +20,24 @@ A real-time financial market analysis and portfolio management platform powered 
 - `/lib` - Utilities and animations
 - `/public` - Static assets
 
-## Related Projects
+## Design System
 
-- [Design System](https://github.com/asl677/design-system) - Shared UI components and patterns
-- [Portfolio](https://github.com/asl677/alexlakas-portfolio) - Personal portfolio site
+Alfa uses the [Design System](https://github.com/asl677/design-system) for consistent UI components and patterns.
+
+### Using the Design System in Your LLM Project
+
+The design system provides reusable components built with React and Tailwind CSS:
+
+1. **Clone or reference** the design system repository
+2. **Import components** like `PageHeader`, `AgentsSheet`, `ToneOptions` into your pages
+3. **Leverage animations** from `/lib/animations.ts` (fadeUp, containerStagger, itemStagger)
+4. **Use color tokens** from CSS variables (--coral, --cream, --bg, etc.)
+5. **Follow typography standards**: EB Garamond (serif), Space Grotesk (UI), DM Mono (technical)
+
+Components are production-ready and designed for financial/data-heavy applications.
+
+## Integrations
+
 - [Figma MCP Server](https://github.com/asl677/figma-mcp-server) - Design-to-code integration
 
 ## Quick Start
