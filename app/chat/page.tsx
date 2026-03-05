@@ -303,16 +303,16 @@ export default function ChatPage() {
       if (isLoading) return
 
       const suggestions = [
+        'Chart my portfolio allocation →',
         'Yo, NVDA might be a good place to take some profits right now',
         'Heads up - AAPL looking like it could bounce here',
-        'MSFT chart is looking pretty bullish if you ask me',
+        'Compare NVDA vs AMD last 90 days →',
         'Tech is getting overheated - might see rotation into utilities soon',
         'Real talk, I\'d probably trim some of my tech exposure',
-        'Energy\'s looking strong on the oil uptick',
+        'Show sector exposure heatmap →',
         'Fed decision next week could shake things up',
         'These earnings expectations might be too pessimistic',
         'Market breadth is actually improving - that\'s bullish',
-        'There\'s a real supply/demand mismatch here - opportunity incoming',
       ]
       const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)]
       const agentName = getAgentName(agentIndex)
