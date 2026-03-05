@@ -69,6 +69,13 @@ export default function AlfaLoader() {
         {letters.map((letter, idx) => (
           <motion.span
             key={letter + idx}
+            animate={{ opacity: [1, 0.4, 1] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: idx * 0.1,
+              ease: 'easeInOut',
+            }}
             variants={{
               hidden: { opacity: 0, x: -20 },
               visible: {
