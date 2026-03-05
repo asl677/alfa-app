@@ -718,42 +718,47 @@ export default function ChatPage() {
               style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
             >
               {m.role === 'assistant' && (
-                <motion.div
-                  key={`pill-${m.id}-${messageIsLoading}`}
-                  style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}
-                  initial={{ x: -12, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                >
-                  {messageIsLoading && (
-                    <motion.svg
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke={getAgentDotColor(m.agent || 'Alfa')}
-                      strokeWidth="1.5"
-                      strokeDasharray="4 4"
-                      style={{ transformOrigin: '50% 50%', flexShrink: 0, marginRight: 2, marginBottom: 2 }}
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                    </motion.svg>
-                  )}
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)' }}>
-                    <div
-                      style={{
-                        width: 4,
-                        height: 4,
-                        borderRadius: '50%',
-                        background: getAgentDotColor(m.agent || 'Alfa'),
-                        flexShrink: 0,
-                      }}
-                    />
-                    {m.agent || 'Alfa'}
-                  </div>
-                </motion.div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+                  <AnimatePresence mode="wait">
+                    {messageIsLoading ? (
+                      <motion.svg
+                        key="spinner"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke={getAgentDotColor(m.agent || 'Alfa')}
+                        strokeWidth="1.5"
+                        strokeDasharray="4 4"
+                        style={{ transformOrigin: '50% 50%', flexShrink: 0, marginRight: 2, marginBottom: 2 }}
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                      </motion.svg>
+                    ) : (
+                      <motion.div
+                        key="pill"
+                        initial={{ x: -12, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: -12, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)' }}
+                      >
+                        <div
+                          style={{
+                            width: 4,
+                            height: 4,
+                            borderRadius: '50%',
+                            background: getAgentDotColor(m.agent || 'Alfa'),
+                            flexShrink: 0,
+                          }}
+                        />
+                        {m.agent || 'Alfa'}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               )}
               {!messageIsLoading && (
                 <>
