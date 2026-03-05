@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import { useTheme } from '@/components/ThemeProvider'
 import PageHeader from '@/components/PageHeader'
+import ListItem from '@/components/ListItem'
 import { containerStagger, itemStagger } from '@/lib/animations'
 
 export default function SettingsPage() {
@@ -38,14 +39,20 @@ export default function SettingsPage() {
           <motion.div variants={itemStagger} style={{ marginTop: 32, fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: '2px', color: 'var(--dust)', textTransform: 'uppercase', marginBottom: 4, paddingBottom: 12, borderBottom: '1px solid var(--rule)' }}>
             Account
           </motion.div>
-          <motion.div variants={itemStagger} style={{ padding: '16px 0', borderBottom: '1px solid var(--rule-subtle)', display: 'flex', justifyContent: 'space-between' }}>
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, color: 'var(--cream)' }}>Plan</span>
-            <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--cream2)' }}>Boosted Pro</span>
-          </motion.div>
-          <motion.div variants={itemStagger} style={{ padding: '16px 0', borderBottom: '1px solid var(--rule-subtle)', display: 'flex', justifyContent: 'space-between' }}>
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, color: 'var(--cream)' }}>Version</span>
-            <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 12, color: 'var(--cream2)' }}>2.0.0</span>
-          </motion.div>
+          <ListItem
+            title="Plan"
+            metadata={{
+              label: 'Current',
+              badge: 'Boosted Pro',
+            }}
+          />
+          <ListItem
+            title="Version"
+            metadata={{
+              label: 'Release',
+              badge: '2.0.0',
+            }}
+          />
         </motion.div>
       </div>
     </div>

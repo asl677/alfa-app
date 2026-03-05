@@ -16,6 +16,10 @@ interface ListItemProps {
     label: string
     onClick: (e: React.MouseEvent) => void
   }
+  toggle?: {
+    enabled: boolean
+    onChange: (e: React.MouseEvent) => void
+  }
   onClick?: () => void
 }
 
@@ -25,8 +29,11 @@ export default function ListItem({
   metadata,
   footer,
   action,
+  toggle,
   onClick,
 }: ListItemProps) {
+  const hasRightAction = action || toggle
+
   return (
     <motion.div
       variants={itemStagger}
@@ -36,12 +43,15 @@ export default function ListItem({
         paddingBottom: 14,
         borderBottom: '1px solid var(--rule-subtle)',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: hasRightAction ? 'row' : 'column',
         gap: 8,
+        alignItems: hasRightAction ? 'center' : 'flex-start',
+        justifyContent: hasRightAction ? 'space-between' : 'flex-start',
         cursor: onClick ? 'pointer' : 'default',
         width: '100%',
       }}
     >
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
       {/* metadata header */}
       {metadata && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -74,15 +84,35 @@ export default function ListItem({
         </div>
       )}
 
-      {/* footer */}
-      {footer && (
-        <div style={{ display: 'flex', alignItems: 'center', marginTop: 4, marginBottom: 8 }}>
-          {footer}
-        </div>
-      )}
+        {/* footer */}
+        {footer && (
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: 4, marginBottom: 8 }}>
+            {footer}
+          </div>
+        )}
 
-      {/* action button */}
-      {action && (
+        {/* action button (when no toggle, shown below content) */}
+        {action && !toggle && (
+          <button
+            onClick={action.onClick}
+            style={{
+              padding: 0,
+              background: 'none',
+              border: 'none',
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: 11,
+              color: 'var(--coral)',
+              cursor: 'pointer',
+              textAlign: 'left',
+            }}
+          >
+            {action.label}
+          </button>
+        )}
+      </div>
+
+      {/* action button (when on right side) */}
+      {action && toggle && (
         <button
           onClick={action.onClick}
           style={{
@@ -93,10 +123,41 @@ export default function ListItem({
             fontSize: 11,
             color: 'var(--coral)',
             cursor: 'pointer',
-            textAlign: 'left',
+            textAlign: 'right',
+            flexShrink: 0,
           }}
         >
           {action.label}
+        </button>
+      )}
+
+      {/* toggle switch */}
+      {toggle && (
+        <button
+          onClick={toggle.onChange}
+          style={{
+            width: 48,
+            height: 28,
+            borderRadius: 16,
+            flexShrink: 0,
+            background: toggle.enabled ? 'var(--cream)' : 'var(--bg2)',
+            border: toggle.enabled ? 'none' : '1px solid var(--rule)',
+            padding: 3,
+            cursor: 'pointer',
+            display: 'flex',
+            justifyContent: toggle.enabled ? 'flex-end' : 'flex-start',
+            alignItems: 'center',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          <div
+            style={{
+              width: 22,
+              height: 22,
+              borderRadius: '50%',
+              background: toggle.enabled ? 'var(--pure-black)' : 'var(--dust)',
+            }}
+          />
         </button>
       )}
     </motion.div>

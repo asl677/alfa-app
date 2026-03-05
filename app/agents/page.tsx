@@ -2,7 +2,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
-import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
+import ListItem from '@/components/ListItem'
+import { containerStagger } from '@/lib/animations'
 import { useAgents } from '@/app/context/agents'
 
 export default function AgentsPage() {
@@ -33,24 +34,19 @@ export default function AgentsPage() {
 
         <motion.div variants={containerStagger} initial="hidden" animate="visible">
           {agents.map((a) => (
-            <motion.div key={a.id} variants={itemStagger}
-              style={{ display: 'flex', gap: 14, padding: '18px 0', borderBottom: '1px solid var(--rule-subtle)', alignItems: 'center' }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: a.active ? 'var(--cream)' : 'var(--dust)', marginBottom: 3 }}>{a.fullName}</div>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, color: 'var(--dust)', marginBottom: 6 }}>{a.role}</div>
-                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: 'var(--cream2)', letterSpacing: 1 }}>{a.lastAction}</div>
-              </div>
-              <button onClick={() => handleToggle(a.id)} style={{
-                width: 48, height: 28, borderRadius: 16, flexShrink: 0,
-                background: a.active ? 'var(--cream)' : 'var(--bg2)',
-                border: a.active ? 'none' : '1px solid var(--rule)',
-                padding: 3, cursor: 'pointer',
-                display: 'flex', justifyContent: a.active ? 'flex-end' : 'flex-start', alignItems: 'center',
-                transition: 'all 0.2s ease',
-              }}>
-                <div style={{ width: 22, height: 22, borderRadius: '50%', background: a.active ? 'var(--pure-black)' : 'var(--dust)' }} />
-              </button>
-            </motion.div>
+            <ListItem
+              key={a.id}
+              title={a.fullName}
+              description={a.role}
+              metadata={{
+                label: 'Status',
+                badge: a.lastAction,
+              }}
+              toggle={{
+                enabled: a.active,
+                onChange: () => handleToggle(a.id),
+              }}
+            />
           ))}
         </motion.div>
       </div>
