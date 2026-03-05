@@ -1,24 +1,43 @@
 # ALFA System Standards
 
-## Animation Standards
+## Animation Standards (CRITICAL - STRICT ENFORCEMENT)
 
-### Page Transitions
-- **Pattern**: No page transition animations (removed due to complexity with Next.js App Router)
-- **Behavior**: Pages load instantly without animation
-- **Reason**: Client-side routing in SPA makes traditional page transitions problematic
+**REFERENCE:** See `~/CLAUDE.md` "ANIMATION CONSISTENCY STANDARD" section for base rules. This document extends those with Alfa-specific patterns.
+
+### Page Transitions (CRITICAL)
+- **Pattern**: PageTransition wrapper on all pages - 0.5s opacity fade only
+- **File**: `components/PageTransition.tsx`
+- **Implementation**: `<motion.div key={pathname} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>>`
+- **Rules**:
+  - ✅ Opacity fade only (NO transforms, NO spring, NO exit animations)
+  - ✅ Key changes on pathname to trigger animation
+  - ✅ No AnimatePresence wrapper needed
+  - ❌ NO other page-level animations
+- **Why**: Prevents flickering and double-fade effects
 
 ### Message & List Animations
-- **Pattern**: Simple fade only, no sliding
-- **Duration**: 0.3s for all animations
-- **Easing**: `easeInOut` (no custom cubic-bezier)
-- **Entry**: `opacity: 0` → `opacity: 1`
-- **Exit**: `opacity: 0`
-- **Note**: NO y/transform animations, NO stagger delays, NO spring physics
+- **Pattern**: Staggered fade with synchronized timing
+- **Duration**: 0.3s per item
+- **Stagger delay**: `idx * 0.05` (50ms between items)
+- **Easing**: `[0.25, 0.46, 0.45, 0.94]` (cubic-bezier - ALWAYS this value)
+- **Entry**: `opacity: 0 → 1` (fade only, NO y/transform)
+- **Exit**: NO exit animations (causes flicker)
+- **Applied to**: Chat messages, discovery cards, all lists
 
-### Micro-Animations
-- **Spinner**: 3.5s linear rotation
-- **Loading Gradient**: 1.5s pulse opacity fade
-- **Rule**: NO spring physics, only duration-based linear/easeInOut
+### Spinner Animations
+- **Duration**: 3.5s continuous linear rotation
+- **Style**: 20x20px SVG with animated stroke
+- **Color**: Dynamically set by `getAgentDotColor()` per agent
+- **Placement**: Inline with message, left of agent badge
+- **Alignment**: marginRight 2px + marginBottom 2px
+- **Behavior**: Fades out (not replaces) when response arrives
+
+### Bottom Sheet Animations
+- **Container**: Spring physics - `damping: 30, stiffness: 300`
+- **Entry**: y-axis slide `100% → 0`
+- **Exit**: y-axis slide `0 → 100%` (duration: 0.2s)
+- **Children**: Staggered reveal - `staggerChildren: 0.1`
+- **Easing**: Spring for natural feel, not cubic-bezier
 
 ## Design System Standards
 
@@ -167,12 +186,74 @@
 - **Interaction**: Click any artifact to open detail modal with full visualization
 - **Styling**: Serif title, monospace metadata, arrow indicator on hover
 
+## Animation DO's and DON'Ts
+
+### What WORKS (Proven Patterns)
+- ✅ PageTransition wrapper: 0.5s opacity fade (smooth, responsive feel)
+- ✅ Message stagger: 0.3s duration with 50ms delays (natural reveal)
+- ✅ Bottom sheet: Spring physics with slide-up entry (premium feel)
+- ✅ Inline spinners: Replace with actual content when ready (no jarring transitions)
+- ✅ CSS-based hover states: Use `@media (hover: hover)` for desktop-only effects
+- ✅ Single easing function: `[0.25, 0.46, 0.45, 0.94]` applied everywhere
+
+### What BREAKS the App (Anti-Patterns - BANNED)
+- ❌ **Full-page preloaders** (LoadingScreen component) — DELETED 2026-03-05
+  - Causes flickering between loading and content states
+  - Conflicts with PageTransition animation
+  - Makes navigation feel slow, not responsive
+  - Creates unnecessary state management complexity
+  - **Pattern to avoid**: `const [pageLoading, setPageLoading] = useState()` → full-screen overlay
+
+- ❌ **Different easing per component** — Causes visual inconsistency
+  - MUST be: `[0.25, 0.46, 0.45, 0.94]` everywhere
+  - NOT: `easeInOut`, custom values, or `type: "spring"` on lists
+
+- ❌ **Stagger delays other than `idx * 0.05`** — Breaks timing consistency
+
+- ❌ **Transform/slide animations on list items** — Causes layout shifts
+  - Use opacity fade only
+  - NO `y`, `x`, or `scale` on list entries
+
+- ❌ **Spring physics on messages** — Feels uncontrolled
+  - Messages: duration-based only
+  - Bottom sheets: spring physics OK (isolated component)
+
+- ❌ **AnimatePresence with `mode="popLayout"`** — Causes jumpy layouts
+  - Use default behavior (no mode) or carefully tested alternatives only
+
+- ❌ **Multiple animation definitions per component** — Leads to timing conflicts
+  - Use inline `initial/animate/exit`, not stored `variants`
+
+- ❌ **Exit animations on messages** — Creates double-fade effect
+  - Messages: enter only, no exit animation
+  - Bottom sheets: exit allowed for clean dismiss
+
+### History: Why PreLoader Was Removed (2026-03-05)
+
+**Timeline:**
+1. Added LoadingContext + LoadingScreen for first-load experience
+2. Styled with staggered "Alfa" letter animation
+3. Tested locally - looked good initially
+4. Deployment revealed cascading problems:
+   - Flickering between loading/content on every page transition
+   - Letter stagger not finishing (timing conflicts with PageTransition)
+   - Hanging response spinners (timeout issues)
+   - User frustration escalated with each "fix" attempt
+5. User final request: "remove the fucking preloader"
+6. Removed completely - app became responsive and smooth immediately
+
+**Lesson:** Simple, linear designs (no blocking overlays) always win over complex animations that create perceived lag.
+
 ## Critical Reminders
 
 - **Never** use `popLayout` mode on message AnimatePresence (causes layout shifts)
-- **Always** remove stagger delays from message rendering
+- **Never** add app-wide preloaders or loading screens (use PageTransition only)
+- **Never** use different easing per component
+- **Always** remove stagger delays from message rendering unless explicitly needed
 - **Always** use serif fonts for body content (EB Garamond)
 - **Always** document new patterns in this file
+- **Always** test animations on real devices (mobile especially) before shipping
 - **Holdings/Agent Content**: Remove cards, use dividers instead
 - **Never use robotic language**: Avoid "Generated", "Created", "Processed" — use natural phrasing
 - **Agent syncing**: Keep all agent data in context, not scattered across multiple files
+- **When in doubt about animations**: Refer to this file + base `~/CLAUDE.md` - standard patterns always trump new ideas

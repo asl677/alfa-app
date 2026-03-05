@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, cubicBezier } from 'framer-motion'
 import { useRouter, usePathname } from 'next/navigation'
 import { useMenu } from './MenuContext'
 
@@ -98,11 +98,11 @@ export default function HamburgerMenu() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.25, ease: cubicBezier(0.25, 0.46, 0.45, 0.94) },
     },
     exit: {
       opacity: 0,
-      transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.2, ease: cubicBezier(0.25, 0.46, 0.45, 0.94) },
     },
   }
 

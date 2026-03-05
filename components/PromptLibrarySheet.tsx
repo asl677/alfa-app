@@ -16,7 +16,7 @@ export default function PromptLibrarySheet({ isOpen, onClose, prompts, onSelectP
       <motion.div variants={containerStagger} initial="hidden" animate="visible">
         {prompts.map((prompt, idx) => (
           <motion.button
-            key={`${prompt}-${idx}`}
+            key={idx}
             variants={itemStagger}
             onClick={() => {
               onSelectPrompt(prompt)

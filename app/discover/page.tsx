@@ -163,8 +163,8 @@ export default function DiscoverPage() {
           )}
         </AnimatePresence>
         <motion.div variants={containerStagger} initial="hidden" animate="visible">
-          {displayedSources.map((source) => (
-            <motion.div key={`${active}-${source.title}`} variants={itemStagger}
+          {displayedSources.map((source, idx) => (
+            <motion.div key={`${active}-${idx}-${source.title}`} variants={itemStagger}
               onClick={() => {
                 setSelectedSource(source)
                 setDetailOpen(true)

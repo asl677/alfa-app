@@ -8,9 +8,7 @@ import TuneWatchlist from '@/components/TuneWatchlist'
 import ToneOptions from '@/components/ToneOptions'
 import HoldingAnalysis from '@/components/HoldingAnalysis'
 import PromptLibrarySheet from '@/components/PromptLibrarySheet'
-import LoadingScreen from '@/components/LoadingScreen'
 import { useAgents } from '@/app/context/agents'
-import { useLoading } from '@/app/context/LoadingContext'
 import { detectChartPrompt, generateChartData } from '@/lib/chartGenerator'
 import { fadeUp } from '@/lib/animations'
 
@@ -147,7 +145,6 @@ export default function ChatPage() {
   const [holders, setHolders] = useState<Set<string>>(new Set())
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
-  const { pageLoading } = useLoading()
   const [promptLibraryOpen, setPromptLibraryOpen] = useState(false)
   const [showPrompts, setShowPrompts] = useState(true)
   const lastScrollY = useRef(0)
@@ -493,6 +490,9 @@ export default function ChatPage() {
         ? `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. Challenge the previous agents if you disagree, throw in some personality, keep it real. No corporate jargon.`
         : `You are ${agentName}. Talk like a friend giving investment advice. Be casual, conversational, and direct. Share your real take on their question with personality and authenticity. Keep it brief and actionable.`
 
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 30000) // 30s timeout
+
       fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -500,13 +500,19 @@ export default function ChatPage() {
           messages: conversationHistory,
           systemPrompt: systemPrompt
         }),
+        signal: controller.signal,
       })
-        .then(res => res.text())
+        .then(res => {
+          clearTimeout(timeoutId)
+          if (!res.ok) throw new Error(`API error: ${res.status}`)
+          return res.text()
+        })
         .then(text => {
+          if (!text || text.length === 0) throw new Error('Empty response')
           const agentResponse: Message = {
             id: spinnerId,
             role: 'assistant',
-            text: text.trim() || 'Yeah, that makes sense. Here\'s what I\'m seeing though...',
+            text: text.trim(),
             agent: agentName,
           }
           agentResponses.push(agentResponse)
@@ -525,7 +531,8 @@ export default function ChatPage() {
           setTimeout(queryNextAgent, 4000)
         })
         .catch(err => {
-          console.error(`Agent ${agentName} error:`, err)
+          clearTimeout(timeoutId)
+          console.error(`Agent ${agentName} error:`, err.message)
           // Keep the message in thread but show error
           const errorResponse: Message = {
             id: spinnerId,
@@ -614,24 +621,12 @@ export default function ChatPage() {
   ]
 
   return (
-    <AnimatePresence>
-      {pageLoading ? (
-        <motion.div
-          key="loading"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <LoadingScreen />
-        </motion.div>
-      ) : (
-        <motion.div
-          key="content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1 }}
-          style={{ display: 'flex', height: '100dvh', width: '100%' }}
-        >
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      style={{ display: 'flex', height: '100dvh', width: '100%' }}
+    >
           <div style={{
       display: 'flex',
       flexDirection: 'column',
@@ -1036,9 +1031,7 @@ export default function ChatPage() {
           100% { background-position: -200% center; }
         }
       `}</style>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+      </div>
+    </motion.div>
   )
 }
