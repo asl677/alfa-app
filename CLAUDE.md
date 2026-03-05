@@ -106,6 +106,26 @@
 - **Focused**: 2px solid var(--coral)
 - **Effect**: Border grows/shrinks smoothly, visual feedback for active input
 
+### Button Hover & Active States (CRITICAL FOR MOBILE)
+- **Pattern**: Use CSS media queries, NEVER `onMouseOver/Out` handlers
+- **Hover (desktop only)**: Apply via `@media (hover: hover) { .button:hover { ... } }`
+- **Active (all devices)**: Apply `:active { opacity: 0.8; transform: scale(0.98); }`
+- **Why**: Touch devices don't fire `mouseout`, causing hover to stick permanently
+- **Applied to**: Prompt pills, action buttons, all interactive elements
+- **Code example**:
+  ```css
+  @media (hover: hover) {
+    .button:hover {
+      color: var(--coral);
+      border-color: rgba(255,255,255,0.15);
+    }
+  }
+  .button:active {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+  ```
+
 ### Interactive Links & Buttons
 - **Links in replies**: NEVER use underlined text links
 - **Max links per reply**: One action link maximum per message
