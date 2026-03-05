@@ -144,6 +144,8 @@ export default function ChatPage() {
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const [pageLoading, setPageLoading] = useState(true)
   const [promptLibraryOpen, setPromptLibraryOpen] = useState(false)
+  const [scrollingDown, setScrollingDown] = useState(false)
+  const lastScrollRef = useRef(0)
 
   // Initialize page loading
   useEffect(() => {
@@ -215,6 +217,11 @@ export default function ChatPage() {
       const { scrollTop, scrollHeight, clientHeight } = container
       const isAtBottom = scrollHeight - scrollTop - clientHeight < 100
       setIsScrolledToBottom(isAtBottom)
+
+      // Detect scroll direction
+      const direction = scrollTop > lastScrollRef.current ? 'down' : 'up'
+      lastScrollRef.current = scrollTop
+      setScrollingDown(direction === 'down')
     }
 
     container.addEventListener('scroll', handleScroll)
@@ -616,12 +623,30 @@ export default function ChatPage() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh', background: 'var(--bg)', overflow: 'hidden' }}>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100dvh',
+      minHeight: '100dvh',
+      background: 'var(--bg)',
+      overflow: 'hidden',
+      paddingTop: 'max(0px, env(safe-area-inset-top))',
+      paddingBottom: 'max(0px, env(safe-area-inset-bottom))',
+      position: 'relative',
+    }}>
+      <style>{`
+        body, html {
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+      `}</style>
       <PageHeader title="Chat" rightButton={<OverflowMenu items={menuItems} />} />
 
       <motion.div
         initial={false}
-        animate={{ height: tickerVisible ? 'auto' : 0, opacity: tickerVisible ? 1 : 0 }}
+        animate={{ height: tickerVisible && !scrollingDown ? 'auto' : 0, opacity: tickerVisible && !scrollingDown ? 1 : 0 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         style={{ overflow: 'hidden', flexShrink: 0 }}
       >
@@ -781,7 +806,12 @@ export default function ChatPage() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div style={{ padding: '8px 20px 0', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <motion.div
+        initial={false}
+        animate={{ opacity: scrollingDown ? 0 : 1, height: scrollingDown ? 0 : 'auto' }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '8px 20px 0' }}
+      >
         <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
           {dynamicPrompts.slice(0, 4).map((prompt, idx) => (
             <motion.button
@@ -995,9 +1025,14 @@ export default function ChatPage() {
           ))}
           <style>{`::-webkit-scrollbar { display: none; }`}</style>
         </div>
-      </div>
+      </motion.div>
 
-      <div style={{ padding: '20px 20px 30px', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <motion.div
+        initial={false}
+        animate={{ opacity: scrollingDown ? 0 : 1, height: scrollingDown ? 0 : 'auto' }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '20px 20px 30px' }}
+      >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 16, padding: '16px', minHeight: 100, maxWidth: '1020px', width: '100%', transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}>
           <motion.div
             key={promptIndex}
@@ -1075,7 +1110,7 @@ export default function ChatPage() {
             </motion.button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <AgentsSheet isOpen={agentsOpen} onClose={() => setAgentsOpen(false)} />
       <TuneWatchlist isOpen={tuneOpen} onClose={() => setTuneOpen(false)} />
