@@ -2,6 +2,8 @@
 import { motion } from 'framer-motion'
 
 export default function LoadingScreen() {
+  const letters = 'Alfa'.split('')
+
   return (
     <div
       style={{
@@ -13,20 +15,31 @@ export default function LoadingScreen() {
         backgroundColor: 'var(--bg)',
       }}
     >
-      <motion.div
-        initial={{ opacity: 0.4 }}
-        animate={{ opacity: [0.4, 1, 0.4] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+      <div
         style={{
+          display: 'flex',
           fontFamily: "'EB Garamond', serif",
           fontSize: '52px',
           fontWeight: 300,
           color: 'var(--cream2)',
-          textAlign: 'center',
         }}
       >
-        Alfa
-      </motion.div>
+        {letters.map((letter, idx) => (
+          <motion.span
+            key={idx}
+            initial={{ opacity: 0.4 }}
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: idx * 0.3,
+            }}
+          >
+            {letter}
+          </motion.span>
+        ))}
+      </div>
     </div>
   )
 }
