@@ -3,27 +3,31 @@ import { type Variants } from 'framer-motion'
 const EASE = [0.25, 0.46, 0.45, 0.94] as const
 const ease = [0.16, 1, 0.3, 1] as const
 
-// Individual item: fade only (NO y/transforms - causes layout jumps)
+// Individual item: subtle fade + 5px slide with proper easing
 export const fadeInItem: Variants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, y: 5 },
   visible: {
     opacity: 1,
+    y: 0,
     transition: { duration: 0.3, ease: EASE },
   },
   exit: {
     opacity: 0,
+    y: 5,
     transition: { duration: 0.2 },
   },
 }
 
 export const fadeUp: Variants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, y: 5 },
   visible: {
     opacity: 1,
+    y: 0,
     transition: { duration: 0.3, ease: EASE },
   },
   exit: {
     opacity: 0,
+    y: 5,
     transition: { duration: 0.2 },
   },
 }
