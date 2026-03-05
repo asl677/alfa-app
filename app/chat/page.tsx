@@ -718,7 +718,12 @@ export default function ChatPage() {
               style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
             >
               {m.role === 'assistant' && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+                <motion.div
+                  style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}
+                  initial={!messageIsLoading ? { x: -12, opacity: 0 } : undefined}
+                  animate={!messageIsLoading ? { x: 0, opacity: 1 } : undefined}
+                  transition={!messageIsLoading ? { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] } : undefined}
+                >
                   {messageIsLoading && (
                     <motion.svg
                       animate={{ rotate: 360 }}
@@ -747,7 +752,7 @@ export default function ChatPage() {
                     />
                     {m.agent || 'Alfa'}
                   </div>
-                </div>
+                </motion.div>
               )}
               {!messageIsLoading && (
                 <>
@@ -797,7 +802,7 @@ export default function ChatPage() {
 
       <div style={{ padding: '8px 20px 0', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%' }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 8, overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', maxWidth: '1020px', width: '100%' }}>
-          {dynamicPrompts.map((prompt, idx) => (
+          {dynamicPrompts.slice(0, 4).map((prompt, idx) => (
             <motion.button
               key={idx}
               onClick={() => {

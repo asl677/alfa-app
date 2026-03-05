@@ -14,6 +14,11 @@ const TONE_OPTIONS: ToneOption[] = [
   { id: 'bullish', label: 'Bullish', description: 'Optimistic, growth-focused' },
   { id: 'hungry', label: 'Hungry', description: 'Aggressive, high-conviction takes' },
   { id: 'passive', label: 'Passive', description: 'Conservative, risk-aware' },
+  { id: 'technical', label: 'Technical', description: 'Chart patterns, indicators, setup analysis' },
+  { id: 'fundamental', label: 'Fundamental', description: 'Earnings, balance sheet, valuation focus' },
+  { id: 'macro', label: 'Macro', description: 'Economic trends, central banks, rates' },
+  { id: 'sentiment', label: 'Sentiment', description: 'Retail flows, positioning, social data' },
+  { id: 'contrarian', label: 'Contrarian', description: 'Opposite consensus, unconventional views' },
 ]
 
 export default function ToneOptions({ isOpen, onClose, selectedTone, onSelectTone }: { isOpen: boolean; onClose: () => void; selectedTone: string; onSelectTone: (tone: string) => void }) {
