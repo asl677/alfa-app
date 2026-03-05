@@ -56,9 +56,9 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
       <AnimatePresence mode="wait">
         <motion.div
           key={title}
-          initial={{ y: 8, opacity: 0, rotateX: 90 }}
-          animate={{ y: 0, opacity: 1, rotateX: 0 }}
-          exit={{ y: -8, opacity: 0, rotateX: -90 }}
+          initial={{ y: 2, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -2, opacity: 0 }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
           style={{
             fontFamily: "'EB Garamond', serif",
@@ -67,7 +67,6 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
             letterSpacing: -0.5,
             color: 'var(--cream)',
             textAlign: 'center',
-            perspective: '1000px',
           }}
         >
           {title}
