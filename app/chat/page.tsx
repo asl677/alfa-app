@@ -10,7 +10,7 @@ import HoldingAnalysis from '@/components/HoldingAnalysis'
 import PromptLibrarySheet from '@/components/PromptLibrarySheet'
 import { useAgents } from '@/app/context/agents'
 import { detectChartPrompt, generateChartData } from '@/lib/chartGenerator'
-import { fadeUp } from '@/lib/animations'
+import { fadeUp, containerStagger, itemStagger } from '@/lib/animations'
 
 const HOLDINGS = [
   { symbol: 'NVDA', name: 'NVIDIA Corp.',  price: '$4,992.03',  change: '-5.51%', neg: true },
@@ -128,7 +128,6 @@ export default function ChatPage() {
   const { activeAgents, agents } = useAgents()
   const [messages, setMessages] = useState<Message[]>([])
   const [isHydrated, setIsHydrated] = useState(false)
-  const [initialMessageCount, setInitialMessageCount] = useState(0)
   const [input, setInput] = useState('')
   const [focused, setFocused] = useState(false)
   const [agentsOpen, setAgentsOpen] = useState(false)
@@ -157,7 +156,10 @@ export default function ChatPage() {
       try {
         const parsedMessages = JSON.parse(savedChat)
         setMessages(parsedMessages)
-        setInitialMessageCount(parsedMessages.length)
+        // Scroll to bottom immediately after loading
+        requestAnimationFrame(() => {
+          messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
+        })
       } catch (err) {
         console.error('Error loading chat history:', err)
       }
@@ -204,9 +206,14 @@ export default function ChatPage() {
   }, [messages])
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    setIsScrolledToBottom(true)
-  }, [messages])
+    // Scroll to bottom immediately on mount (historical messages)
+    if (!isHydrated || messages.length === 0) return
+
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
+      setIsScrolledToBottom(true)
+    }, 0)
+  }, [isHydrated, messages.length])
 
 
 
@@ -651,7 +658,7 @@ export default function ChatPage() {
 
       <motion.div
         initial={false}
-        animate={{ height: tickerVisible ? 'auto' : 0, opacity: tickerVisible ? 1 : 0 }}
+        animate={{ height: tickerVisible ? 72 : 0, opacity: tickerVisible ? 1 : 0 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         style={{ overflow: 'hidden', flexShrink: 0 }}
       >
@@ -706,21 +713,16 @@ export default function ChatPage() {
         </motion.div>
       )}
 
-      <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 20px 40px', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative', boxSizing: 'border-box', maskImage: 'linear-gradient(180deg, black 0%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(180deg, black 0%, black 85%, transparent 100%)' }}>
+      <div ref={messagesContainerRef} style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 0, padding: '12px 20px 40px', maxWidth: '1020px', margin: '0 auto', width: '100%', position: 'relative', boxSizing: 'border-box', scrollbarGutter: 'stable' }}>
 
-        {messages.map((m, messageIdx) => {
-          const messageIsLoading = m.role === 'assistant' && m.text === '...'
-          if (messageIsLoading) console.log('SPINNER FOUND:', m.agent, m.text)
-          const isUser = m.role === 'user'
-          // Only animate messages added after initial hydration
-          const isNewMessage = messageIdx >= initialMessageCount
-          return (
-            <motion.div key={m.id}
-              initial={isNewMessage ? { opacity: 0, y: 12 } : { opacity: 1, y: 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={isNewMessage ? { delay: (messageIdx - initialMessageCount) * 0.05, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] } : { duration: 0 }}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
-            >
+        <motion.div variants={containerStagger} initial="hidden" animate="visible">
+          {messages.map((m) => {
+            const messageIsLoading = m.role === 'assistant' && m.text === '...'
+            const isUser = m.role === 'user'
+            return (
+              <motion.div key={m.id} variants={itemStagger}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
+              >
               {m.role === 'assistant' && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                   <AnimatePresence mode="wait">
@@ -828,9 +830,10 @@ export default function ChatPage() {
                   )}
                 </>
               )}
-            </motion.div>
-          )
-        })}
+              </motion.div>
+            )
+          })}
+        </motion.div>
 
         <div ref={messagesEndRef} />
       </div>
@@ -838,12 +841,11 @@ export default function ChatPage() {
       <motion.div
         initial={false}
         animate={{
-          height: showPrompts ? 'auto' : 0,
           opacity: showPrompts ? 1 : 0,
-          marginTop: showPrompts ? 0 : -100,
+          pointerEvents: showPrompts ? 'auto' : 'none',
         }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: showPrompts ? '20px 20px 30px' : '0 20px' }}
+        style={{ overflow: 'hidden', flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100%', padding: '20px 20px 30px' }}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--surface)', border: focused ? '2px solid var(--coral)' : '1px solid var(--rule)', borderRadius: 16, padding: '16px', minHeight: 100, maxWidth: '1020px', width: '100%', transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}>
           <motion.div
