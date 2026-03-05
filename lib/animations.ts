@@ -9,12 +9,12 @@ export const fadeInItem: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.3, ease: EASE },
+    transition: { duration: 0.35, ease: 'easeInOut' },
   },
   exit: {
     opacity: 0,
     y: 5,
-    transition: { duration: 0.2, ease: EASE },
+    transition: { duration: 0.25, ease: 'easeInOut' },
   },
 }
 
@@ -23,22 +23,22 @@ export const fadeUp: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.3, ease: EASE },
+    transition: { duration: 0.35, ease: 'easeInOut' },
   },
   exit: {
     opacity: 0,
     y: 12,
-    transition: { duration: 0.2, ease: EASE },
+    transition: { duration: 0.25, ease: 'easeInOut' },
   },
 }
 
-// Container for staggered children (0.2s delay between each)
+// Container for staggered children (0.1s delay between each - faster stagger)
 export const containerStagger: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.1,
       delayChildren: 0,
     },
   },
@@ -49,7 +49,7 @@ export const itemStagger: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.3, ease: EASE },
+    transition: { duration: 0.35, ease: 'easeInOut' },
   },
 }
 
