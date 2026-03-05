@@ -142,6 +142,7 @@ export default function ChatPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [tickerVisible, setTickerVisible] = useState(true)
   const [isScrolledToBottom, setIsScrolledToBottom] = useState(true)
+  const [holders, setHolders] = useState<Set<string>>(new Set())
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const [pageLoading, setPageLoading] = useState(true)
@@ -1174,7 +1175,17 @@ export default function ChatPage() {
       </motion.div>
 
       <AgentsSheet isOpen={agentsOpen} onClose={() => setAgentsOpen(false)} />
-      <TuneWatchlist isOpen={tuneOpen} onClose={() => setTuneOpen(false)} />
+      <TuneWatchlist isOpen={tuneOpen} onClose={() => setTuneOpen(false)} onToggleHolder={(symbol, tracked) => {
+        setHolders(prev => {
+          const updated = new Set(prev)
+          if (tracked) {
+            updated.add(symbol)
+          } else {
+            updated.delete(symbol)
+          }
+          return updated
+        })
+      }} />
       <ToneOptions isOpen={toneOpen} onClose={() => setToneOpen(false)} selectedTone={selectedTone} onSelectTone={setSelectedTone} />
       <HoldingAnalysis isOpen={holdingAnalysisOpen} onClose={() => setHoldingAnalysisOpen(false)} holding={selectedHolding} />
       <PromptLibrarySheet

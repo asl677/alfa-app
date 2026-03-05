@@ -44,7 +44,7 @@ const STOCK_POOLS = {
   ],
 }
 
-export default function TuneWatchlist({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export default function TuneWatchlist({ isOpen, onClose, onToggleHolder }: { isOpen: boolean; onClose: () => void; onToggleHolder?: (symbol: string, tracked: boolean) => void }) {
   const { activeAgents } = useAgents()
   const [items, setItems] = useState<Array<{ symbol: string; name: string; tracked: boolean }>>([])
 
@@ -70,7 +70,14 @@ export default function TuneWatchlist({ isOpen, onClose }: { isOpen: boolean; on
   }, [activeAgents])
 
   const toggleItem = (symbol: string) => {
-    setItems(prev => prev.map(item => item.symbol === symbol ? { ...item, tracked: !item.tracked } : item))
+    setItems(prev => {
+      const updated = prev.map(item => item.symbol === symbol ? { ...item, tracked: !item.tracked } : item)
+      const item = updated.find(i => i.symbol === symbol)
+      if (item && onToggleHolder) {
+        onToggleHolder(symbol, item.tracked)
+      }
+      return updated
+    })
   }
 
   return (
