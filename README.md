@@ -1,4 +1,4 @@
-# Alfa - Financial Intelligence Platform
+# Alfa App 2026 Overview
 
 A real-time financial market analysis and portfolio management platform powered by AI agents.
 
