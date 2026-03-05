@@ -9,8 +9,9 @@ export default function LoadingScreen() {
     visible: {
       opacity: 1,
       transition: {
+        duration: 0.4,
         staggerChildren: 0.5,
-        delayChildren: 0,
+        delayChildren: 0.1,
       },
     },
   }
