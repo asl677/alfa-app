@@ -808,7 +808,7 @@ export default function ChatPage() {
                   ) : (
                     <div style={{
                       fontFamily: "'EB Garamond', serif",
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: 300,
                       color: m.role === 'user' ? 'var(--cream)' : 'var(--cream2)',
                       lineHeight: 1.7,
@@ -884,7 +884,7 @@ export default function ChatPage() {
                 border: 'none',
                 outline: 'none',
                 fontFamily: "'EB Garamond', serif",
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: 300,
                 color: 'var(--cream)',
                 fontStyle: focused ? 'italic' : 'normal',
