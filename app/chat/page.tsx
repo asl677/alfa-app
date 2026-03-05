@@ -663,7 +663,7 @@ export default function ChatPage() {
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         style={{ overflow: 'hidden', flexShrink: 0 }}
       >
-        <div style={{ padding: '12px 20px', overflowX: 'hidden', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none', background: 'var(--bg)' }}>
+        <div style={{ padding: '12px 20px', overflowX: 'hidden', overflowY: 'hidden', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <div style={{ display: 'inline-flex', gap: 12, animation: 'marquee 60s linear infinite', willChange: 'transform' }}>
           {[...Array(4)].map((_, round) =>
             HOLDINGS.map((h) => (

@@ -25,13 +25,6 @@ export default function PageHeader({ title, rightButton }: { title: string; righ
       background: 'transparent',
       flexShrink: 0,
     }}>
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: 'linear-gradient(to bottom, var(--bg) 60%, transparent)',
-        pointerEvents: 'none',
-        zIndex: -1,
-      }} />
       <button
         onClick={openMenu}
         style={{
