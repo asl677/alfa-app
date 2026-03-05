@@ -8,6 +8,7 @@ import TuneWatchlist from '@/components/TuneWatchlist'
 import ToneOptions from '@/components/ToneOptions'
 import HoldingAnalysis from '@/components/HoldingAnalysis'
 import PromptLibrarySheet from '@/components/PromptLibrarySheet'
+import LoadingScreen from '@/components/LoadingScreen'
 import { useAgents } from '@/app/context/agents'
 import { detectChartPrompt, generateChartData } from '@/lib/chartGenerator'
 import { fadeUp } from '@/lib/animations'
@@ -617,24 +618,7 @@ export default function ChatPage() {
   ]
 
   if (pageLoading) {
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100dvh' }}>
-        <motion.svg
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-          width="40"
-          height="40"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="var(--coral)"
-          strokeWidth="1.5"
-          strokeDasharray="6 6"
-          style={{ transformOrigin: '50% 50%' }}
-        >
-          <circle cx="12" cy="12" r="10" />
-        </motion.svg>
-      </div>
-    )
+    return <LoadingScreen />
   }
 
   return (
