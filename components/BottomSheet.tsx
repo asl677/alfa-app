@@ -32,7 +32,7 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             drag="y"
             dragConstraints={{ top: 0 }}
             onDragEnd={(_, info) => { if (info.offset.y > 120) onClose() }}
@@ -56,7 +56,7 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
               style={{ padding: '0 20px 40px', maxHeight: 'min(50vh, 80vh)', overflowY: 'auto' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.1, duration: 0.3 }}
+              transition={{ delay: 0.1, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <motion.h2
                 style={{
@@ -69,7 +69,7 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
                 }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.15, duration: 0.3 }}
+                transition={{ delay: 0.15, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 {title}
               </motion.h2>

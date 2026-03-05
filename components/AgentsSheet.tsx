@@ -44,7 +44,7 @@ export default function AgentsSheet({ isOpen, onClose }: { isOpen: boolean; onCl
           }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <div style={{ flex: 1 }}>
             <div style={{
@@ -111,7 +111,7 @@ export default function AgentsSheet({ isOpen, onClose }: { isOpen: boolean; onCl
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
           <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
