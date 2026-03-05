@@ -69,10 +69,7 @@ export default function HistoryPage() {
             No chat history yet. Start a conversation in Chat to see history here.
           </div>
         ) : (
-          <div style={{ borderBottom: '1px solid var(--rule-subtle)', paddingTop: 20, paddingBottom: 20, cursor: 'pointer', transition: 'all 0.2s' }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--surface)'; e.currentTarget.style.borderRadius = '4px'; e.currentTarget.style.paddingLeft = '12px'; e.currentTarget.style.paddingRight = '12px'; e.currentTarget.style.marginLeft = '-12px'; e.currentTarget.style.marginRight = '-12px'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderRadius = '0'; e.currentTarget.style.paddingLeft = '0'; e.currentTarget.style.paddingRight = '0'; e.currentTarget.style.marginLeft = '0'; e.currentTarget.style.marginRight = '0'; }}
-          >
+          <div style={{ borderBottom: '1px solid var(--rule-subtle)', paddingTop: 20, paddingBottom: 20, cursor: 'pointer' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
               <div>
                 <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)', marginBottom: 4 }}>
