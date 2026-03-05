@@ -26,10 +26,10 @@ export default function AgentsPage() {
       <PageHeader title="Agents" />
 
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 20px', maxWidth: '1020px', margin: '0 auto', width: '100%' }}>
-        <motion.div key={`active-${activeAgents.length}`} variants={fadeUp} initial="hidden" animate="visible" transition={{ delay: 0 }} style={{ paddingBottom: 12, marginBottom: 12, borderBottom: '1px solid var(--rule-subtle)', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ paddingBottom: 12, marginBottom: 12, borderBottom: '1px solid var(--rule-subtle)', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 13, color: 'var(--cream2)' }}>Active agents:</span>
           <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, color: 'var(--coral)', fontWeight: 600 }}>{activeAgents.length}</span>
-        </motion.div>
+        </div>
 
         <motion.div variants={containerStagger} initial="hidden" animate="visible">
           {agents.map((a) => (
