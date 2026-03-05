@@ -1005,14 +1005,13 @@ export default function ChatPage() {
               }}
               style={{
                 padding: '6px 12px',
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'transparent',
+                border: 'none',
                 fontFamily: "'EB Garamond', serif",
                 fontSize: 14,
                 fontWeight: 300,
                 color: 'var(--cream2)',
                 cursor: 'pointer',
-                borderRadius: 6,
                 whiteSpace: 'nowrap',
                 flexShrink: 0,
                 transition: 'all 0.2s',
