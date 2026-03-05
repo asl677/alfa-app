@@ -70,14 +70,14 @@ export default function TuneWatchlist({ isOpen, onClose, onToggleHolder }: { isO
   }, [activeAgents])
 
   const toggleItem = (symbol: string) => {
-    setItems(prev => {
-      const updated = prev.map(item => item.symbol === symbol ? { ...item, tracked: !item.tracked } : item)
-      const item = updated.find(i => i.symbol === symbol)
-      if (item && onToggleHolder) {
-        onToggleHolder(symbol, item.tracked)
+    const item = items.find(i => i.symbol === symbol)
+    if (item) {
+      const newTracked = !item.tracked
+      setItems(prev => prev.map(i => i.symbol === symbol ? { ...i, tracked: newTracked } : i))
+      if (onToggleHolder) {
+        onToggleHolder(symbol, newTracked)
       }
-      return updated
-    })
+    }
   }
 
   return (
