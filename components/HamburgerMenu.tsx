@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter, usePathname } from 'next/navigation'
 import { useMenu } from './MenuContext'
@@ -59,10 +60,52 @@ export default function HamburgerMenu() {
   const { open, closeMenu } = useMenu()
   const router = useRouter()
   const pathname = usePathname()
+  const [isClosing, setIsClosing] = useState(false)
+  const [pendingHref, setPendingHref] = useState<string | null>(null)
 
   const navigate = (href: string) => {
-    router.push(href)
-    closeMenu()
+    setPendingHref(href)
+    setIsClosing(true)
+    // Wait for reverse animation to complete before navigating
+    setTimeout(() => {
+      router.push(href)
+      closeMenu()
+      setIsClosing(false)
+      setPendingHref(null)
+    }, 400)
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.06,
+        delayChildren: 0.1,
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.04,
+        staggerDirection: -1,
+        delayChildren: 0,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -12 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+    exit: {
+      opacity: 0,
+      x: -12,
+      transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
   }
 
   return (
@@ -129,13 +172,19 @@ export default function HamburgerMenu() {
               </button>
             </div>
 
-            {/* Nav items */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            {/* Nav items with stagger animation */}
+            <motion.div
+              style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
+              variants={containerVariants}
+              initial="hidden"
+              animate={isClosing ? 'exit' : 'visible'}
+            >
               {NAV.map(({ href, label, icon: Icon }) => {
                 const active = pathname === href
                 return (
-                  <button
+                  <motion.button
                     key={href}
+                    variants={itemVariants}
                     onClick={() => navigate(href)}
                     style={{
                       display: 'flex',
@@ -160,11 +209,11 @@ export default function HamburgerMenu() {
                     }}>
                       {label}
                     </span>
-                  </button>
+                  </motion.button>
                 )
               })}
               <div style={{ flex: 1 }} />
-            </div>
+            </motion.div>
           </motion.div>
         </>
       )}
