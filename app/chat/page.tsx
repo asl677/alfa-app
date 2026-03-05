@@ -889,6 +889,23 @@ export default function ChatPage() {
           </motion.div>
           <style>{`
             input::placeholder { color: var(--cream2); opacity: 0.7; }
+
+            .prompt-pill {
+              transition: all 0.2s ease;
+            }
+
+            @media (hover: hover) {
+              .prompt-pill:hover {
+                color: var(--coral);
+                border-color: rgba(255,255,255,0.15);
+              }
+            }
+
+            .prompt-pill:active {
+              opacity: 0.8;
+              transform: scale(0.98);
+            }
+
             @media (max-width: 640px) {
               .chat-prompts-mobile { display: flex; }
               .chat-prompts-desktop { display: none; }
@@ -904,6 +921,7 @@ export default function ChatPage() {
               <button
                 key={`prompt-mobile-${idx}`}
                 onClick={() => sendMessage(prompt)}
+                className="prompt-pill"
                 style={{
                   padding: '5px 10px',
                   background: 'rgba(255,255,255,0.03)',
@@ -917,14 +935,6 @@ export default function ChatPage() {
                   whiteSpace: 'nowrap',
                   flexShrink: 0,
                   transition: 'all 0.2s',
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.color = 'var(--coral)'
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.color = 'var(--cream2)'
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
                 }}
               >
                 {prompt}
@@ -953,6 +963,7 @@ export default function ChatPage() {
                   <button
                     key={`prompt-desktop-${idx}`}
                     onClick={() => sendMessage(prompt)}
+                    className="prompt-pill"
                     style={{
                       padding: '5px 10px',
                       background: 'rgba(255,255,255,0.03)',
@@ -966,14 +977,6 @@ export default function ChatPage() {
                       whiteSpace: 'nowrap',
                       flexShrink: 0,
                       transition: 'all 0.2s',
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.color = 'var(--coral)'
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.color = 'var(--cream2)'
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
                     }}
                   >
                     {prompt}
