@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 import ListItem from '@/components/ListItem'
+import { containerStagger } from '@/lib/animations'
 
 interface Message {
   id: string
@@ -72,7 +73,7 @@ export default function HistoryPage() {
               No chat history yet. Start a conversation in Chat to see history here.
             </motion.div>
           ) : (
-            <motion.div key="history" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ paddingTop: 20, paddingBottom: 20 }}>
+            <motion.div key="history" variants={containerStagger} initial="hidden" animate="visible" exit={{ opacity: 0 }} style={{ paddingTop: 20, paddingBottom: 20 }}>
               <ListItem
                 title="Current Chat"
                 description={conversationPreview}
