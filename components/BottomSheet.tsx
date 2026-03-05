@@ -32,8 +32,8 @@ export default function BottomSheet({ isOpen, onClose, title, children }: Bottom
             key="sheet"
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 30, stiffness: 300, exit: { duration: 0.2 } }}
+            exit={{ y: '100%', transition: { duration: 0.2 } }}
+            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
             drag="y"
             dragConstraints={{ top: 0 }}
             onDragEnd={(_, info) => { if (info.offset.y > 120) onClose() }}
