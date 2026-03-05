@@ -128,6 +128,7 @@ export default function ChatPage() {
   const { activeAgents, agents } = useAgents()
   const [messages, setMessages] = useState<Message[]>([])
   const [isHydrated, setIsHydrated] = useState(false)
+  const [initialMessageCount, setInitialMessageCount] = useState(0)
   const [input, setInput] = useState('')
   const [focused, setFocused] = useState(false)
   const [agentsOpen, setAgentsOpen] = useState(false)
@@ -156,6 +157,7 @@ export default function ChatPage() {
       try {
         const parsedMessages = JSON.parse(savedChat)
         setMessages(parsedMessages)
+        setInitialMessageCount(parsedMessages.length)
       } catch (err) {
         console.error('Error loading chat history:', err)
       }
@@ -710,11 +712,13 @@ export default function ChatPage() {
           const messageIsLoading = m.role === 'assistant' && m.text === '...'
           if (messageIsLoading) console.log('SPINNER FOUND:', m.agent, m.text)
           const isUser = m.role === 'user'
+          // Only animate messages added after initial hydration
+          const isNewMessage = messageIdx >= initialMessageCount
           return (
             <motion.div key={m.id}
-              initial={{ opacity: 0, y: 12 }}
+              initial={isNewMessage ? { opacity: 0, y: 12 } : { opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: messageIdx * 0.05, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={isNewMessage ? { delay: (messageIdx - initialMessageCount) * 0.05, duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] } : { duration: 0 }}
               style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', paddingTop: 12, paddingBottom: 12, borderBottom: '1px solid var(--rule-subtle)', width: '100%' }}
             >
               {m.role === 'assistant' && (
