@@ -66,13 +66,13 @@ export default function HamburgerMenu() {
   const navigate = (href: string) => {
     setPendingHref(href)
     setIsClosing(true)
-    // Wait for reverse animation to complete before navigating
+    router.push(href)
+    // Menu closes immediately, reverse stagger animates in parallel
     setTimeout(() => {
-      router.push(href)
       closeMenu()
       setIsClosing(false)
       setPendingHref(null)
-    }, 400)
+    }, 100)
   }
 
   const containerVariants = {
