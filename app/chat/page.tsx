@@ -1143,44 +1143,6 @@ export default function ChatPage() {
               </motion.span>
             </div>
 
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flex: 1, minWidth: 0, overflow: 'hidden' }}>
-              <div style={{ display: 'flex', gap: 8, overflow: 'auto', flex: 1, scrollBehavior: 'smooth', paddingRight: 8 }}>
-                {dynamicPrompts.map((prompt, idx) => (
-                  <motion.button
-                    key={`prompt-${idx}`}
-                    onClick={() => {
-                      setInput(prompt)
-                      handleSend()
-                    }}
-                    style={{
-                      padding: '6px 12px',
-                      background: 'rgba(255,255,255,0.05)',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      fontFamily: "'EB Garamond', serif",
-                      fontSize: 12,
-                      fontWeight: 300,
-                      color: 'var(--cream2)',
-                      cursor: 'pointer',
-                      borderRadius: 6,
-                      whiteSpace: 'nowrap',
-                      flexShrink: 0,
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.color = 'var(--coral)'
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.color = 'var(--cream2)'
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'
-                    }}
-                  >
-                    {prompt}
-                  </motion.button>
-                ))}
-                <style>{`::-webkit-scrollbar { display: none; }`}</style>
-              </div>
-            </div>
 
             <motion.button
               onClick={handleSend}
