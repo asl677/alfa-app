@@ -723,8 +723,9 @@ export default function ChatPage() {
                     {messageIsLoading ? (
                       <motion.svg
                         key="spinner"
+                        exit={{ opacity: 0 }}
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
+                        transition={{ rotate: { duration: 3.5, repeat: Infinity, ease: 'linear' }, exit: { duration: 0.2 } }}
                         width="20"
                         height="20"
                         viewBox="0 0 24 24"
@@ -741,7 +742,6 @@ export default function ChatPage() {
                         key="pill"
                         initial={{ x: -12, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -12, opacity: 0 }}
                         transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                         style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 46, background: 'var(--surface)', border: '1px solid var(--rule)', fontFamily: "'Space Grotesk', sans-serif", fontSize: 11, color: 'var(--cream2)' }}
                       >
