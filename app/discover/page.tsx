@@ -138,9 +138,9 @@ export default function DiscoverPage() {
             {isRefreshing && (
               <motion.div
                 key="refresh-spinner"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0-20 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0-20 }}
                 transition={{ duration: 0.6, ease: 'easeInOut' }}
                 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 60, gap: 12, flexShrink: 0 }}
               >
