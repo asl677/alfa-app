@@ -10,6 +10,7 @@ import HoldingAnalysis from '@/components/HoldingAnalysis'
 import PromptLibrarySheet from '@/components/PromptLibrarySheet'
 import LoadingScreen from '@/components/LoadingScreen'
 import { useAgents } from '@/app/context/agents'
+import { useLoading } from '@/app/context/LoadingContext'
 import { detectChartPrompt, generateChartData } from '@/lib/chartGenerator'
 import { fadeUp } from '@/lib/animations'
 
@@ -146,24 +147,10 @@ export default function ChatPage() {
   const [holders, setHolders] = useState<Set<string>>(new Set())
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
-  const [pageLoading, setPageLoading] = useState(true)
+  const { pageLoading } = useLoading()
   const [promptLibraryOpen, setPromptLibraryOpen] = useState(false)
   const [showPrompts, setShowPrompts] = useState(true)
   const lastScrollY = useRef(0)
-
-  // Initialize page loading (only on very first app load)
-  useEffect(() => {
-    const hasVisited = localStorage.getItem('alfaHasVisited')
-    if (!hasVisited) {
-      localStorage.setItem('alfaHasVisited', 'true')
-      const timer = setTimeout(() => {
-        setPageLoading(false)
-      }, 3500)
-      return () => clearTimeout(timer)
-    } else {
-      setPageLoading(false)
-    }
-  }, [])
 
   // Load chat history from localStorage on mount
   useEffect(() => {
