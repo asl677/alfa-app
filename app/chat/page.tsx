@@ -30,6 +30,75 @@ const PROMPT_SUGGESTIONS = [
   "Show sector exposure heatmap →",
 ]
 
+const STOCK_SYMBOLS = ['NVDA', 'AAPL', 'TSLA', 'MSFT', 'GOOGL', 'AMZN', 'META', 'AMD', 'AVGO', 'INTC']
+const SECTORS = ['Tech', 'Energy', 'Healthcare', 'Finance', 'Utilities', 'Retail', 'Materials']
+
+const generateDynamicPrompts = (messages: Message[]): string[] => {
+  // Get recent agent messages
+  const recentMessages = messages.filter(m => m.role === 'assistant').slice(-5)
+
+  if (recentMessages.length === 0) return PROMPT_SUGGESTIONS
+
+  const combinedText = recentMessages.map(m => m.text).join(' ').toUpperCase()
+
+  // Extract mentions of stocks, sectors, and themes
+  const mentionedStocks = STOCK_SYMBOLS.filter(s => combinedText.includes(s))
+  const mentionedSectors = SECTORS.filter(s => combinedText.includes(s.toUpperCase()))
+
+  const prompts: string[] = []
+
+  // Generate prompts based on detected content
+  if (mentionedStocks.length > 0) {
+    const stock1 = mentionedStocks[0]
+    const stock2 = mentionedStocks[Math.min(1, mentionedStocks.length - 1)]
+    prompts.push(`Deep dive on ${stock1} →`)
+  }
+
+  if (combinedText.includes('SECTOR') || combinedText.includes('ROTATION')) {
+    prompts.push('Which sectors are rotating?')
+  }
+
+  if (combinedText.includes('EARNINGS') || combinedText.includes('EPS')) {
+    prompts.push('What earnings are next?')
+  }
+
+  if (combinedText.includes('DIVIDEND') || combinedText.includes('YIELD')) {
+    prompts.push('Show dividend leaders →')
+  }
+
+  if (combinedText.includes('VOLATILITY') || combinedText.includes('RISK')) {
+    prompts.push('How do I hedge this?')
+  }
+
+  if (combinedText.includes('PORTFOLIO') || combinedText.includes('ALLOCATION')) {
+    prompts.push('Rebalance recommendations →')
+  }
+
+  if (combinedText.includes('UPTREND') || combinedText.includes('BULLISH')) {
+    prompts.push('What else is breaking out?')
+  }
+
+  if (combinedText.includes('DOWNTREND') || combinedText.includes('BEARISH')) {
+    prompts.push('Where are the bounces?')
+  }
+
+  if (combinedText.includes('FED') || combinedText.includes('RATE')) {
+    prompts.push('What do rate cuts mean?')
+  }
+
+  if (combinedText.includes('MACRO') || combinedText.includes('INFLATION')) {
+    prompts.push('How does macro affect me?')
+  }
+
+  // Add some generic follow-ups
+  prompts.push("What's your contrarian take?")
+  prompts.push("Chart this setup →")
+
+  // Return unique prompts, pad with defaults if needed
+  const uniquePrompts = Array.from(new Set(prompts))
+  return uniquePrompts.length > 0 ? uniquePrompts : PROMPT_SUGGESTIONS
+}
+
 const IconArrowUp = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
@@ -46,6 +115,7 @@ interface Message {
 export default function ChatPage() {
   const { activeAgents, agents } = useAgents()
   const [messages, setMessages] = useState<Message[]>([])
+  const [isHydrated, setIsHydrated] = useState(false)
   const [input, setInput] = useState('')
   const [focused, setFocused] = useState(false)
   const [agentsOpen, setAgentsOpen] = useState(false)
@@ -69,6 +139,20 @@ export default function ChatPage() {
     setPageLoading(false)
   }, [])
 
+  // Load chat history from localStorage on mount
+  useEffect(() => {
+    const savedChat = localStorage.getItem('alfaChatHistory')
+    if (savedChat) {
+      try {
+        const parsedMessages = JSON.parse(savedChat)
+        setMessages(parsedMessages)
+      } catch (err) {
+        console.error('Error loading chat history:', err)
+      }
+    }
+    setIsHydrated(true)
+  }, [])
+
   // Get agent names from context
   const getAgentName = (index: number) => {
     if (activeAgents.length === 0) return 'Monitor Mike'
@@ -90,13 +174,16 @@ export default function ChatPage() {
     }
   }, [isLoading, showThinking])
 
+  // Get dynamic prompts based on conversation
+  const dynamicPrompts = generateDynamicPrompts(messages)
+
   // Rotate prompt suggestions every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setPromptIndex(prev => (prev + 1) % PROMPT_SUGGESTIONS.length)
+      setPromptIndex(prev => (prev + 1) % dynamicPrompts.length)
     }, 4000)
     return () => clearInterval(interval)
-  }, [])
+  }, [dynamicPrompts.length])
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -743,7 +830,7 @@ export default function ChatPage() {
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
-              placeholder={PROMPT_SUGGESTIONS[promptIndex]}
+              placeholder={dynamicPrompts[promptIndex] || PROMPT_SUGGESTIONS[0]}
               style={{
                 flex: 1,
                 width: '100%',
