@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import PageHeader from '@/components/PageHeader'
 
 interface Message {
@@ -69,7 +70,11 @@ export default function HistoryPage() {
             No chat history yet. Start a conversation in Chat to see history here.
           </div>
         ) : (
-          <div style={{ borderBottom: '1px solid var(--rule-subtle)', paddingTop: 20, paddingBottom: 20, cursor: 'pointer' }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ borderBottom: '1px solid var(--rule-subtle)', paddingTop: 20, paddingBottom: 20, cursor: 'pointer' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
               <div>
                 <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 18, fontWeight: 300, color: 'var(--cream)', marginBottom: 4 }}>
@@ -95,7 +100,7 @@ export default function HistoryPage() {
                 {messages.length} messages
               </span>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>
