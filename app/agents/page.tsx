@@ -38,10 +38,6 @@ export default function AgentsPage() {
               <ListItem
                 title={a.fullName}
                 description={a.role}
-                metadata={{
-                  label: 'Status',
-                  badge: a.lastAction,
-                }}
                 toggle={{
                   enabled: a.active,
                   onChange: () => handleToggle(a.id),
