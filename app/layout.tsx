@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Alfa by Boosted.ai',
     description: 'Personal financial AI agent platform powered by autonomous agents',
-    url: 'https://alfa-app-flame.vercel.app',
+    url: 'https://alfa-flame.app',
     siteName: 'Alfa',
     images: [
       {
