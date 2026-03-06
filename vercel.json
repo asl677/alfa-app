@@ -1,5 +1,8 @@
 {
   "buildCommand": "next build",
   "outputDirectory": ".next",
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "preview": {
+    "branches": ["*"]
+  }
 }
