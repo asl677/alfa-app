@@ -1,0 +1,11 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400&amp;family=Space+Grotesk:wght@300;400&amp;display=swap');
+    </style>
+  </defs>
+  <rect width="1200" height="630" fill="#0f0d0a"/>
+  <text x="600" y="270" font-family="'EB Garamond', Georgia, serif" font-size="320" font-weight="400" fill="#d4622a" text-anchor="middle" dominant-baseline="middle">A</text>
+  <text x="600" y="430" font-family="'Space Grotesk', sans-serif" font-size="48" font-weight="300" fill="#e8e8e8" text-anchor="middle" dominant-baseline="middle">Alfa by Boosted.ai</text>
+  <text x="600" y="490" font-family="'Space Grotesk', sans-serif" font-size="32" font-weight="300" fill="#888888" text-anchor="middle" dominant-baseline="middle">Personal Financial AI Agents</text>
+</svg>

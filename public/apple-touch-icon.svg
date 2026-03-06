@@ -1,0 +1,9 @@
+<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400&amp;display=swap');
+    </style>
+  </defs>
+  <rect width="180" height="180" rx="40" fill="#0f0d0a"/>
+  <text x="90" y="90" font-family="'EB Garamond', Georgia, serif" font-size="128" font-weight="400" fill="#d4622a" text-anchor="middle" dominant-baseline="middle">A</text>
+</svg>
