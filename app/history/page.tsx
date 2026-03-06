@@ -21,7 +21,7 @@ export default function HistoryPage() {
     if (savedChat) {
       try {
         const parsedMessages = JSON.parse(savedChat)
-        setMessages(parsedMessages)
+        setMessages(parsedMessages.slice(-20))
       } catch (err) {
         console.error('Error loading chat history:', err)
       }

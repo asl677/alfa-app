@@ -155,7 +155,7 @@ export default function ChatPage() {
     if (savedChat) {
       try {
         const parsedMessages = JSON.parse(savedChat)
-        setMessages(parsedMessages)
+        setMessages(parsedMessages.slice(-20))
         // Scroll to bottom immediately after loading
         requestAnimationFrame(() => {
           messagesEndRef.current?.scrollIntoView({ behavior: 'auto' })
@@ -201,7 +201,7 @@ export default function ChatPage() {
 
   useEffect(() => {
     if (messages.length > 0) {
-      localStorage.setItem('alfaChatHistory', JSON.stringify(messages))
+      localStorage.setItem('alfaChatHistory', JSON.stringify(messages.length > 20 ? messages.slice(-20) : messages))
     }
   }, [messages])
 
