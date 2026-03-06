@@ -3,6 +3,7 @@ import './globals.css'
 import Providers from '@/components/Providers'
 import NavWrapper from '@/components/NavWrapper'
 import PageTransition from '@/components/PageTransition'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   title: 'Alfa by Boosted.ai',
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </main>
           </div>
         </Providers>
+        <Analytics />
       </body>
     </html>
   )
