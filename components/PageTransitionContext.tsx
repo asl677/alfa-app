@@ -3,7 +3,7 @@ import { createContext, useContext, useRef, useCallback, useState } from 'react'
 import gsap from 'gsap'
 
 interface PageTransitionContextType {
-  containerRef: React.RefObject<HTMLDivElement>
+  containerRef: React.RefObject<HTMLDivElement | null>
   fadeOut: () => Promise<void>
   fadeIn: () => void
   isExiting: boolean
