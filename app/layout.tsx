@@ -8,9 +8,14 @@ import PageTransitionWrapper from '@/components/PageTransitionWrapper'
 export const metadata: Metadata = {
   title: 'Alfa by Boosted.ai',
   description: 'Personal financial AI agent platform powered by autonomous agents',
+  manifest: '/manifest.json',
   icons: {
-    icon: '/favicon.svg',
-    apple: '/apple-touch-icon.svg',
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/apple-touch-icon.png',
   },
   openGraph: {
     title: 'Alfa by Boosted.ai',
