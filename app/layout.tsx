@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: 'Alfa',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.svg',
         width: 1200,
         height: 630,
         alt: 'Alfa - Financial AI Agents',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Alfa by Boosted.ai',
     description: 'Personal financial AI agent platform',
-    images: ['/og-image.png'],
+    images: ['/og-image.svg'],
   },
 }
 
